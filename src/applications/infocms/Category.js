@@ -1,9 +1,9 @@
 import BaseModel from './BaseModel';
 let conf = BaseModel.getMethodConf();
-conf.http.url = '/passport/permissions'
+conf.http.url = '/infocms/categories'
 
-export default class Permission extends BaseModel {
-  static entity = 'permissions'
+export default class Category extends BaseModel {
+  static entity = 'categories'
   static keyField = 'code'
 
   static methodConf = conf

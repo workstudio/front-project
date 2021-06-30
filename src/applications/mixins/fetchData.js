@@ -38,6 +38,9 @@ export const fetchData = {
 	fetchRequest(cModel, params) {
 	  return this._sendRequest('fetch', cModel, params);
     },
+	getRequest(cModel, params) {
+	  return this._sendRequest('get', cModel, params);
+    },
   	_sendRequest(type, cModel, params) {
   	  //let envType = params.env_type ? params.env_type : '';
   	  //let query = params.query ? params.query : {};
@@ -50,6 +53,8 @@ export const fetchData = {
           break;
         case 'create':
           return cModel.$create(params);
+        case 'get':
+          return cModel.$get(params);
           break;
         }
 	},
@@ -85,6 +90,33 @@ export const fetchData = {
         return false;
       }
       return true;
+    },
+    updateAttachmentInfo(infoId, elems, formElems) {
+      let model = this.getModel('passport', 'attachmentInfo');
+      let data = [];
+      for (let field in elems) {
+        let fElem = formElems[field];
+        data = {
+          app: fElem.app,
+          info_table: fElem.resource,
+          info_field: field,
+          info_id: infoId,
+          attachment_id: elems[field],
+        }
+        model.$create({params: {}, data: data}).then(response => {
+          if (response === false) {
+            return ;
+          }
+          //this.list.unshift(this.inputInfos)
+          this.dialogFormVisible = false
+          this.$notify({
+            title: '成功',
+            message: '附加更新成功',
+            type: 'success',
+            duration: 2000
+          });
+        })
+      }
     },
 
     /*remoteDatas(model, dataKey = 'listinfo', subKey = '') {
