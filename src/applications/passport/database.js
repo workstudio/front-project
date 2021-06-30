@@ -3,6 +3,7 @@ import UserAddress from '@/applications/passport/UserAddress'
 import UserScore from '@/applications/passport/UserScore'
 import Entrance from '@/applications/passport/Entrance'
 import Manager from '@/applications/passport/Manager'
+import Managerlog from '@/applications/passport/Managerlog'
 import Role from '@/applications/passport/Role'
 import Resource from '@/applications/passport/Resource'
 import Region from '@/applications/passport/Region'
@@ -13,4 +14,4 @@ import AttachmentInfo from '@/applications/passport/AttachmentInfo'
 import AttachmentVideo from '@/applications/passport/AttachmentVideo'
 import Common from '@/applications/passport/Common'
 
-export default {User, Entrance, UserAddress, UserScore, Role, Manager, Role, Resource, Region, Permission, Attachment, AttachmentPath, AttachmentInfo, AttachmentVideo, Common}
+export default {User, Entrance, UserAddress, UserScore, Role, Manager, Managerlog, Role, Resource, Region, Permission, Attachment, AttachmentPath, AttachmentInfo, AttachmentVideo, Common}

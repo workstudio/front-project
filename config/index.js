@@ -1,11 +1,13 @@
 'use strict'
 
 let settings = {
+  resturl: process.env.VUE_APP_BASE_API,
   userType: '',
-  title: 'Vue Admin Template',
+  title: 'local',
 }
 
 import local from './local';
 import current from './current';
 
-module.exports = Object.assign(settings, current, local);
+settings = Object.assign(settings, current, local);
+export default settings;

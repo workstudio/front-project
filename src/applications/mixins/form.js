@@ -14,7 +14,9 @@ export const form = {
     listQuery: {type: Object, default() {}},
     inputInfos: {type: Object, default() {}},
     field: {type: String, default: ''},
-    value: {type: String, default: ''},
+    formName: {type: String, default: ''},
+    value: [String, Array, Number],
+    model: {type: Function},  
   },
   computed:{
   },
@@ -29,6 +31,11 @@ export const form = {
     },
     handleFormChange() {
       this.inputInfos[this.field] = this.input;
+      this.dealFormChange(this.input);
+    },
+    dealFormChange() {
+    },
+    handleChange() {
     },
   },
 }
