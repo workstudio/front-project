@@ -1,0 +1,16 @@
+import User from '@/applications/passport/User'
+import UserAddress from '@/applications/passport/UserAddress'
+import UserScore from '@/applications/passport/UserScore'
+import Entrance from '@/applications/passport/Entrance'
+import Manager from '@/applications/passport/Manager'
+import Role from '@/applications/passport/Role'
+import Resource from '@/applications/passport/Resource'
+import Region from '@/applications/passport/Region'
+import Permission from '@/applications/passport/Permission'
+import Attachment from '@/applications/passport/Attachment'
+import AttachmentPath from '@/applications/passport/AttachmentPath'
+import AttachmentInfo from '@/applications/passport/AttachmentInfo'
+import AttachmentVideo from '@/applications/passport/AttachmentVideo'
+import Common from '@/applications/passport/Common'
+
+export default {User, Entrance, UserAddress, UserScore, Role, Manager, Role, Resource, Region, Permission, Attachment, AttachmentPath, AttachmentInfo, AttachmentVideo, Common}
