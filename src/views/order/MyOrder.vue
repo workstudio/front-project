@@ -235,7 +235,7 @@ import {
 import Loading from "@components/Loading";
 import Payment from "@components/Payment";
 import { mapGetters } from "vuex";
-import { isWeixin } from "@utils";
+import { isWeixin } from "@utils/shop";
 import GeneralWindow from "@components/GeneralWindow";
 
 const STATUS = [

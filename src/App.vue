@@ -21,7 +21,7 @@ import Home from "@components/Home";
 import { mapGetters } from "vuex";
 import { openShareAll } from "@libs/wechat";
 import { getShare } from "@api/public";
-import { isWeixin } from "@utils/index";
+import { isWeixin } from "@utils/shop/index";
 
 export default {
   data() {

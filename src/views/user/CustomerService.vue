@@ -386,13 +386,13 @@
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import "emoji-awesome/dist/css/google.min.css";
-import emojiList from "@utils/emoji";
+import emojiList from "@utils/shop/emoji";
 import Socket from "@libs/chat";
 import { getChatRecord } from "@api/user";
 import { getProductDetail } from "@api/store";
 import { orderDetail } from "@api/order";
 import VueCoreImageUpload from "vue-core-image-upload";
-import { VUE_APP_API_URL } from "@utils";
+import { VUE_APP_API_URL } from "@utils/shop";
 
 const chunk = function(arr, num) {
   num = num * 1 || 1;

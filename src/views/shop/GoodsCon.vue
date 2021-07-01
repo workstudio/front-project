@@ -344,11 +344,11 @@ import {
   getCollectDel,
   getUserInfo
 } from "@api/user";
-import { isWeixin } from "@utils/index";
+import { isWeixin } from "@utils/shop/index";
 import { wechatEvevt } from "@libs/wechat";
 import { imageBase64 } from "@api/public";
 import { mapGetters } from "vuex";
-import cookie from "@utils/store/cookie";
+import cookie from "@utils/shop/store/cookie";
 let NAME = "GoodsCon";
 const LONGITUDE = "user_longitude";
 const LATITUDE = "user_latitude";

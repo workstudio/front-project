@@ -122,11 +122,11 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { trim, VUE_APP_API_URL, isWeixin } from "@utils";
+import { trim, VUE_APP_API_URL, isWeixin } from "@utils/shop";
 import VueCoreImageUpload from "vue-core-image-upload";
 import { postUserEdit, getLogout, switchH5Login, getUser } from "@api/user";
 import { clearAuthStatus } from "@libs/wechat";
-import cookie from "@utils/store/cookie";
+import cookie from "@utils/shop/store/cookie";
 import store from "@/store";
 
 export default {

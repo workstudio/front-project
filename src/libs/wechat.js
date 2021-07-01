@@ -1,7 +1,7 @@
 import WechatJSSDK from "wechat-jssdk/dist/client.umd";
 import { getWechatConfig, wechatAuth } from "@api/public";
-import { parseQuery } from "@utils";
-import cookie from "@utils/store/cookie";
+import { parseQuery } from "@utils/shop";
+import cookie from "@utils/shop/store/cookie";
 import store from "@/store";
 const STATE_KEY = "wx_authorize_state";
 const WX_AUTH = "wx_auth";

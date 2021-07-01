@@ -46,7 +46,7 @@
 import Loading from "@components/Loading";
 import GoodList from "@components/GoodList";
 import { getSearchKeyword } from "@api/store";
-import { trim } from "@utils";
+import { trim } from "@utils/shop";
 import { getProducts } from "@api/store";
 import Recommend from "@components/Recommend";
 export default {

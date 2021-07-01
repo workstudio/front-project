@@ -111,7 +111,7 @@
 <script>
 import { getBank, postCashInfo } from "../../../api/user";
 import { required } from "@utils/validate";
-import { validatorDefaultCatch } from "@utils/dialog";
+import { validatorDefaultCatch } from "@utils/shop/dialog";
 
 export default {
   name: "UserCash",

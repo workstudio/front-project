@@ -199,8 +199,8 @@ import {
   getCartCount
 } from "@api/store";
 import { postCollectAll } from "@api/user";
-import { mul, add } from "@utils/bc";
-import cookie from "@utils/store/cookie";
+import { mul, add } from "@utils/shop/bc";
+import cookie from "@utils/shop/store/cookie";
 import debounce from "lodash.debounce";
 
 const CHECKED_IDS = "cart_checked";

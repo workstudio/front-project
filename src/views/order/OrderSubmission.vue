@@ -370,9 +370,9 @@ import { postOrderConfirm, postOrderComputed, createOrder } from "@api/order";
 import { storeListApi } from "@api/store";
 import { getUser } from "@api/user";
 import { pay } from "@libs/wechat";
-import { isWeixin } from "@utils";
+import { isWeixin } from "@utils/shop";
 import { mapGetters } from "vuex";
-import cookie from "@utils/store/cookie";
+import cookie from "@utils/shop/store/cookie";
 const NAME = "OrderSubmission",
   _isWeixin = isWeixin();
 const LONGITUDE = "user_longitude";

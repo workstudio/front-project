@@ -99,7 +99,7 @@
 
 <script>
 import { orderDetail, getRefundReason, postOrderRefund } from "@api/order";
-import { trim, VUE_APP_API_URL } from "@utils";
+import { trim, VUE_APP_API_URL } from "@utils/shop";
 import VueCoreImageUpload from "vue-core-image-upload";
 
 export default {

@@ -1,7 +1,7 @@
 import router from "../router";
 import store from "../store";
-import cookie from "@utils/store/cookie";
-import { isWeixin } from "@utils";
+import cookie from "@utils/shop/store/cookie";
+import { isWeixin } from "@utils/shop";
 import { oAuth } from "@libs/wechat";
 
 export default function toLogin(push, backUrl) {

@@ -184,10 +184,10 @@ import {
   getCodeApi
 } from "@api/user";
 import attrs, { required, alpha_num, chs_phone } from "@utils/validate";
-import { validatorDefaultCatch } from "@utils/dialog";
+import { validatorDefaultCatch } from "@utils/shop/dialog";
 import { getLogo } from "@api/public";
-import cookie from "@utils/store/cookie";
-import { VUE_APP_API_URL } from "@utils";
+import cookie from "@utils/shop/store/cookie";
+import { VUE_APP_API_URL } from "@utils/shop";
 
 const BACK_URL = "login_back_url";
 

@@ -79,9 +79,9 @@ import { CitySelect } from "vue-ydui/dist/lib.rem/cityselect";
 import { getAddress, postAddress } from "@api/user";
 import { getCity } from "@api/public";
 import attrs, { required, chs_phone } from "@utils/validate";
-import { validatorDefaultCatch } from "@utils/dialog";
+import { validatorDefaultCatch } from "@utils/shop/dialog";
 import { openAddress } from "@libs/wechat";
-import { isWeixin } from "@utils";
+import { isWeixin } from "@utils/shop";
 
 export default {
   components: {

@@ -94,7 +94,7 @@
 <script>
 import { clearAuthStatus } from "@libs/wechat";
 import { switchH5Login } from "@api/user";
-import cookie from "@utils/store/cookie";
+import cookie from "@utils/shop/store/cookie";
 import store from "@/store";
 
 export default {

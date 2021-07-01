@@ -78,9 +78,9 @@
 <script>
 import sendVerifyCode from "@mixins/SendVerifyCode";
 import { registerVerify, registerReset, getCodeApi } from "@api/user";
-import { validatorDefaultCatch } from "@utils/dialog";
+import { validatorDefaultCatch } from "@utils/shop/dialog";
 import attrs, { required, alpha_num, chs_phone } from "@utils/validate";
-import { VUE_APP_API_URL } from "@utils";
+import { VUE_APP_API_URL } from "@utils/shop";
 
 export default {
   name: "RetrievePassword",

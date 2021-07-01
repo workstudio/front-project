@@ -1,7 +1,7 @@
 /*
  * 订单确认
  * */
-import request from "@utils/request";
+import request from "@utils/shop/request";
 
 /**
  * 通过购物车 id 获取订单信息

@@ -48,7 +48,7 @@
 <script>
 import debounce from "lodash.debounce";
 import { getCategory } from "@api/store";
-import { trim } from "../../utils";
+import { trim } from "../../utils/shop";
 
 export default {
   name: "GoodsClass",

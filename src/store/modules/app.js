@@ -1,6 +1,6 @@
-import store from "@utils/store/cookie";
+import store from "@utils/shop/store/cookie";
 import { getUserInfo } from "@api/user";
-import dialog from "@utils/dialog";
+import dialog from "@utils/shop/dialog";
 
 const LOGIN_KEY = "login_status";
 

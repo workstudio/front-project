@@ -71,10 +71,10 @@
 <script>
 import Loading from "@components/Loading";
 import { storeListApi } from "@api/store";
-import { isWeixin } from "@utils/index";
+import { isWeixin } from "@utils/shop/index";
 import { wechatEvevt, wxShowLocation } from "@libs/wechat";
 import { mapGetters } from "vuex";
-import cookie from "@utils/store/cookie";
+import cookie from "@utils/shop/store/cookie";
 const LONGITUDE = "user_longitude";
 const LATITUDE = "user_latitude";
 const MAPKEY = "mapKey";

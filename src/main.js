@@ -4,9 +4,9 @@ import router from "./router";
 import store from "./store";
 import animate from "animate.css";
 import schema from "async-validator";
-import dialog from "./utils/dialog";
-import $scroll from "@utils/loading";
-import cookie from "@utils/store/cookie";
+import dialog from "./utils/shop/dialog";
+import $scroll from "@utils/shop/loading";
+import cookie from "@utils/shop/store/cookie";
 
 import "@assets/iconfont/iconfont";
 import "@assets/iconfont/iconfont.css";
@@ -15,7 +15,7 @@ import "vue-ydui/dist/ydui.base.css";
 import "@assets/css/base.css";
 import "@assets/css/reset.css";
 import "@assets/css/style.css";
-import { isWeixin, parseQuery } from "@utils";
+import { isWeixin, parseQuery } from "@utils/shop";
 import vueLazyLoad from "vue-lazyload";
 
 Vue.use(vueLazyLoad, {

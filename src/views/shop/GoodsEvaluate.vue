@@ -88,10 +88,10 @@
 </style>
 <script>
 import { postOrderProduct, postOrderComment } from "@api/store";
-import { trim, VUE_APP_API_URL } from "@utils";
+import { trim, VUE_APP_API_URL } from "@utils/shop";
 import { required } from "@utils/validate";
 import VueCoreImageUpload from "vue-core-image-upload";
-import { validatorDefaultCatch } from "@utils/dialog";
+import { validatorDefaultCatch } from "@utils/shop/dialog";
 
 const NAME = "GoodsEvaluate";
 

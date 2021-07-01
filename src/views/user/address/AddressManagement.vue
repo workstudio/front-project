@@ -76,7 +76,7 @@ import {
   postAddress
 } from "@api/user";
 import Loading from "@components/Loading";
-import { isWeixin } from "@utils";
+import { isWeixin } from "@utils/shop";
 import { openAddress } from "@libs/wechat";
 
 export default {

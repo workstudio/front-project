@@ -77,9 +77,9 @@
 <script>
 import { mapGetters } from "vuex";
 import { pay } from "@libs/wechat";
-import { isWeixin } from "@utils";
+import { isWeixin } from "@utils/shop";
 import { rechargeWechat, getRechargeApi } from "@api/user";
-import { add, sub } from "@utils/bc";
+import { add, sub } from "@utils/shop/bc";
 export default {
   name: "Recharge",
   props: {},

@@ -111,7 +111,7 @@
 <script>
 import { getArticleDetails } from "@api/public";
 import ShareInfo from "@components/ShareInfo";
-import { isWeixin } from "@utils/index";
+import { isWeixin } from "@utils/shop/index";
 import { openShareAll } from "@libs/wechat";
 
 export default {

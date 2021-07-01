@@ -150,7 +150,7 @@ import UserEvaluation from "@components/UserEvaluation";
 import { getSeckillDetail } from "@api/activity";
 import { postCartAdd } from "@api/store";
 import { imageBase64 } from "@api/public";
-import { isWeixin } from "@utils/index";
+import { isWeixin } from "@utils/shop/index";
 import { openShareAll } from "@libs/wechat";
 import { getCollectAdd, getCollectDel } from "@api/user";
 import debounce from "lodash.debounce";

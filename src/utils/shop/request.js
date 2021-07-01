@@ -1,7 +1,7 @@
 import axios from "axios";
-import $store from "../store";
+import $store from "../../store";
 import toLogin from "@libs/login";
-import { VUE_APP_API_URL } from "@utils/index";
+import { VUE_APP_API_URL } from "@utils/shop/index";
 
 const instance = axios.create({
   baseURL: VUE_APP_API_URL,

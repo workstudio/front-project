@@ -575,7 +575,7 @@ import OrderGoods from "@components/OrderGoods";
 import { orderDetail, orderAgain } from "@api/order";
 import ClipboardJS from "clipboard";
 import Payment from "@components/Payment";
-import { isWeixin } from "@utils";
+import { isWeixin } from "@utils/shop";
 import { mapGetters } from "vuex";
 import {
   cancelOrderHandle,

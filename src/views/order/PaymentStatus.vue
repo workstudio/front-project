@@ -80,7 +80,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { orderDetail } from "@api/order";
-import { isWeixin } from "@utils";
+import { isWeixin } from "@utils/shop";
 
 const NAME = "PayMentStatus";
 

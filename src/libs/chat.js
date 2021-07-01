@@ -1,5 +1,5 @@
 import $store from "@/store";
-import { VUE_APP_WS_URL } from "@utils";
+import { VUE_APP_WS_URL } from "@utils/shop";
 
 const Socket = function() {
   this.ws = new WebSocket(VUE_APP_WS_URL);

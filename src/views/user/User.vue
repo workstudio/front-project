@@ -163,7 +163,7 @@
 
 <script>
 import { getUser, getMenuUser } from "@api/user";
-import { isWeixin } from "@utils";
+import { isWeixin } from "@utils/shop/index";
 import SwitchWindow from "@components/SwitchWindow";
 import GeneralWindow from "@components/GeneralWindow";
 const NAME = "User";

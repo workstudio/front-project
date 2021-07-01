@@ -1,4 +1,4 @@
-import { trim, isType } from "@utils";
+import { trim, isType } from "@utils/shop";
 
 const doc = window.document;
 

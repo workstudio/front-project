@@ -109,7 +109,7 @@ import {
   postSignIntegral,
   getSignList
 } from "@api/user";
-import { add } from "@utils/bc";
+import { add } from "@utils/shop/bc";
 
 export default {
   name: "Sign",
