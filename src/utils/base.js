@@ -1,6 +1,31 @@
 import globalSettings from '../../config/index'
 import objectOperation from './object'
 
+export function getFileType(extension) {
+  let fileTypes = {
+    image: {path: 'img', elems: ["jpg", "jpeg", "png", "gif", "bmp"]},
+    zip: {path: 'zip', elems: ["zip", "rar", "7z"]},
+    video: {path: 'video', elems: ["avi", "mp4", "rmvb", "flv", "mov", "m2v", "mkv"]},
+    audio: {path: 'mp3', elems: ["mp3", "wav", "wmv", "wma"]},
+    xlsx: {path: 'excel', elems: ["xls", "xlsx"]},
+    docx: {path: 'docx', elems: ["doc", "docx"]},
+    pdf: {path: 'pdf', elems: ["pdf"]},
+    ppt: {path: 'ppt', elems: ['ppt']},
+    txt: {path: 'txt', elems: ['txt']},
+    none: {path: 'none', elems: []},
+  };
+
+  let currentTypeKey = 'none';
+  for (let key in fileTypes) {
+    let elems = fileTypes[key].elems;
+    if (fileTypes[key].elems.includes(extension)) {
+      currentTypeKey = key;
+      break;
+    }
+  }
+  return currentTypeKey;
+}
+
 /**
  * 数组随机打乱(洗牌函数)
  * @param arr 需要打乱的数组
@@ -62,6 +87,10 @@ export function getCaptchaUrl(refresh = false) {
 
 export function emptyObject(obj) {
   return JSON.stringify(obj) == "{}";
+}
+
+export function isSameArray(arr1, arr2) {
+  return arr1.length === arr2.length && arr1.every(a => arr2.some(b => a === b)) && arr2.every(_b => arr1.some(_a => _a === _b));
 }
 
 export function trim(str) {
@@ -456,6 +485,30 @@ export function removeClass(ele, cls) {
     const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
     ele.className = ele.className.replace(reg, ' ')
   }
+}
+
+export function uuid() {
+  var s = [];
+  var hexDigits = "0123456789abcdef";
+  for (var i = 0; i < 36; i++) {
+    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+  }
+  s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+  s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+  s[8] = s[13] = s[18] = s[23] = "-";
+
+  var uuid = s.join("");
+  return uuid;
+}
+
+export function getExtName(filename) {
+  // 文件扩展名匹配正则
+  var reg = /\.[^\.]+$/;
+  var matches = reg.exec(filename);
+  if (matches) {
+    return matches[0];
+  }
+  return '';
 }
 
 const VUE_APP_API_URL = process.env.VUE_APP_API_URL || `${location.origin}/api`;

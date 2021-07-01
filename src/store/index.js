@@ -31,7 +31,7 @@ VuexORM.use(VuexORMAxios, {
         Promise.reject(new Error(res.message || 'Error')).catch((e) => {});
         return false;
       } else {
-        return res.datas;
+        return res;
       }
     },
     onError() {
