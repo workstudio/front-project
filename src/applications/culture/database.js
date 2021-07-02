@@ -1,8 +1,8 @@
-import Figure from '@/applications/culture/models/Figure'
-import Book from '@/applications/culture/models/Book'
-import BookTag from '@/applications/culture/models/BookTag'
-import Chapter from '@/applications/culture/models/Chapter'
-import Reader from '@/applications/culture/models/Reader'
-//import ReaderModule from '@/applications/culture/models/ReaderModule'
+import Figure from '@/applications/culture/Figure'
+import Book from '@/applications/culture/Book'
+import BookTag from '@/applications/culture/BookTag'
+import Chapter from '@/applications/culture/Chapter'
+import Reader from '@/applications/culture/Reader'
+//import ReaderModule from '@/applications/culture/ReaderModule'
 
 export default {Figure, Book, BookTag, Chapter, Reader}
