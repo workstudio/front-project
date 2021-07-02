@@ -13,11 +13,13 @@ const ChangeSource = resolve => require(['@/components/book/ChangeSource'], reso
 
 export default new Router({
   routes: [
-    {
+    {path: '/', name: 'bookhome', component: () => import('@views/Home'), meta: { title: '书库' } },
+    /*{
       path: '/',
       name: 'home',
       component: Home
-    }, {
+    }, */
+    {
       path: '/bookcat/detail',
       name: 'bookcatDetail',
       component: BookcatDetail

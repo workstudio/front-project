@@ -5,9 +5,11 @@ import { Database } from '@vuex-orm/core'
 import getters from '../getters'
 
 import passportDatabases from '@/applications/passport/database'
+import cultureDatabases from '@/applications/culture/database'
 
 let databases = {
   passport: passportDatabases,
+  culture: cultureDatabases,
 }
 
 const database = new Database()

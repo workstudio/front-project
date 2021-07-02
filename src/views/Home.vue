@@ -34,7 +34,7 @@ import {mapState, mapGetters} from "vuex";
 import Recommend from './common/Recommend.vue'
 import BookList from './common/BookList.vue'
 import Loading from './common/Loading.vue'
-import {model} from '@/components/model';
+import {fetchData} from '@/applications/mixins/fetchData';
 
 export default {
   components: {
@@ -42,7 +42,7 @@ export default {
     BookList,
     Loading
   },
-  'mixins': [model],
+  'mixins': [fetchData],
   data() {
     return {
       type: [
@@ -57,24 +57,49 @@ export default {
       loading: true,
     }
   },
+  created() {
+    this.getList()
+    this.loading = false // 获取数据完成后隐藏loading
+  },
   mounted() {
-    this.bookModel.$fetch({params: {action: 'index-datas'}})
-    this.tagModel.$fetch({params: {action: 'nav-datas'}})
+    console.log(this.getModel('culture', 'book'));
+    //this.bookModel.$fetch({params: {action: 'index-datas'}})
+    //this.tagModel.$fetch({params: {action: 'nav-datas'}})
   },
   computed: {
-    ...mapState({
+    /*...mapState({
       bookModel: state => state.baseData.cDatabases.Book,
       tagModel: state => state.baseData.cDatabases.BookTag,
     }),
     bookTagRequest() {
-      return this.remoteRequest(this.tagModel, 'navdatas');
+      //return this.remoteRequest(this.tagModel, 'navdatas');
     },
     bookIndexRequest() {
-      return this.remoteRequest(this.bookModel, 'indexdatas');
-    },
+      //return this.remoteRequest(this.bookModel, 'indexdatas');
+    },*/
   },
-  created() {
-    this.loading = false // 获取数据完成后隐藏loading
+  methods: {
+    getList() {
+      this.sortElem = {};
+      this.listLoading = true
+      this.fetchRequest(this.getModel('culture', 'book'), {query: {}, action: 'list'}).then(response => {
+        this.list = response.data;
+        this.addFormFields = response.addFormFields;
+        this.updateFormFields = response.updateFormFields;
+        this.fieldNames = response.fieldNames;
+        this.pageLinks = response.links,
+        this.pageMeta = response.meta,
+        this.searchFields = response.searchFields,
+        this.listQuery.per_page = this.pageMeta.per_page;
+        this.haveSelection = response.haveSelection;
+        this.selectionOperations = response.selectionOperations;
+
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+      })
+    },
   },
   filters: {
     hot(value) {
@@ -87,14 +112,14 @@ export default {
     },
   },
   watch: {
-    bookTagRequest(val, oldVal) {
+    /*bookTagRequest(val, oldVal) {
       let rDatas = this.watchCommon(val, this.tagModel, 'navdatas');
       this.bookTagNavDatas = rDatas;
     },
     bookIndexRequest(val, oldVal) {
       let rDatas = this.watchCommon(val, this.bookModel, 'indexdatas');
       this.bookIndexDatas = rDatas;
-    },
+    },*/
   },
 }
 </script>
