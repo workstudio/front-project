@@ -14,6 +14,7 @@ export const fetchData = {
       models: state => state.baseData.cDatabases,
     }),
     cModel() {
+        console.log('aaaaaa', this.appCode, '--', this.modelCode);
       return this.getModel(this.appCode, this.modelCode);
 	},
 	currentResource() {
