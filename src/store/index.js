@@ -11,7 +11,7 @@ Vue.use(Vuex);
 
 let vuexs = {baseData};
 
-import {database, currentVuexs, getters} from './modules/database';
+import {database, currentVuexs, getters, actions} from './modules/database';
 vuexs = Object.assign(vuexs, currentVuexs);
 
 VuexORM.use(VuexORMAxios, {
@@ -46,6 +46,7 @@ const debug = false;//process.env.NODE_ENV !== "production";
 
 export default new Vuex.Store({
   getters,
+  actions,
   namespaced: true,
   modules: vuexs,
   plugins: [VuexORM.install(database)],
