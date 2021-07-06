@@ -6,16 +6,17 @@ import getters from '../getters'
 
 import passportDatabases from '@/applications/passport/database'
 import cultureDatabases from '@/applications/culture/database'
+import readerModule from '@/applications/culture/ReaderModule'
 
 let databases = {
   passport: passportDatabases,
   culture: cultureDatabases,
 }
+const currentVuexs = {
+  reader: readerModule,
+}
 
 const database = new Database()
-const currentVuexs = {
-  //app
-};
 
 for (let key in databases) {
   for (let subKey in databases[key]) {

@@ -18,8 +18,8 @@ export default {
   },
   computed: {
     ...mapState({
-      reader: state => state.entities.readers,
-    })
+      reader: state => state.reader,
+    }),
   }
 }
 </script>

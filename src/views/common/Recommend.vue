@@ -8,7 +8,7 @@
             <router-link :to="{ path: '/bdetail/' + subItem.code}">
               <img :src="subItem.coverUrl" alt="subItem.name" :onerror="errorImg">
               <p class="book-name">{{subItem.name}}</p>
-              <p class="book-author">{{subItem.authorName}}</p>
+              <p class="book-author">{{subItem.author.name}}</p>
             </router-link>
           </li>
         </ul>

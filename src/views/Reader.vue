@@ -38,10 +38,12 @@ import BottomNav from './reader/BottomNav.vue'
 import FontNav from './reader/FontNav.vue'
 import ListPanel from './reader/ListPanel.vue'
 import Cover from './reader/Cover.vue'
-import {model} from '@/components/model';
+//import {model} from '@/components/model';
+import {fetchData} from '@/applications/mixins/fetchData';
 
 export default {
-  'mixins': [model],
+  //'mixins': [model],
+  'mixins': [fetchData],
   components: {
     TopNav,
     BottomNav,
@@ -63,7 +65,7 @@ export default {
   created() {
     // 当前书籍以前读过并有阅读进度
     let localBook = this.localCache.getCache('book_' + this.bookCode);
-    this.readerModel.dispatch('curChapter', this.curChapter)
+    this.$store.dispatch('reader/curChapter', this.curChapter)
 
     if (Object.keys(localBook).length == 0) {
       localBook = {
@@ -73,11 +75,11 @@ export default {
         bg_color: this.reader.bg_color,
       }
     } else {
-      this.readerModel.dispatch('fzSize', localBook.fz_size); // 阅读器文字大小
-      this.readerModel.dispatch('bgColor', localBook.bg_color); // 阅读器主题色
+      this.$store.dispatch('reader/fzSize', localBook.fz_size); // 阅读器文字大小
+      this.$store.dispatch('reader/bgColor', localBook.bg_color); // 阅读器主题色
     }
 
-    this.chapterModel.$fetch({query: {code: this.$route.params.code, id: this.curChapter}, params: {action: 'show'}})
+    this.getChapterData({code: this.$route.params.code, id: this.curChapter});
     this.reader.windowHeight = window.screen.height
   },
   computed: {
@@ -86,12 +88,17 @@ export default {
     }),
     ...mapState({
       chapterModel: state => state.baseData.cDatabases.Chapter,
-      readerModel: state => state.baseData.cDatabases.Reader,
-      reader: state => state.entities.readers,
+      //readerModel: state => state.baseData.cDatabases.Reader,
+      //reader: state => state.entities.readers,
+      //reader: state => state.baseData,//entities.readers,
+      reader: state => state.reader,//baseData,//entities.readers,
     }),
-    chapterDetailRequest() {
+    /*chapterDetailRequest() {
       return this.remoteRequest(this.chapterModel, 'show');
-    },
+    },*/
+    readerModel() {
+      return this.getModel('culture', 'reader');
+    }
   },
   mountedold() {
     // 因为要获取dom元素，所以不能放到created中
@@ -103,20 +110,23 @@ export default {
     },
     // 切换上下工具栏，如果字体面板显示点击也关闭
     clickBar() {
-      this.readerModel.dispatch('toggleBar')
+      this.$store.dispatch('reader/toggleBar')
       this.reader.font_panel = false
     },
     // 向上翻页
     pageUp() {
+        console.log('pageUp');
       let target = document.body.scrollTop - window.screen.height - 80
       this.startScroll(target, -20)
     },
     // 向下翻页
     pageDown() {
+        console.log('pageDown');
       let target = document.body.scrollTop + window.screen.height - 80
       this.startScroll(target, 20)
     },
     startScroll(target, speed) {
+        console.log('startScroll');
       let times = null
       times = setInterval(function () {
         if (speed > 0) {
@@ -137,7 +147,7 @@ export default {
       }, 1)
     },
     prevChapter() {
-      this.readerModel.dispatch('prevChapter')
+      this.$store.dispatch('reader/prevChapter')
       //this.saveBooksInfo()
       this.curChapter = this.reader.curChapter
       setTimeout(() => {
@@ -146,7 +156,7 @@ export default {
     },
     // 更换章节时保存阅读进度到localStorage
     nextChapter() {
-      this.readerModel.dispatch('nextChapter', 50)
+      this.$store.dispatch('reader/nextChapter', 50)
       //this.saveBooksInfo()
       this.curChapter = this.reader.curChapter
       setTimeout(() => {
@@ -169,6 +179,15 @@ export default {
       } else if (e.keyCode === 37) {
         this.prevChapter()
       }
+    },
+    getChapterData(query) {
+      this.fetchRequest(this.getModel('culture', 'chapter'), {query: query, params: {action: 'detail'}}).then(response => {
+        this.detailData = response.data;
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+      })
     }
   },
   watch: {
@@ -184,10 +203,10 @@ export default {
       //this.getData(this.$route.params.id, val)
       this.$router.replace({path: '/reader/' + this.detailData.book.code + '/' + this.curChapter});
     },
-    chapterDetailRequest(val, oldVal) {
+    /*chapterDetailRequest(val, oldVal) {
       let rDatas = this.watchCommon(val, this.chapterModel, 'show');
       this.detailData = rDatas;
-    },
+    },*/
   }
 }
 </script>

@@ -63,10 +63,12 @@ import Similar from '../common/Similar.vue'
 // import defaultImage from '@/common/utils.js'
 import Rate from '../common/Rate'
 import Loading from '../common/Loading'
-import {model} from '@/components/model';
+//import {model} from '@/components/model';
+import {fetchData} from '@/applications/mixins/fetchData';
 
 export default {
-  'mixins': [model],
+  //'mixins': [model],
+  'mixins': [fetchData],
   components: {
     Similar, 
     Rate, 
@@ -82,9 +84,9 @@ export default {
       showmore: true // 简介显示更多
     }
   },
-  mounted(){
+  /*mounted(){
     this.bookModel.$fetch({query: {code: this.$route.params.code}, params: {action: 'show'}})
-  },
+  },*/
   computed: {
     ...mapGetters({
       //bookDetailData: 'entities/books/datas',
@@ -92,15 +94,16 @@ export default {
     ...mapState({
       bookModel: state => state.baseData.cDatabases.Book,
     }),
-    bookDetailRequest() {
-      return this.remoteRequest(this.bookModel, 'show');
-    },
+    /*bookDetailRequest() {
+      //return this.remoteRequest(this.bookModel, 'show');
+    },*/
   },
   created() {
     //this.$store.dispatch('bookDetailData', {code: this.$route.params.code})
     this.loading = false;
     this.loading = false // 获取数据完成后隐藏loading
     this.showmore = false // 获取数据让介绍最多显示5行
+    this.getDetail();
   },
   methods: {
     openBook() {
@@ -109,12 +112,23 @@ export default {
     back() {
       this.$router.go(-1)
     },
+    getDetail() {
+      this.listLoading = true
+      this.fetchRequest(this.getModel('culture', 'book'), {query: {code: this.$route.params.code}, params: {action: 'detail'}}).then(response => {
+        this.bookDetailData = response.data;
+
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+      })
+    },
   },
   watch: {
-    bookDetailRequest(val, oldVal) {
+    /*bookDetailRequest(val, oldVal) {
       let rDatas = this.watchCommon(val, this.bookModel, 'show');
       this.bookDetailData = rDatas;
-    },
+    },*/
   },
 }
 </script>

@@ -10,6 +10,11 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import vuescroll from 'vue-scroll'
 
+import localCache from '@/applications/common/LocalCache'
+import * as baseMethod from '@/utils/base'
+Vue.prototype.localCache = localCache
+Vue.prototype.baseMethod = baseMethod
+
 Vue.use(vuescroll)
 VueTouch.config.swipe = {
   direction: 'horizontal'

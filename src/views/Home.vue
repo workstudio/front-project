@@ -19,8 +19,8 @@
       </a>
     </nav>
     <div v-if="!loading">
-      <recommend :recommendDatas="bookIndexDatas"></recommend>
-      <book-list :bookDatas="bookTagNavDatas"></book-list>
+      <recommend :recommendDatas="positionBooks"></recommend>
+      <book-list :bookDatas="navBooks"></book-list>
     </div>
     <loading v-show="loading"></loading>
   </div>
@@ -52,8 +52,8 @@ export default {
         {path: '/tag-学术', word: '学术'},
         {path: 'http://wiki.acanstudio.com', word: '百科'}
       ],
-      bookTagNavDatas: {},
-      bookIndexDatas: {},
+      navBooks: {},
+      positionBooks: {},
       loading: true,
     }
   },
@@ -80,19 +80,11 @@ export default {
   },
   methods: {
     getList() {
-      this.sortElem = {};
       this.listLoading = true
-      this.fetchRequest(this.getModel('culture', 'book'), {query: {}, action: 'list'}).then(response => {
-        this.list = response.data;
-        this.addFormFields = response.addFormFields;
-        this.updateFormFields = response.updateFormFields;
-        this.fieldNames = response.fieldNames;
-        this.pageLinks = response.links,
-        this.pageMeta = response.meta,
-        this.searchFields = response.searchFields,
-        this.listQuery.per_page = this.pageMeta.per_page;
-        this.haveSelection = response.haveSelection;
-        this.selectionOperations = response.selectionOperations;
+      this.fetchRequest(this.getModel('culture', 'book'), {query: {}, params: {action: 'home'}}).then(response => {
+        console.log(response);
+        this.positionBooks = response.data.positionBooks;
+        this.navBooks = response.data.navBooks;
 
         // Just to simulate the time of the request
         setTimeout(() => {

@@ -13,7 +13,7 @@
               <p>标签：<span v-for="(tItem, tIndex) in item.tagDatas" :key=tIndex>{{tItem}}  </span></p>
               <div class="author">
                 <i></i>
-                <span>{{item.authorName}}</span>
+                <span>{{item.author.name}}</span>
               </div>
               <!--<div class="category-r"><span></span></div>-->
             </div>

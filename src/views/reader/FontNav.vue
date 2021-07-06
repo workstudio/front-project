@@ -25,8 +25,8 @@ export default {
   },
   computed: {
     ...mapState({
-      reader: state => state.entities.readers,
-      readerModel: state => state.baseData.cDatabases.Reader,
+      reader: state => state.reader,
+      //readerModel: state => state.baseData.cDatabases.Reader,
     })
   },
   methods: {
@@ -38,10 +38,10 @@ export default {
     },
     // 加减字体需要直接操作dom元素的字体大小，在子组件不好操作，所以在父组件监听fz_size的值再更改
     add() {
-      this.readerModel.dispatch('fzSizeAdd')
+      this.$store.dispatch('reader/fzSizeAdd')
     },
     sub() {
-      this.readerModel.dispatch('fzSizeSub')
+      this.$store.dispatch('reader/fzSizeSub')
     }
   }
 }

@@ -41,21 +41,21 @@ export default {
   },
   methods: {
     showListPanel() {
-      this.readerModel.dispatch('showListPanel')
-      this.readerModel.state.reader.font_panel = false
+      this.$store.dispatch('reader/showListPanel')
+      this.$store.state.reader.font_panel = false
     },
     showFontPanel() {
       this.font_icon_class = !this.font_icon_class
-      this.readerModel.dispatch('showFontPanel')
+      this.$store.dispatch('reader/showFontPanel')
     },
     swithNight() {
-      this.readerModel.dispatch('switchNight')
+      this.$store.dispatch('reader/switchNight')
     }
   },
   computed: {
     ...mapState({
-      reader: state => state.entities.readers,
-      readerModel: state => state.baseData.cDatabases.Reader,
+      reader: state => state.reader,
+      //readerModel: state => state.baseData.cDatabases.Reader,
       //'font_panel', 'list_panel', 'bar' /* ,'font_icon' */
     })
   }
