@@ -10,7 +10,7 @@
             </div>
             <div class="book-detail">
               <h3>{{item.name}}</h3>
-              <p>标签：<span v-for="(tItem, tIndex) in item.tagDatas" :key=tIndex>{{tItem}}  </span></p>
+              <p>标签：<span v-for="(tItem, tIndex) in item.tag" :key=tIndex>{{tItem}}  </span></p>
               <div class="author">
                 <i></i>
                 <span>{{item.author.name}}</span>
@@ -28,7 +28,6 @@
 export default {
   data() {
     return {
-      typeArr: [],
       errorImg: 'this.src="' + require('../../assets/vbook/images/nobook.jpg') + '"'
     }
   },

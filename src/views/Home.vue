@@ -61,23 +61,6 @@ export default {
     this.getList()
     this.loading = false // 获取数据完成后隐藏loading
   },
-  mounted() {
-    console.log(this.getModel('culture', 'book'));
-    //this.bookModel.$fetch({params: {action: 'index-datas'}})
-    //this.tagModel.$fetch({params: {action: 'nav-datas'}})
-  },
-  computed: {
-    /*...mapState({
-      bookModel: state => state.baseData.cDatabases.Book,
-      tagModel: state => state.baseData.cDatabases.BookTag,
-    }),
-    bookTagRequest() {
-      //return this.remoteRequest(this.tagModel, 'navdatas');
-    },
-    bookIndexRequest() {
-      //return this.remoteRequest(this.bookModel, 'indexdatas');
-    },*/
-  },
   methods: {
     getList() {
       this.listLoading = true
@@ -102,16 +85,6 @@ export default {
       })
       return arr
     },
-  },
-  watch: {
-    /*bookTagRequest(val, oldVal) {
-      let rDatas = this.watchCommon(val, this.tagModel, 'navdatas');
-      this.bookTagNavDatas = rDatas;
-    },
-    bookIndexRequest(val, oldVal) {
-      let rDatas = this.watchCommon(val, this.bookModel, 'indexdatas');
-      this.bookIndexDatas = rDatas;
-    },*/
   },
 }
 </script>
