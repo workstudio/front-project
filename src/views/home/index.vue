@@ -36,13 +36,14 @@ import flapCard from "../../components/home/flapCard";
 import Scroll from "../../components/common/Scroll";
 import { StoreHomeMixin } from "../../mixins/home";
 //import { homeApi } from "@/api/home";
+import {fetchData} from '@/applications/mixins/fetchData';
 
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 
 export default {
   name: "StoreHome",
-  mixins: [StoreHomeMixin],
+  mixins: [StoreHomeMixin, fetchData],
   components: {
     SearchBar,
     Scroll,
@@ -59,7 +60,7 @@ export default {
     return {
       scrollTop: 94,
       random: null,
-      bannerList: [],
+      bannerList: [{"id":1,"url":"http://112.74.164.251/banner/banner1.jpg"},{"id":2,"url":"http://112.74.164.251/banner/banner2.jpg"},{"id":3,"url":"http://112.74.164.251/banner/banner3.jpg"}],
       guessYouLike: null,
       recommend: null,
       featured: null,
@@ -112,9 +113,32 @@ export default {
       this.$nextTick(() => {
         this.$refs.scroll.scrollTo(0, this.homeOffsetY);
       });
-    }
+    },
+    getList() {
+      this.listLoading = true
+      this.fetchRequest(this.getModel('culture', 'book'), {query: {}, params: {action: 'home'}}).then(response => {
+        const data = response.data;
+        console.log(data);
+        //this.random = data.positionBooks.reading;
+        //this.bannerList = data.banner;
+        this.guessYouLike = data.positionBooks.reading.books;
+          console.log(this.guessYouLike, 'lllllll');
+        this.recommend = data.positionBooks.favor.books;
+        this.featured = data.positionBooks.favor.books;
+        this.categoryList = data.navBooks;
+        /*this.$nextTick(() => {
+          this.swiper = this.$refs.mySwiper.swiper;
+        });*/
+
+
+        this.positionBooks = response.data.positionBooks;
+        this.navBooks = response.data.navBooks;
+      })
+    },
   },
-  created() {},
+  created() {
+    this.getList()
+  },
   mounted() {
     /*homeApi().then(response => {
       if (response && response.status === 200) {

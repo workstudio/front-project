@@ -1,12 +1,12 @@
 <template>
   <div class="featured-item" @click="showBookDetail(data)">
     <div class="img-wrapper">
-      <img class="img" v-lazy="data.cover" />
+      <img class="img" v-lazy="data.coverUrl" />
     </div>
     <div class="content-wrapper">
-      <div class="title title-small" ref="title">{{data.title}}</div>
-      <div class="author sub-title-tiny" ref="author">{{data.author}}</div>
-      <div class="category third-title-tiny" ref="category">{{categoryText(data.category)}}</div>
+      <div class="title title-small" ref="title">{{data.name}}</div>
+      <div class="author sub-title-tiny" ref="author">{{data.author.name}}</div>
+      <div class="category third-title-tiny" ref="category">{{data.code}}</div>
     </div>
   </div>
 </template>

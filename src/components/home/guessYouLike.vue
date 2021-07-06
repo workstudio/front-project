@@ -9,11 +9,11 @@
         @click="showBookDetail(item)"
       >
         <div class="img-wrapper">
-          <img class="img" v-lazy="item.cover" />
+          <img class="img" v-lazy="item.coverUrl"/>
         </div>
         <div class="content-wrapper">
-          <div class="title title-big" ref="title">{{item.title}}</div>
-          <div class="author sub-title" ref="author">{{item.author}}</div>
+          <div class="title title-big" ref="title">{{item.name}}</div>
+          <div class="author sub-title" ref="author">{{item.author.name}}</div>
           <div class="result third-title" ref="result">{{resultText(item)}}</div>
         </div>
       </div>
@@ -46,6 +46,7 @@ export default {
       return window.innerWidth - realPx(20) - realPx(60) + "px";
     },
     showData() {
+      return this.data;
       if (this.data) {
         return [
           this.data[this.index],
@@ -66,6 +67,7 @@ export default {
   methods: {
     //换一批猜你喜欢
     change() {
+      return ;
       if (this.index + 1 >= this.total) {
         this.index = 0;
       } else {
@@ -74,6 +76,7 @@ export default {
     },
     //拼接有多少人观看等字符串。
     resultText(item) {
+      return item.code;
       if (item && item.type && item.result) {
         switch (item.type) {
           case 1:
@@ -118,7 +121,7 @@ export default {
         margin-top: 5px;
       }
       .img-wrapper {
-        flex: 0 0 20%;
+        flex: 0 0 30%;
         padding: 10px 10px 10px 0;
         box-sizing: border-box;
         .img {

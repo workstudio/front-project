@@ -9,11 +9,11 @@
         @click="showBookDetail(item)"
       >
         <div class="img-wrapper">
-          <img class="img" v-lazy="item.cover" />
+          <img class="img" v-lazy="item.coverUrl" />
         </div>
         <div class="content-wrapper">
-          <div class="title title-medium" ref="title">{{item.title}}</div>
-          <div class="num sub-title" ref="num">{{$t('home.readers').replace('$1', item.readers)}}</div>
+          <div class="title title-medium" ref="title">{{item.name}}</div>
+          <div class="num sub-title" ref="num">{{item.author.name}}</div>
         </div>
       </div>
     </div>

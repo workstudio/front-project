@@ -1,23 +1,23 @@
 <template>
   <div class="category-book-main">
     <title-view
-      :label="categoryText(data.category)"
+      :label="data.name"
       :btn="$t('home.seeAll')"
       @onClick="showBookCategory"
     ></title-view>
     <div class="category-book-list">
       <div
         class="category-book-item"
-        v-for="(item, index) in data.list"
+        v-for="(item, index) in data.books"
         :key="index"
         @click="showBookDetail(item)"
       >
         <div class="img-wrapper">
-          <img class="img" v-lazy="item.cover" />
+          <img class="img" v-lazy="item.coverUrl" />
         </div>
         <div class="content-wrapper">
-          <div class="title title-small" ref="title">{{item.title}}</div>
-          <div class="num sub-title-tiny" ref="author">{{item.author}}</div>
+          <div class="title title-small" ref="title">{{item.name}}</div>
+          <div class="num sub-title-tiny" ref="author">{{item.author.name}}</div>
         </div>
       </div>
     </div>
