@@ -71,7 +71,8 @@ export default {
     //初始化图书
     initEpub(url) {
       // let url = process.env.VUE_APP_EPUB_URL + this.fileName + ".epub";
-      this.book = new Epub(url);
+      url = 'http://upfile.canliang.wang/books/epub-filename.epub';
+      this.book = new Epub(url, {openAs: 'epub'});
       this.setCurrentBook(this.book);
       this.parseBook();
       this.initRendition();
@@ -79,6 +80,7 @@ export default {
       //book解析完成后获取locations对象
       this.book.ready
         .then(() => {
+            console.log('iiiiiiiiiiii');
           return this.book.locations.generate(
             750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16)
           );
@@ -241,6 +243,7 @@ export default {
             item.idhref = item.href.match(/^(.*)\.xhtml$/)[1];
           }
         });
+          console.log(navItem, 'nnnnnnnn');
         this.setNavigation(navItem);
       });
     },

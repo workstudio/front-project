@@ -9,14 +9,9 @@
       @onScroll="onScroll"
       ref="scroll"
     >
-      <book-info
-        :cover="cover"
-        :title="title"
-        :author="author"
-        :desc="desc"
-      ></book-info>
+      <book-info :bookInfo="bookItem"></book-info>
       <!-- 出版社 -->
-      <div class="book-detail-content-wrapper">
+      <!--<div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">
           {{ $t("detail.copyright") }}
         </div>
@@ -42,7 +37,7 @@
             <div class="book-detail-content-text">{{ isbn }}</div>
           </div>
         </div>
-      </div>
+      </div>-->
       <!-- 书籍章节 -->
       <div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">
@@ -52,27 +47,26 @@
           <div class="loading-text-wrapper" v-if="!this.navigation">
             <span class="loading-text">{{ $t("detail.loading") }}</span>
           </div>
-          <div class="book-detail-content-item-wrapper">
+          <div class="book-detail-content-item-wrapper" v-if="bookItem.chapters">
             <div
               class="book-detail-content-item"
-              v-for="(item, index) in flatNavigation"
+              v-for="(item, index) in bookItem.chapters"
               :key="index"
-              @click="read(item)"
+              @click="readBook(item.serial)"
             >
               <div
                 class="book-detail-content-navigation-text"
                 :class="{ 'is-sub': item.deep > 1 }"
                 :style="itemStyle(item)"
-                v-if="item.label"
               >
-                {{ item.label }}
+                {{ item.name }}
               </div>
             </div>
           </div>
         </div>
       </div>
       <!-- 试读 -->
-      <div class="book-detail-content-wrapper">
+      <!--<div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">{{ $t("detail.trial") }}</div>
         <div class="book-detail-content-list-wrapper">
           <div class="loading-text-wrapper" v-if="!this.displayed">
@@ -80,7 +74,7 @@
           </div>
         </div>
         <div id="preview" v-show="this.displayed" ref="preview"></div>
-      </div>
+      </div>-->
     </scroll>
     <!-- 底部按钮 -->
     <div class="bottom-wrapper">
@@ -104,13 +98,14 @@
 import DetailTitle from "../../components/detail/detaiTitle";
 import BookInfo from "../../components/detail/bookInfo";
 import Scroll from "../../components/common/Scroll";
-import { detailApi } from "@/api/detail";
+//import { detailApi } from "@/api/detail";
 import { px2rem, realPx } from "../../utils/utils";
 import { flatBookList } from "../../utils/shelf";
 import { getLocalForage } from "../../utils/localForage";
 import { mapGetters, mapActions } from "vuex";
 import { getShelfApi, updataShelfApi } from "../../api/shelf";
 // import ShelfMixin from "@/mixins/shelf";
+import {fetchData} from '@/applications/mixins/fetchData';
 import {
   getBookShelf,
   saveBookShelf,
@@ -125,6 +120,7 @@ global.ePub = Epub;
 export default {
   name: "BookDetail",
   // mixins: [ShelfMixin],
+  'mixins': [fetchData],
   components: {
     DetailTitle,
     Scroll,
@@ -133,7 +129,7 @@ export default {
   data() {
     return {
       user: null,
-      bookItem: null,
+      bookItem: {},
       book: null,
       metadata: null,
       trialRead: null,
@@ -160,13 +156,13 @@ export default {
     },
 
     // 将电子书目录转为一维数组
-    flatNavigation() {
+    /*flatNavigation() {
       if (this.navigation) {
         return this.doFlatNavigation(this.navigation.toc);
       } else {
         return [];
       }
-    },
+    },*/
     // 获取电子书语种
     lang() {
       return this.metadata ? this.metadata.language : "-";
@@ -360,17 +356,18 @@ export default {
     },
 
     // 阅读电子书
-    readBook() {
+    readBook(serial = 0) {
       this.addReaderHistory();
       this.$router.push({
-        path: `/ebook/${this.$route.query.category}|${
+          path: `/ebook/${this.$route.query.code}?serial=${serial}`,
+        /*path: `/ebook/${this.$route.query.category}|${
           this.$route.query.fileName
-        }`,
+        }`,*/
       });
     },
 
     // 通过章节阅读电子书
-    read(item) {
+    /*read(item) {
       getLocalForage(this.$route.query.fileName, (err, blob) => {
         if (!err && blob && blob instanceof Blob) {
           this.$router.push({
@@ -394,7 +391,7 @@ export default {
         }
       });
       this.addReaderHistory();
-    },
+    },*/
 
     // 电子书目录缩进样式
     itemStyle(item) {
@@ -404,7 +401,7 @@ export default {
     },
 
     // 将目录从多维转为一维
-    doFlatNavigation(content, deep = 1) {
+    /*doFlatNavigation(content, deep = 1) {
       const arr = [];
       content.forEach((item) => {
         item.deep = deep;
@@ -414,7 +411,7 @@ export default {
         }
       });
       return arr;
-    },
+    },*/
 
     // // 通过opf下载电子书（实现逐章下载，提供电子书访问性能）
     // downloadBook() {
@@ -424,7 +421,7 @@ export default {
     // },
 
     // 解析电子书
-    parseBook(url) {
+    /*parseBook(url) {
       // 通过电子书或opf文件的url生成Book对象
       this.book = new Epub(url);
       // 获取电子书的metadata信息
@@ -453,15 +450,25 @@ export default {
           }
         }
       });
-    },
+    },*/
 
     // 获取电子书详情
     init() {
       // 获取电子书书名
-      this.fileName = this.$route.query.fileName;
+      //this.fileName = this.$route.query.fileName;
       // 获取电子书分类
-      this.categoryText = this.$route.query.category;
-      if (this.fileName) {
+      //this.categoryText = this.$route.query.category;
+      this.fetchRequest(this.getModel('culture', 'book'), {query: {code: this.$route.query.code}, params: {action: 'detail'}}).then(response => {
+        //this.bookDetailData = response.data;
+        console.log(response, "书籍详情");
+        const data = response.data;
+        // 保存电子书详情数据
+        this.bookItem = data;
+        // 获取封面数据
+        this.cover = this.bookItem.coverUrl;
+        this.navigation = true;
+      })
+      /*if (this.fileName) {
         // 请求API，获取电子书详情数据
         detailApi({
           fileName: this.fileName,
@@ -493,7 +500,7 @@ export default {
             this.simpleToast(response.data.msg);
           }
         });
-      }
+      }*/
     },
 
     // 渲染电子书（试读部分）
