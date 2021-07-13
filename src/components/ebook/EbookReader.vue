@@ -71,7 +71,7 @@ export default {
     //初始化图书
     initEpub(url) {
       // let url = process.env.VUE_APP_EPUB_URL + this.fileName + ".epub";
-      url = 'http://upfile.canliang.wang/books/epub-filename.epub';
+      //url = 'http://upfile.canliang.wang/books/epub-filenamen.epub';
       this.book = new Epub(url, {openAs: 'epub'});
       this.setCurrentBook(this.book);
       this.parseBook();
@@ -80,7 +80,6 @@ export default {
       //book解析完成后获取locations对象
       this.book.ready
         .then(() => {
-            console.log('iiiiiiiiiiii');
           return this.book.locations.generate(
             750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16)
           );
@@ -243,7 +242,6 @@ export default {
             item.idhref = item.href.match(/^(.*)\.xhtml$/)[1];
           }
         });
-          console.log(navItem, 'nnnnnnnn');
         this.setNavigation(navItem);
       });
     },
@@ -394,7 +392,9 @@ export default {
   created() {},
   mounted() {
     const books = this.$route.params.fileName.split("|");
+      console.log(books, 'sssssssssssbb');
     const fileName = books[1];
+    const author = books[2];
     //在indexDB中查看是否有缓存
     getLocalForage(fileName, (err, blob) => {
       if (!err && blob) {
@@ -410,7 +410,8 @@ export default {
         } else {
           this.setFileName(books.join("/")).then(() => {
             const url =
-              process.env.VUE_APP_EPUB_URL + "/" + this.fileName + ".epub";
+              process.env.VUE_APP_EPUB_OPF_URL + "/" + author + '/' + fileName + ".epub";
+              console.log(url, 'uuuuuuuuuuuuuuu');
             this.isOnOpf = false;
             this.initEpub(url);
           });

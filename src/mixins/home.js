@@ -20,11 +20,11 @@ export const StoreHomeMixin = {
     ]),
 
     showBookDetail(book) {
-        console.log('bbb', book);
       this.$router.push({
         name: "detail",
         query: {
-          code: book.code,
+          //code: book.code,
+          fileName: book.code,
           //fileName: book.fileName,
           category: book.categoryText
         }

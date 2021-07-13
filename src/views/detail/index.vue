@@ -11,7 +11,7 @@
     >
       <book-info :bookInfo="bookItem"></book-info>
       <!-- 出版社 -->
-      <!--<div class="book-detail-content-wrapper">
+      <div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">
           {{ $t("detail.copyright") }}
         </div>
@@ -37,7 +37,7 @@
             <div class="book-detail-content-text">{{ isbn }}</div>
           </div>
         </div>
-      </div>-->
+      </div>
       <!-- 书籍章节 -->
       <div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">
@@ -47,26 +47,27 @@
           <div class="loading-text-wrapper" v-if="!this.navigation">
             <span class="loading-text">{{ $t("detail.loading") }}</span>
           </div>
-          <div class="book-detail-content-item-wrapper" v-if="bookItem.chapters">
+          <div class="book-detail-content-item-wrapper">
             <div
               class="book-detail-content-item"
-              v-for="(item, index) in bookItem.chapters"
+              v-for="(item, index) in flatNavigation"
               :key="index"
-              @click="readBook(item.serial)"
+              @click="read(item)"
             >
               <div
                 class="book-detail-content-navigation-text"
                 :class="{ 'is-sub': item.deep > 1 }"
                 :style="itemStyle(item)"
+                v-if="item.label"
               >
-                {{ item.name }}
+                {{ item.label }}
               </div>
             </div>
           </div>
         </div>
       </div>
       <!-- 试读 -->
-      <!--<div class="book-detail-content-wrapper">
+      <div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">{{ $t("detail.trial") }}</div>
         <div class="book-detail-content-list-wrapper">
           <div class="loading-text-wrapper" v-if="!this.displayed">
@@ -74,7 +75,7 @@
           </div>
         </div>
         <div id="preview" v-show="this.displayed" ref="preview"></div>
-      </div>-->
+      </div>
     </scroll>
     <!-- 底部按钮 -->
     <div class="bottom-wrapper">
@@ -156,13 +157,13 @@ export default {
     },
 
     // 将电子书目录转为一维数组
-    /*flatNavigation() {
+    flatNavigation() {
       if (this.navigation) {
         return this.doFlatNavigation(this.navigation.toc);
       } else {
         return [];
       }
-    },*/
+    },
     // 获取电子书语种
     lang() {
       return this.metadata ? this.metadata.language : "-";
@@ -356,24 +357,25 @@ export default {
     },
 
     // 阅读电子书
-    readBook(serial = 0) {
+    //readBook(serial = 0) {
+    readBook() {
       this.addReaderHistory();
       this.$router.push({
-          path: `/ebook/${this.$route.query.code}?serial=${serial}`,
-        /*path: `/ebook/${this.$route.query.category}|${
+          //path: `/ebook/${this.$route.query.code}?serial=${serial}`,
+        path: `/ebook/${this.bookItem.name}|${
           this.$route.query.fileName
-        }`,*/
+        }|${this.bookItem.author.code}`,
       });
     },
 
     // 通过章节阅读电子书
-    /*read(item) {
+    read(item) {
       getLocalForage(this.$route.query.fileName, (err, blob) => {
         if (!err && blob && blob instanceof Blob) {
           this.$router.push({
-            path: `/ebook/${this.$route.query.category}}|${
+            path: `/ebook/${this.bookItem.name}}|${
               this.$route.query.fileName
-            }`,
+            }|${this.bookItem.code}`,
             query: {
               navigation: item.href,
             },
@@ -391,7 +393,7 @@ export default {
         }
       });
       this.addReaderHistory();
-    },*/
+    },
 
     // 电子书目录缩进样式
     itemStyle(item) {
@@ -401,7 +403,7 @@ export default {
     },
 
     // 将目录从多维转为一维
-    /*doFlatNavigation(content, deep = 1) {
+    doFlatNavigation(content, deep = 1) {
       const arr = [];
       content.forEach((item) => {
         item.deep = deep;
@@ -411,7 +413,7 @@ export default {
         }
       });
       return arr;
-    },*/
+    },
 
     // // 通过opf下载电子书（实现逐章下载，提供电子书访问性能）
     // downloadBook() {
@@ -421,7 +423,7 @@ export default {
     // },
 
     // 解析电子书
-    /*parseBook(url) {
+    parseBook(url) {
       // 通过电子书或opf文件的url生成Book对象
       this.book = new Epub(url);
       // 获取电子书的metadata信息
@@ -450,15 +452,15 @@ export default {
           }
         }
       });
-    },*/
+    },
 
     // 获取电子书详情
     init() {
       // 获取电子书书名
-      //this.fileName = this.$route.query.fileName;
+      this.fileName = this.$route.query.fileName;
       // 获取电子书分类
-      //this.categoryText = this.$route.query.category;
-      this.fetchRequest(this.getModel('culture', 'book'), {query: {code: this.$route.query.code}, params: {action: 'detail'}}).then(response => {
+      this.categoryText = this.$route.query.category;
+      this.fetchRequest(this.getModel('culture', 'book'), {query: {code: this.$route.query.fileName}, params: {action: 'detail'}}).then(response => {
         //this.bookDetailData = response.data;
         console.log(response, "书籍详情");
         const data = response.data;
@@ -466,8 +468,26 @@ export default {
         this.bookItem = data;
         // 获取封面数据
         this.cover = this.bookItem.coverUrl;
-        this.navigation = true;
+        //this.navigation = true;
+
+            // 获取rootFile数据
+            /*let rootFile = data.rootFile;
+            if (rootFile.startsWith("/")) {
+              rootFile = rootFile.substring(1, rootFile.length);
+            }*/
+            // 根据rootFile拼接出opf文件路径(opf可以在线请求书籍,而用书籍url会下载整本电子书再解析)
+            /*this.opf = `${process.env.VUE_APP_EPUB_OPF_URL}/${
+              this.fileName
+            }/${rootFile}`;*/
+            //this.opf = `${process.env.VUE_APP_EPUB_OPF_URL}/${data.author}/${data.code}`;
+            this.opf = process.env.VUE_APP_EPUB_OPF_URL + data.author.code + '/' + data.code + '.epub';
+            // 解析电子书
+            this.parseBook(this.opf);
+
+
+
       })
+
       /*if (this.fileName) {
         // 请求API，获取电子书详情数据
         detailApi({
