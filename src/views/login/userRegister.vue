@@ -66,7 +66,7 @@
 
 <script>
 import scroll from "../../components/common/Scroll";
-import { registerApi } from "@/api/user";
+//import { registerApi } from "@/api/user";
 import { userMixin } from "@/mixins/my";
 export default {
   name: "Register",

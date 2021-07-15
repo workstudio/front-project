@@ -18,7 +18,7 @@
       </div>
       <guess-you-like :data="guessYouLike"></guess-you-like>
       <recommend :data="recommend"></recommend>
-      <featured :data="featured" :titleText="$t('home.featured')" :btnText="null"></featured>
+      <!--<featured :data="featured" :titleText="$t('home.featured')" :btnText="null"></featured>-->
       <div class="category-list-wrapper" v-for="(item, index) in categoryList" :key="index">
         <category-book class="category-book" :data="item"></category-book>
       </div>

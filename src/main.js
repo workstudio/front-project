@@ -35,6 +35,12 @@ Vue.use(vuescroll)
 VueTouch.config.swipe = {
   direction: 'horizontal'
 }
+import Element from 'element-ui'
+
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(Element, {
+  i18n: (key, value) => i18n.t(key, value)
+})
 
 Vue.use(VueTouch, {
   name: 'v-touch'
@@ -52,6 +58,19 @@ Vue.config.productionTip = false
     App
   }
 })*/
+
+//登录守卫
+router.beforeEach(async (to, from, next) => {
+  //const UserInfo = getUserInfo();
+  const hasSignin = localCache.hasSignin();
+  if (to.meta.isLogin && !hasSignin) {
+      console.log('nnnnnnnnn');
+    next({path: "/login"});
+  } else {
+      console.log('yyyy');
+    next()
+  }
+})
 
 const $vm = new Vue({
   router,

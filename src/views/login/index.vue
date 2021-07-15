@@ -63,9 +63,11 @@
 <script>
 import scroll from "../../components/common/Scroll";
 import { saveUserInfo } from "../../utils/localStorage";
-import { loginApi } from "@/api/user";
+//import { loginApi } from "@/api/user";
+import {fetchData} from '@/applications/mixins/fetchData';
 export default {
   name: "Login",
+  mixins: [fetchData],
   components: {
     scroll
   },
@@ -86,15 +88,18 @@ export default {
   methods: {
     //登录
     doLogin() {
-      loginApi(this.login).then(res => {
-        console.log(res);
-        if (res.data.code == 0) {
-          let user = res.data.data;
-          saveUserInfo(user);
-          this.login = this.$options.data().login;
+      //loginApi(this.login).then(res => {
+      this.getModel('passport', 'entrance').$create({params: {action: 'token'}, data: {name: this.login.userName, password: this.login.password}}).then(response => {
+        console.log(response);
+        if (response) {
+          //let user = response.data.user;
+          //saveUserInfo(user);
+          this.getModel('passport', 'entrance').signupinCache(response.data);
+ 
+          //this.login = this.$options.data().login;
           this.$router.push({ name: "my" });
         } else {
-          this.simpleToast(this.$t("login.loginError"));
+          //this.simpleToast(this.$t("login.loginError"));
         }
       });
     },

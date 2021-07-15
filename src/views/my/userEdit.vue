@@ -77,7 +77,7 @@ export default {
     //修改头像
     getFile(event) {
       console.log(event);
-      const userId = getUserInfo().id;
+      const userId = this.user.id;
       const file = event.target.files[0]; //获取上传元素信息
 
       const fileExt = file.name.substring(file.name.lastIndexOf("."));
@@ -145,6 +145,7 @@ export default {
 
   created() {
     this.user = getUserInfo();
+    this.user = this.localCache.getUserData();
     this.changeAvatar = this.user.avatar;
     console.log(this.user);
   },

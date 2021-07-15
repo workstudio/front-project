@@ -14,7 +14,7 @@ import detail from '../views/detail/index.vue'
 export default new Router({
   mode: 'history',
   routes: [
-    {path: '/', name: 'bookhome', component: () => import('@pages/Home'), meta: { title: '书库' } },
+    {path: '/home', name: 'bookhome', component: () => import('@pages/Home'), meta: { title: '书库' } },
   
     //{path: '/book/list', name: 'book-list', component: () => import('@pages/book/List'), meta: { title: '书籍列表' } },
     {path: '/bdetail/:code', name: 'bookdetail', component: () => import('@pages/book/Detail'), meta: { title: '书籍详情' } },
@@ -24,6 +24,15 @@ export default new Router({
     {path: '/reader/:code/:id?', name: 'reader', component: () => import('@pages/Reader'), meta: { title: '阅读' } },
 
     {path: '/', name: 'vjob', component: BookLayout, children: [
+      {
+        path: '/',
+        name: 'home',
+        component: home,
+        meta: {
+          footShow: true,
+          isLogin: false
+        },
+      },
       {
         path: '/ebook',
         name: 'ebook',
@@ -43,15 +52,6 @@ export default new Router({
             },
           }
         ]
-      },
-      {
-        path: '/home',
-        name: 'home',
-        component: home,
-        meta: {
-          footShow: true,
-          isLogin: false
-        },
       },
       {
         path:"/classify",

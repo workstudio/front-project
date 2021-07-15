@@ -221,9 +221,11 @@ export default {
     ]),
     //加入书架
     addOrRemoveShelf() {
+        console.log(this.user, 'uuuuuuuuuuuuuu');
       if (this.user) {
         // 如果电子书存在于书架，则从书架中移除电子书
         if (this.inBookShelf) {
+            console.log('vvvvvvvvvvv');
           this.setRemoveFromShelf(this.bookItem).then(() => {
             this.updataShelf();
           });
@@ -283,8 +285,8 @@ export default {
 
     //更新数据库书架信息
     updataShelf() {
-      const user = getUserInfo();
-      if (user && user !== {}) {
+      //const user = getUserInfo();
+      if (this.user) {
         const params = {
           userId: user.id,
           shelfList: JSON.stringify(this.getShelfIdList(this.shelfList)),
@@ -292,34 +294,29 @@ export default {
         updataShelfApi(params);
         saveBookShelf(this.shelfList);
       } else {
-        this.$router.push({
-          name: "login",
-        });
+        this.$router.push({name: "login"});
       }
     },
 
     //获取书架列表
     getShelfList(cb) {
-      const user = getUserInfo();
-      if (user && user !== {}) {
-        getShelfApi({
-          userId: user.id,
-        }).then((res) => {
-          if (res.status === 200 && res.data && res.data.shelfList) {
-            console.log("shelfList", res.data.shelfList);
-            saveBookShelf(res.data.shelfList);
-            this.setShelfList(res.data.shelfList);
-            if (cb) {
-              cb();
-            }
-            return res.data.shelfList;
-          }
-        });
-      } else {
-        this.$router.push({
-          name: "login",
-        });
+      if (!this.user || !this.user.id) {
+        this.$router.push({name: "login"});
+        return ;
       }
+      getShelfApi({
+        userId: user.id,
+      }).then((res) => {
+        if (res.status === 200 && res.data && res.data.shelfList) {
+          console.log("shelfList", res.data.shelfList);
+          saveBookShelf(res.data.shelfList);
+          this.setShelfList(res.data.shelfList);
+          if (cb) {
+            cb();
+          }
+          return res.data.shelfList;
+        }
+      });
     },
     //只保留 shelfList 部分属性，用于上传服务器
     getShelfIdList(arr) {
@@ -557,7 +554,8 @@ export default {
     } else {
       this.setHistoryList([]);
     }
-    this.user = getUserInfo();
+    //this.user = getUserInfo();
+    this.user = this.localCache.getUserData();
     if ((!this.shelfList || this.shelfList.length === 0) && this.user) {
       this.getShelfList();
     }

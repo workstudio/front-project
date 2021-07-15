@@ -63,26 +63,21 @@ export default {
     ]),
     //获取书架列表
     getShelfList(cb) {
-      const user = getUserInfo();
-      if (user && user !== {}) {
-        getShelfApi({
-          userId: user.id,
-        }).then((res) => {
-          if (res.status === 200 && res.data && res.data.shelfList) {
-            console.log("shelfList", res.data.shelfList);
-            saveBookShelf(res.data.shelfList);
-            this.setShelfList(res.data.shelfList);
-            if (cb) {
-              cb();
-            }
-            return res.data.shelfList;
+      //const user = getUserInfo();
+      const user = this.localCache.getUserData();
+      getShelfApi({
+        userId: user.id,
+      }).then((res) => {
+        if (res.status === 200 && res.data && res.data.shelfList) {
+          console.log("shelfList", res.data.shelfList);
+          saveBookShelf(res.data.shelfList);
+          this.setShelfList(res.data.shelfList);
+          if (cb) {
+            cb();
           }
-        });
-      } else {
-        this.$router.push({
-          name: "login",
-        });
-      }
+          return res.data.shelfList;
+        }
+      });
     },
     getSearchVaule(searchValue) {
       this.searchValue = searchValue;
