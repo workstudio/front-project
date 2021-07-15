@@ -5,8 +5,8 @@ export const fetchData = {
   name: "fetchData",
   data() {
     return {
-      appCode: this.$route.meta.app,
-      modelCode: this.$route.meta.resource,
+      //appCode: this.$route.meta.app,
+      //modelCode: this.$route.meta.resource,
     }
   },
   computed: {
@@ -14,6 +14,7 @@ export const fetchData = {
       models: state => state.baseData.cDatabases,
     }),
     cModel() {
+        console.log('aaaaaa', this.appCode, '--', this.modelCode);
       return this.getModel(this.appCode, this.modelCode);
 	},
 	currentResource() {
