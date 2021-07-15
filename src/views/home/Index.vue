@@ -407,7 +407,7 @@ export default {
   mounted: function() {
     this.getFollow();
     let that = this;
-    getHomeData().then(res => {
+    /*getHomeData().then(res => {
       that.mapKey = res.data.tengxun_map_key;
       cookie.set(MAPKEY, that.mapKey);
       that.logoUrl = res.data.logoUrl;
@@ -443,7 +443,7 @@ export default {
         !cookie.has(HAS_COUPON_WINDOW) &&
         res.data.couponList.some(coupon => coupon.is_use);
       if (!cookie.get(LATITUDE) && !cookie.get(LONGITUDE)) this.getWXLocation();
-    });
+    });*/
   },
   methods: {
     // 轮播图跳转
@@ -507,11 +507,11 @@ export default {
       cookie.set(HAS_COUPON_WINDOW, 1);
     },
     getFollow() {
-      follow()
+      /*follow()
         .then(res => {
           this.followUrl = res.data.path;
         })
-        .catch(() => {});
+        .catch(() => {});*/
     },
     setOpenShare() {
       if (isWeixin()) {

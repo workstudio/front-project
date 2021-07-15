@@ -1,8 +1,9 @@
 import { Database } from '@vuex-orm/core'
 
-//import app from './app'
+import app from './app'
 
 import getters from '../getters'
+import actions from '../actions'
 
 import passportDatabases from '@/applications/passport/database'
 
@@ -13,7 +14,6 @@ let databases = {
 const database = new Database()
 const currentVuexs = {
   app,
-  user
 };
 
 for (let key in databases) {
@@ -23,4 +23,4 @@ for (let key in databases) {
   }
 }
 
-export {database, databases, currentVuexs, getters}
+export {database, databases, currentVuexs, getters, actions}
