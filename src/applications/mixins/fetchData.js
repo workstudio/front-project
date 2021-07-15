@@ -5,8 +5,8 @@ export const fetchData = {
   name: "fetchData",
   data() {
     return {
-      appCode: this.$route.meta.app,
-      modelCode: this.$route.meta.resource,
+      //appCode: this.$route.meta.app,
+      //modelCode: this.$route.meta.resource,
     }
   },
   computed: {
