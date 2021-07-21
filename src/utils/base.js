@@ -90,6 +90,9 @@ export function emptyObject(obj) {
 }
 
 export function isSameArray(arr1, arr2) {
+  if (!arr1 || !arr2) {
+    return false;
+  }
   return arr1.length === arr2.length && arr1.every(a => arr2.some(b => a === b)) && arr2.every(_b => arr1.some(_a => _a === _b));
 }
 
