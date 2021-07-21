@@ -2,6 +2,7 @@
 
 // App通用配置
 const rModule = {
+  namespaced: true,
   state: {
     bar: false,
     font_panel: false,
