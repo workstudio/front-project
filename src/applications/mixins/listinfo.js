@@ -50,7 +50,6 @@ export const listinfo = {
             });
             return ;
           }
-            console.log(response);
           this.$refs.listForm.handleUpdate(response.data);
         })
       } else {
@@ -89,7 +88,6 @@ export const listinfo = {
           this.dialogPopTableVisible = false;
           break;
       }
-      console.log(operation, 'ffffffffffffff', this.selectionElems);
     }
   }
 }
