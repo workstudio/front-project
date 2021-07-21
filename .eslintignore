@@ -5,3 +5,4 @@ src
 config
 public
 dist
+vue.config.js
