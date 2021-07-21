@@ -25,6 +25,10 @@ function resolve(dir) {
 
 module.exports = {
   assetsDir: "h5",
+  devServer: {
+    "disableHostCheck": true//,
+    //before: require('./mock/mock-server.js')
+  },
   configureWebpack: config => {
     Object.assign(config.resolve.alias, {
       "@": resolve("src"),
