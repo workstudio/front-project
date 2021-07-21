@@ -89,6 +89,8 @@ export default {
   directives: { waves },
   data() {
     return {
+      appCode: this.$route.meta.app,
+      modelCode: this.$route.meta.resource,
       downloadLoading: false,
       sortElem: {},
       searchFields: {},

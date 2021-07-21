@@ -126,6 +126,8 @@ export default {
   data() {
     // const vm = this;
     return {
+      appCode: this.$route.meta.app,
+      modelCode: this.$route.meta.resource,
       elemForms: elemForms,
 
       fileList: [],
