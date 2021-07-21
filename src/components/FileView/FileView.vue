@@ -71,7 +71,6 @@ export default {
   },
   methods: {
     anyKeyClose(e) {
-        console.log(e, 'eeeeeee');
       if (e == "close") {
         this.dialogVisible = false;
         return;

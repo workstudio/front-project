@@ -26,7 +26,6 @@ export default {
           });
           return ;
         }
-          console.log(response);
         let data = response.data;
         let permissionDatas = {
           code: data.code.value,
@@ -34,7 +33,6 @@ export default {
           checked: data.permission_data.value.checked,
           trees: data.permission_data.value.trees,
         }
-        console.log(permissionDatas);
         this.dealAction(permissionDatas);
         //this.$refs.listAuthority.handleAuthority(response.data);
       })

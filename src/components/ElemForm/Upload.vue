@@ -170,7 +170,7 @@ export default {
       let system = this.upOptions.system ? this.upOptions.system : '';
       switch (system) {
         case 'tmfile':
-        case 'ossfile':
+        case 'ossfree':
           let extension = self.baseMethod.getExtName(file.name);
           let filepath = this.upOptions.path_full + '/' + self.baseMethod.uuid() + extension;
           client(system).multipartUpload(filepath, file).then(result => {
@@ -208,8 +208,7 @@ export default {
         if (response === false) {
           return ;
         }
-          console.log(response);
-        let fileInfo = response;//.datas;
+        let fileInfo = response.data;
         self.fileList.push({name: fileInfo.name, url: fileInfo.filepath});
         self.$emit("afterSuccess", {pathDetail: {id: self.upOptions.path_id}, fileInfo: fileInfo});
       })

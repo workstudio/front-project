@@ -285,7 +285,7 @@ export default {
       }
 
       this.getRequest(this.cModel, {query: {}, params: {keyField: pathId}}).then(response => {
-        this.pathDetail = response;
+        this.pathDetail = response.data;
         this.getFileList()
       })
     },

@@ -11,7 +11,7 @@
             v-for="(item, index) in fileInfos"
             :key="index"
             :currentIndex="index"
-            :checkList="selectElems"
+            :selectElems="selectElems"
             :fileInfo="item"
             :showSelect="showSelect"
             :type="item.type"
@@ -69,6 +69,7 @@ export default {
     },
     afterSuccess(res) {
       this.fileInfos.push(res);
+      this.selectElems.push(res.id);
     },
     handleRemove(index) {
       this.fileInfos.splice(index, 1);
@@ -85,6 +86,7 @@ export default {
         }
 
         this.fileInfos.push(data);
+        this.selectElems.push(data.id);
       }
       //this.fileInfos.concat(selects);
     },

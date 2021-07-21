@@ -265,7 +265,6 @@ export default {
       })
     },
     getProductSkuSp(row, index) {
-        console.log(row, 'wwwrrrrr', index);
         return row.skuname1;
 
       /*let spData = JSON.parse(row.spData);
@@ -280,7 +279,6 @@ export default {
       let keyField = this.model.keyField;
       //this.model.$update({params: {keyField: this.currentRow[keyField].valueSource, action: 'update'}, data: data}).then(response => {
       this.model.$get({params: {keyField: 113, action: 'get'}, query: {point_scene: 'full'}}).then(response => {
-        console.log(response, 'rrrrrrrrrrrrr');
         this.attributeElems = response.data.attributeElems;
         this.skuElems = response.data.skuElems;
         this.skuInfos = response.data.skuInfos;

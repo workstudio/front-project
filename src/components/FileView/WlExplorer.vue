@@ -432,14 +432,12 @@ export default {
       this.$emit("previewFile", row, previewType);
     },
     handleSelectionPath(val) {
-        console.log(val, 'ttttt');
       this.multipleSelectionDeal(val, 'path');
     },
     handleSelectionFile(val) {
       this.multipleSelectionDeal(val, 'file');
     },
     multipleSelectionDeal(rows, type) {
-        console.log(rows);
       let selections = [];
       if (rows) {
         rows.forEach(row => {
@@ -447,7 +445,6 @@ export default {
         });
         this.multipleSelections[type] = selections;
       }
-        console.log(this.multipleSelections, 'hhhhhhhf');
     },
     deleteSelection(type) {
       let elems = this.multipleSelections[type] ? this.multipleSelections[type] : [];

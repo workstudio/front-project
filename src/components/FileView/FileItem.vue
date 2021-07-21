@@ -20,6 +20,7 @@
         name="radio"
         >{{ fileInfo.name }}</el-checkbox>-->
       <el-checkbox 
+        v-model="checkList"
         class="upload-list__item-radio"
         :label="fileInfo.id"
         name="radio"
@@ -58,7 +59,7 @@ export default {
     fileInfo: {type: Object, default: () => {return {};}},
     showSelect: {type: Boolean, default: false},
     currentIndex: {type: Number, default: 0},
-    checkList: {type: Array},
+    selectElems: {type: Array},
   },
   data() {
     return {
@@ -68,6 +69,9 @@ export default {
   computed: {
     fileType() {
       return this.baseMethod.getFileType(this.fileInfo.extension);
+    },
+    checkList() {
+      console.log(this.selectElems, 'ssssssssssss');
     }
   },
   methods: {

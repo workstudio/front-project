@@ -24,7 +24,6 @@ export default {
       } else if (data.title) {
         infoName = data.title.value;
       }
-      console.log(keyField, data, index, 'dddddddd', params);
 
       this.$confirm('此操作将永久删除-"' + infoName + '", 是否继续?', '提示', {
           confirmButtonText: '确定',

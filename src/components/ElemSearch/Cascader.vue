@@ -31,7 +31,6 @@ export default {
       if (!this.elem.props.multiple) {
         return vLength ? this.selectValue[vLength - 1] : 0;
       }
-      console.log('nnnnnnnnnn', this.selectNode, vLength, this.lastNode);
       let selects = '';
       for (let field in this.selectNode) {
         selects += this.selectNode[field].value + ',';

@@ -25,7 +25,6 @@ export default {
     }
       editor.config.uploadImgServer = '/upload-img'
       editor.config.zIndex = 100;
-      console.log(this.input, 'fffffffff');
     editor.create()
     editor.txt.html(this.input)
   },

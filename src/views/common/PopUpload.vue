@@ -88,15 +88,14 @@ export default {
       this.popUploadVisible = true
       let row = params.row;
       this.listType = params.elem.filetype == 'image' ? 'picture' : 'text';
-        console.log(params, this.listType, 'ffffff');
       let operation = params.operation;
       //this.getList(row, operation);
       this.attachmentModel.$create({params: {}, data: {point_scene: 'get_formelem'}}).then(response => {
         if (response === false) {
           return ;
         }
-        this.fileFormFields = response.formFields;
-        this.fieldNames = response.fieldNames;
+        this.fileFormFields = response.data.formFields;
+        this.fieldNames = response.data.fieldNames;
         for (let field in this.fileFormFields) {
           let item = this.fileFormFields[field];
           this.fileInputInfos[field] = item.defaultValue ? item.defaultValue : '';
@@ -129,7 +128,6 @@ export default {
     afterSuccess(res) {
       this.$emit("afterSuccess", res.fileInfo);
       this.popUploadVisible = false;
-        console.log('aaaaaaaa', this.$refs['template_form']);
       this.$refs['template_form'].resetFields();
     },
     // 文件上传前回调
