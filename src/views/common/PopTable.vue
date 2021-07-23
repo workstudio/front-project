@@ -58,6 +58,8 @@ export default {
   },
   data() {
     return {
+      appCode: this.$route.meta.app,
+      modelCode: this.$route.meta.resource,
       dialogPopTableVisible: false,
       pvData: [],
       sortElem: {},

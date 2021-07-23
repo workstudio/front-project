@@ -53,6 +53,7 @@ export default {
       destroyOnClose: false,
       loadSurvey: true,
       currentRow: {},
+      currentRowSource: {},
       inputInfos: {},
       /*rules: {
         type: [{ required: true, message: 'type is required', trigger: 'change' }],
@@ -150,6 +151,7 @@ export default {
     },
     handleUpdate(row) {
       this.currentRow = row;
+      this.currentRowSource = this.baseMethod.cloneObj(row);
       //this.inputInfos.timestamp = new Date(this.inputInfos.timestamp)
       this.destroyOnClose = true;
       this.formType = 'update';
@@ -171,9 +173,9 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           let keyField = this.model.keyField;
-          let keyValue = this.currentRow[keyField].valueSource;
+          let keyValue = this.currentRowSource[keyField].valueSource;
           //tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          let {data, fileData} = this.model.formatDirtData(this.inputInfos, this.currentRow, this.updateFormFields);
+          let {data, fileData} = this.model.formatDirtData(this.inputInfos, this.currentRowSource, this.updateFormFields);
           this.fileData = fileData;
           if (!this.baseMethod.emptyObject(fileData)) {
             this.updateAttachmentInfo(keyValue, fileData, this.updateFormFields);
