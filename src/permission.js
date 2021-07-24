@@ -59,8 +59,8 @@ router.beforeEach(async(to, from, next) => {
         } catch (error) {
           console.log(error, 'eeeee');
           // remove token and go to login page to re-login
-          //localCache.removeUser();
-          //localCache.removePermission();
+          localCache.removeUser();
+          localCache.removePermission();
           Message.error(error || 'Has Error')
           //next(`/login?redirect=${to.path}`)
           NProgress.done()

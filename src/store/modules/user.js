@@ -34,6 +34,7 @@ const actions = {
       	//if (globalSettings.envType != response.manager_type) {
           //popMethod.showMessage('error', '管理后台类型有误，请重新登录');
 		//} else {
+		response = response.data;
         commit('SET_TOKEN', response.access_token);
         commit('SET_USERDATA', response.user);
         //commit('SET_MANAGERDATA', response.manager);
