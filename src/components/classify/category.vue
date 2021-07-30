@@ -10,16 +10,16 @@
         <div class="category-item">
           <div class="content-wrapper">
             <div class="title title-medium">
-              {{ categoryText(item.category) }}
+              {{ item.name }}
             </div>
             <div class="num sub-title-tiny">
-              {{ item.num + " " + $t("home.books") }}
+              {{ item.bookNum + " " + $t("home.books") }}
             </div>
           </div>
           <div class="img-wrapper">
             <div class="img-group">
-              <img class="img" v-lazy="item.img1" />
-              <img class="img2" v-lazy="item.img2" />
+              <img class="img" v-lazy="item.thumbUrl" />
+              <img class="img2" v-lazy="item.thumbUrl" />
             </div>
           </div>
         </div>
@@ -41,8 +41,8 @@ export default {
       this.$router.push({
         name: "bookList",
         query: {
-          category: getCategoryName(item.category),
-          categoryText: this.categoryText(item.category),
+          category: item.code,//getCategoryName(item.category),
+          //categoryText: this.categoryText(item.category),
         },
       });
     },

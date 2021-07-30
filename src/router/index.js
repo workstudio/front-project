@@ -67,7 +67,7 @@ export default new Router({
         name: 'bookList',
         component: () => import(/* webpackChunkName: "bookList" */ '../views/home/bookList.vue'),
         meta: {
-          footShow: false,
+          footShow: true,
           isLogin: false
         },
       },

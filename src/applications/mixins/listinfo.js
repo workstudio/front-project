@@ -62,7 +62,6 @@ export const listinfo = {
       case 'authority':
         return this.handleAuthority(params.datas);
         break;
-      case 'delete':
       case 'update':
         return this.handleUpdate(params.datas);
         break;
