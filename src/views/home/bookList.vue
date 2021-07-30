@@ -13,10 +13,10 @@
       ref="scroll"
     >
       <featured
-        :data="value"
+        class="category-book"
+        :data="list"
         :titleText="getCategoryText(key)"
         :btnText="''"
-        v-for="(value, key, index) in list"
         :key="index"
       ></featured>
     </scroll>
@@ -28,9 +28,11 @@ import SearchTitle from "@/components/detail/detaiTitle";
 import Scroll from "@/components/common/Scroll";
 import Featured from "@/components/home/featured";
 import { realPx } from "@/utils/utils";
-import { listApi, searchBookApi, flatListApi } from "@/api/bookList";
+//import { listApi, searchBookApi, flatListApi } from "@/api/bookList";
 import { categoryList, categoryText } from "@/utils/home";
 import { StoreHomeMixin } from "@/mixins/home";
+import {fetchData} from '@/applications/mixins/fetchData';
+
 export default {
   name: "BookList",
   components: {
@@ -38,7 +40,7 @@ export default {
     Scroll,
     Featured
   },
-  mixins: [StoreHomeMixin],
+  mixins: [StoreHomeMixin, fetchData],
   computed: {
     title() {
       if (JSON.stringify(this.list) !== "{}") {
@@ -69,7 +71,7 @@ export default {
         this.$refs.title.hideShadow();
       }
     },
-    getBookList() {
+    /*getBookList() {
       this.continueShow("请稍等...")
       const category = this.$route.query.category;
       const keyword = this.$route.query.keyword;
@@ -92,10 +94,23 @@ export default {
           this.toastHide();
         });
       }
-    }
+    },*/
+    getList() {
+      this.continueShow("请稍等...")
+      const category = this.$route.query.category ? this.$route.query.category : '';
+      const keyword = this.$route.query.keyword ? this.$route.query.keyword : '';
+      this.fetchRequest(this.getModel('culture', 'book'), {query: {category: category, keyword: keyword}, params: {action: 'front-list'}}).then(response => {
+        const data = response.data;
+        console.log(data);
+        //this.categories = data;
+        this.list = data.books;
+        this.total = data.total;
+        this.toastHide();
+      })
+    },
   },
   created() {
-    this.getBookList();
+    this.getList();
   }
 };
 </script>
@@ -106,5 +121,8 @@ export default {
   height: 100%;
   background: white;
   overflow: hidden;
+  .category-book {
+    margin: -30px 0 50px 10px;
+  }
 }
 </style>

@@ -15,10 +15,13 @@
 <script>
 import Scroll from "@/components/common/Scroll";
 import TitleView from "@/components/home/title";
-import { classifyListApi } from "@/api/classify.js";
+//import { classifyListApi } from "@/api/classify.js";
 import Category from "@/components/classify/category";
+import {fetchData} from '@/applications/mixins/fetchData';
+
 export default {
   name: "Classify",
+  mixins: [fetchData],
   components: {
     Category,
     TitleView,
@@ -33,10 +36,11 @@ export default {
   },
   created() {
     this.continueShow("请稍等...");
-    classifyListApi().then((res) => {
+    /*classifyListApi().then((res) => {
       this.categories = res.data.data;
       this.toastHide();
-    });
+    });*/
+    this.getList();
   },
   methods: {
     onScroll(offsetY) {
@@ -50,6 +54,14 @@ export default {
       this.$router.push({
         name: "bookList",
       });
+    },
+    getList() {
+      this.fetchRequest(this.getModel('culture', 'category'), {query: {}, params: {action: 'home'}}).then(response => {
+        const data = response.data;
+        console.log(data);
+        this.categories = data;
+        this.toastHide();
+      })
     },
   },
 };

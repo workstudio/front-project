@@ -1,7 +1,7 @@
 <template>
   <div class="cover-title-wrapper">
     <div class="cover-title-left-wrapper">
-      <img class="cover-img" v-lazy="cover">
+      <img class="cover-img" v-lazy="bookInfo.coverUrl">
     </div>
     <div class="cover-title-right-wrapper" v-if="bookInfo.code">
       <div class="detail-cover-title-wrapper">

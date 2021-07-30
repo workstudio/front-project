@@ -11,7 +11,7 @@
     >
       <book-info :bookInfo="bookItem"></book-info>
       <!-- 出版社 -->
-      <div class="book-detail-content-wrapper">
+      <!--<div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">
           {{ $t("detail.copyright") }}
         </div>
@@ -37,7 +37,7 @@
             <div class="book-detail-content-text">{{ isbn }}</div>
           </div>
         </div>
-      </div>
+      </div>-->
       <!-- 书籍章节 -->
       <div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">
@@ -60,7 +60,7 @@
                 :style="itemStyle(item)"
                 v-if="item.label"
               >
-                {{ item.label }}
+                <el-button type="warning" icon="el-icon-notebook-1" size="mini" @click="noteBook" circle></el-button>{{ item.label }}
               </div>
             </div>
           </div>
@@ -221,11 +221,9 @@ export default {
     ]),
     //加入书架
     addOrRemoveShelf() {
-        console.log(this.user, 'uuuuuuuuuuuuuu');
       if (this.user) {
         // 如果电子书存在于书架，则从书架中移除电子书
         if (this.inBookShelf) {
-            console.log('vvvvvvvvvvv');
           this.setRemoveFromShelf(this.bookItem).then(() => {
             this.updataShelf();
           });
