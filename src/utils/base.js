@@ -45,6 +45,37 @@ const shuffle = function (arr) {
 
 // 深度拷贝
 const cloneObj = (obj) => {
+  var o;
+  // 如果  他是对象object的话  , 因为null,object,array  也是'object';
+  if (typeof obj === 'object') {
+    
+    // 如果  他是空的话
+    if (obj === null) {
+      o = null;
+    }
+    else {
+  
+      // 如果  他是数组arr的话
+      if (obj instanceof Array) {
+        o = [];
+        for (var i = 0, len = obj.length; i < len; i++) {
+          o.push(cloneObj(obj[ i ]));
+        }
+      }
+      // 如果  他是对象object的话
+      else {
+        o = {};
+        for (var j in obj) {
+          o[ j ] = cloneObj(obj[ j ]);
+        }
+      }
+      
+    }
+  }
+  else {
+    o = obj;
+  }
+  return o;
     if (!obj || typeof obj !== 'object') return
     const newObj = new obj.constructor() // 拷贝原型链上的
     for (const key in Object.getOwnPropertyDescriptors(obj)) { // 拷贝自己的成员
@@ -523,4 +554,5 @@ export {
   VUE_APP_WS_URL,
   globalSettings,
   isPhone,
+  cloneObj,
 }
