@@ -60,7 +60,7 @@
                 :style="itemStyle(item)"
                 v-if="item.label"
               >
-                <el-button type="warning" icon="el-icon-notebook-1" size="mini" @click="noteBook" circle></el-button>{{ item.label }}
+                <el-button type="warning" icon="el-icon-notebook-1" size="mini" @click.stop="noteBook(item)" circle></el-button>{{ item.label }}
               </div>
             </div>
           </div>
@@ -77,6 +77,16 @@
         <div id="preview" v-show="this.displayed" ref="preview"></div>
       </div>
     </scroll>
+    <el-dialog
+      title="标记阅读记录"
+      :visible.sync="noteDialogVisible"
+      width="80%"
+      center>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="startRead()">开始阅读</el-button>
+        <el-button type="primary" @click="finishRead()">完成阅读</el-button>
+      </span>
+    </el-dialog>
     <!-- 底部按钮 -->
     <div class="bottom-wrapper">
       <div class="bottom-btn" @click.stop.prevent="readBook()">
@@ -131,6 +141,7 @@ export default {
     return {
       user: null,
       bookItem: {},
+      noteDialogVisible: false,
       book: null,
       metadata: null,
       trialRead: null,
@@ -140,6 +151,7 @@ export default {
       audio: null,
       randomLocation: null,
       description: null,
+      currentChapter: null,
       trialText: null,
       categoryText: null,
       opf: null,
@@ -219,6 +231,44 @@ export default {
       "setRemoveFromShelf",
       "setShelfList",
     ]),
+    noteBook(item) {
+      this.noteDialogVisible = true;
+      this.currentChapter = item;
+        console.log('nnnn');
+    },
+    startRead() {
+      console.log(this.currentChapter, 'cccccccc');
+      let data = {
+        serial: this.currentChapter.id, 
+        book_code: this.bookItem.code,
+        type: 'start',
+      };
+      this.recordRead(data);
+    },
+    finishRead() {
+      console.log(this.currentChapter, 'cccccccc');
+      let data = {
+        serial: this.currentChapter.id, 
+        book_code: this.bookItem.code,
+        type: 'finish',
+      };
+      this.recordRead(data);
+    },
+    recordRead(data) {
+      this.getModel('culture', 'chapterRecord').$create({params: {action: 'record'}, data: data}).then(response => {
+        console.log(response);
+        if (response) {
+          //let user = response.data.user;
+          //saveUserInfo(user);
+          this.getModel('passport', 'entrance').signupinCache(response.data);
+ 
+          //this.login = this.$options.data().login;
+          this.$router.push({ name: "my" });
+        } else {
+          //this.simpleToast(this.$t("login.loginError"));
+        }
+      });
+    },
     //加入书架
     addOrRemoveShelf() {
       if (this.user) {
