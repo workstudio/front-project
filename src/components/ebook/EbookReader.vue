@@ -71,7 +71,7 @@ export default {
     //初始化图书
     initEpub(url) {
       // let url = process.env.VUE_APP_EPUB_URL + this.fileName + ".epub";
-      //url = 'http://upfile.canliang.wang/books/epub-filenamen.epub';
+      //url = 'http://upfile.canliang.wang/books/test.epub';
       this.book = new Epub(url, {openAs: 'epub'});
       this.setCurrentBook(this.book);
       this.parseBook();
@@ -198,7 +198,10 @@ export default {
       //获取封面
       if (this.isOnOpf) {
         this.book.coverUrl().then(url => {
-          this.setCover(url);
+          this.book.resources.createUrl(this.book.cover).then(url => {
+          //console.log(coverUrl, this.book, 'booo');
+            this.setCover(url);
+          });
         });
       } else {
         this.book.loaded.cover.then(cover => {
