@@ -57,7 +57,6 @@ export default {
     },
     bookDetailId(id) {
       this.$store.dispatch('chooseBook', id)
-      console.log(id)
     },
     unique(arr) {
       return Array.from(new Set(arr))

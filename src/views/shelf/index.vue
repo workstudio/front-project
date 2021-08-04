@@ -18,14 +18,17 @@ import ShelfTitle from "@/components/shelf/shelfTitle";
 import Scroll from "@/components/common/Scroll";
 import ShelfSearch from "@/components/shelf/shelfSearch";
 import ShelfList from "@/components/shelf/shelfList";
-import { getShelfApi } from "../../api/shelf";
+//import { getShelfApi } from "../../api/shelf";
 import { saveBookShelf, getUserInfo } from "../../utils/localStorage";
 import { flatBookList } from "../../utils/shelf";
 // import ShelfMixin from "../../mixins/shelf";
 import { mapGetters, mapActions } from "vuex";
+import {fetchData} from '@/applications/mixins/fetchData';
+
 export default {
   name: "BookShelf",
   // mixins: [ShelfMixin],
+  'mixins': [fetchData],
   components: {
     ShelfTitle,
     Scroll,
@@ -65,7 +68,16 @@ export default {
     getShelfList(cb) {
       //const user = getUserInfo();
       const user = this.localCache.getUserData();
-      getShelfApi({
+      this.fetchRequest(this.getModel('culture', 'shelf'), {query: {}, params: {action: 'mylist'}}).then(response => {
+        const data = response.data;
+        saveBookShelf(data);
+        this.setShelfList(data);
+        if (cb) {
+          cb();
+        }
+        return data;
+      })
+      /*getShelfApi({
         userId: user.id,
       }).then((res) => {
         if (res.status === 200 && res.data && res.data.shelfList) {
@@ -77,7 +89,7 @@ export default {
           }
           return res.data.shelfList;
         }
-      });
+      });*/
     },
     getSearchVaule(searchValue) {
       this.searchValue = searchValue;

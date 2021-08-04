@@ -58,7 +58,6 @@ export default {
     getList() {
       this.fetchRequest(this.getModel('culture', 'category'), {query: {}, params: {action: 'home'}}).then(response => {
         const data = response.data;
-        console.log(data);
         this.categories = data;
         this.toastHide();
       })

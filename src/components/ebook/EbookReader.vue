@@ -199,7 +199,6 @@ export default {
       if (this.isOnOpf) {
         this.book.coverUrl().then(url => {
           this.book.resources.createUrl(this.book.cover).then(url => {
-          //console.log(coverUrl, this.book, 'booo');
             this.setCover(url);
           });
         });
@@ -395,7 +394,6 @@ export default {
   created() {},
   mounted() {
     const books = this.$route.params.fileName.split("|");
-      console.log(books, 'sssssssssssbb');
     const fileName = books[1];
     const author = books[2];
     //在indexDB中查看是否有缓存
@@ -414,7 +412,6 @@ export default {
           this.setFileName(books.join("/")).then(() => {
             const url =
               process.env.VUE_APP_EPUB_OPF_URL + "/" + author + '/' + fileName + ".epub";
-              console.log(url, 'uuuuuuuuuuuuuuu');
             this.isOnOpf = false;
             this.initEpub(url);
           });

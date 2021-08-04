@@ -3,7 +3,7 @@
     <div class="list">
       <div class="list-nav">
         <i class="back" @click="hideListPanel"></i>
-        <h3>目录{{test}}</h3>
+        <h3>目录</h3>
       </div>
       <div class="list-content" @touchmove>
         <ul>
@@ -31,9 +31,6 @@ export default {
       reader: state => state.reader,
       //readerModel: state => state.baseData.cDatabases.Reader,
     }),
-    test() {
-        console.log('tttttt', this.cLists);
-    }
   },
   methods: {
     /*jumpTo(index) {

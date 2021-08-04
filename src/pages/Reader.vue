@@ -115,18 +115,15 @@ export default {
     },
     // 向上翻页
     pageUp() {
-        console.log('pageUp');
       let target = document.body.scrollTop - window.screen.height - 80
       this.startScroll(target, -20)
     },
     // 向下翻页
     pageDown() {
-        console.log('pageDown');
       let target = document.body.scrollTop + window.screen.height - 80
       this.startScroll(target, 20)
     },
     startScroll(target, speed) {
-        console.log('startScroll');
       let times = null
       times = setInterval(function () {
         if (speed > 0) {
@@ -174,7 +171,6 @@ export default {
     },
     page(e) {
       if (e.keyCode === 39) {
-        console.log(this.nextChapter)
         this.nextChapter()
       } else if (e.keyCode === 37) {
         this.prevChapter()
