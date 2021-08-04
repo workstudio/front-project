@@ -234,21 +234,20 @@ export default {
     noteBook(item) {
       this.noteDialogVisible = true;
       this.currentChapter = item;
-        console.log('nnnn');
     },
     startRead() {
-      console.log(this.currentChapter, 'cccccccc');
+      let serial = this.currentChapter.href.replace('.html', '');
       let data = {
-        serial: this.currentChapter.id, 
+        serial: serial, 
         book_code: this.bookItem.code,
         type: 'start',
       };
       this.recordRead(data);
     },
     finishRead() {
-      console.log(this.currentChapter, 'cccccccc');
+      let serial = this.currentChapter.href.replace('.html', '');
       let data = {
-        serial: this.currentChapter.id, 
+        serial: serial, 
         book_code: this.bookItem.code,
         type: 'finish',
       };
@@ -256,17 +255,10 @@ export default {
     },
     recordRead(data) {
       this.getModel('culture', 'chapterRecord').$create({params: {action: 'record'}, data: data}).then(response => {
-        console.log(response);
         if (response) {
-          //let user = response.data.user;
-          //saveUserInfo(user);
-          this.getModel('passport', 'entrance').signupinCache(response.data);
- 
-          //this.login = this.$options.data().login;
-          this.$router.push({ name: "my" });
-        } else {
-          //this.simpleToast(this.$t("login.loginError"));
+          this.simpleToast('您已成功记录，请继续您的阅读');
         }
+        this.noteDialogVisible = false;
       });
     },
     //加入书架
@@ -507,7 +499,6 @@ export default {
       this.categoryText = this.$route.query.category;
       this.fetchRequest(this.getModel('culture', 'book'), {query: {code: this.$route.query.fileName}, params: {action: 'detail'}}).then(response => {
         //this.bookDetailData = response.data;
-        console.log(response, "书籍详情");
         const data = response.data;
         // 保存电子书详情数据
         this.bookItem = data;
@@ -543,7 +534,6 @@ export default {
             response.data.code === 0 &&
             response.data.data
           ) {
-            console.log(response, "书籍详情");
             const data = response.data.data;
             // 保存电子书详情数据
             this.bookItem = data;

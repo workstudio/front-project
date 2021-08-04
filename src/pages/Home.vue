@@ -65,7 +65,6 @@ export default {
     getList() {
       this.listLoading = true
       this.fetchRequest(this.getModel('culture', 'book'), {query: {}, params: {action: 'home'}}).then(response => {
-        console.log(response);
         this.positionBooks = response.data.positionBooks;
         this.navBooks = response.data.navBooks;
 

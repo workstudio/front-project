@@ -63,11 +63,12 @@ Vue.config.productionTip = false
 router.beforeEach(async (to, from, next) => {
   //const UserInfo = getUserInfo();
   const hasSignin = localCache.hasSignin();
-  if (to.meta.isLogin && !hasSignin) {
-      console.log('nnnnnnnnn');
+  if (hasSignin && to.path == '/login') {
+    let redirect = to.query.redirect ?? '/';
+    next(redirect);
+  } else if (to.meta.isLogin && !hasSignin) {
     next({path: "/login"});
   } else {
-      console.log('yyyy');
     next()
   }
 })

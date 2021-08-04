@@ -90,7 +90,6 @@ export default {
     doLogin() {
       //loginApi(this.login).then(res => {
       this.getModel('passport', 'entrance').$create({params: {action: 'token'}, data: {name: this.login.userName, password: this.login.password}}).then(response => {
-        console.log(response);
         if (response) {
           //let user = response.data.user;
           //saveUserInfo(user);

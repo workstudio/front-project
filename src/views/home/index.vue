@@ -118,11 +118,9 @@ export default {
       this.listLoading = true
       this.fetchRequest(this.getModel('culture', 'book'), {query: {}, params: {action: 'home'}}).then(response => {
         const data = response.data;
-        console.log(data);
         //this.random = data.positionBooks.reading;
         //this.bannerList = data.banner;
         this.guessYouLike = data.positionBooks.reading.books;
-          console.log(this.guessYouLike, 'lllllll');
         this.recommend = data.positionBooks.favor.books;
         this.featured = data.positionBooks.favor.books;
         this.categoryList = data.navBooks;
@@ -143,7 +141,6 @@ export default {
     /*homeApi().then(response => {
       if (response && response.status === 200) {
         const data = response.data;
-        console.log(data);
         this.random = data.random;
         this.bannerList = data.banner;
         this.guessYouLike = data.guessYouLike;

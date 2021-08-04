@@ -76,7 +76,6 @@ export default {
 
     //修改头像
     getFile(event) {
-      console.log(event);
       const userId = this.user.id;
       const file = event.target.files[0]; //获取上传元素信息
 
@@ -130,7 +129,6 @@ export default {
       this.EditForm.append("user", JSON.stringify(this.user));
       userUpdataApi(this.EditForm).then(res => {
         if (res.data.code == 0) {
-          console.log(res);
           let user = res.data.data;
           this.user = user;
           saveUserInfo(user);
@@ -147,7 +145,6 @@ export default {
     this.user = getUserInfo();
     this.user = this.localCache.getUserData();
     this.changeAvatar = this.user.avatar;
-    console.log(this.user);
   },
   mounted() {}
 };

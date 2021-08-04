@@ -101,7 +101,6 @@ export default {
       const keyword = this.$route.query.keyword ? this.$route.query.keyword : '';
       this.fetchRequest(this.getModel('culture', 'book'), {query: {category: category, keyword: keyword}, params: {action: 'front-list'}}).then(response => {
         const data = response.data;
-        console.log(data);
         //this.categories = data;
         this.list = data.books;
         this.total = data.total;

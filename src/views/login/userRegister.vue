@@ -131,7 +131,6 @@ export default {
           this.register.avatar.lastIndexOf("/") + 1
         );
         registerApi(this.register).then(res => {
-          console.log(res);
           if (res.data.code == 0) {
             this.simpleToast(this.$t("login.registerSuccessfuly"));
             this.register = this.$options.data();
