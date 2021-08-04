@@ -114,7 +114,7 @@ import { px2rem, realPx } from "../../utils/utils";
 import { flatBookList } from "../../utils/shelf";
 import { getLocalForage } from "../../utils/localForage";
 import { mapGetters, mapActions } from "vuex";
-import { getShelfApi, updataShelfApi } from "../../api/shelf";
+//import { getShelfApi, updataShelfApi } from "../../api/shelf";
 // import ShelfMixin from "@/mixins/shelf";
 import {fetchData} from '@/applications/mixins/fetchData';
 import {
@@ -202,9 +202,10 @@ export default {
       if (this.bookItem && this.shelfList) {
         // 定义一个自执行函数，将书架转为一维数组结构，并且只保留type为1的数据（type=1的为电子书）
         const flatShelf = flatBookList(this.shelfList);
+        //const flatShelf = this.shelfList;
         // 查找当前电子书是否存在于书架
         const book = flatShelf.filter(
-          (item) => item.fileName === this.bookItem.fileName
+          (item) => item.bookCode === this.bookItem.code
         );
         return book && book.length > 0;
       } else {
@@ -327,11 +328,17 @@ export default {
     updataShelf() {
       //const user = getUserInfo();
       if (this.user) {
-        const params = {
+        /*const params = {
           userId: user.id,
           shelfList: JSON.stringify(this.getShelfIdList(this.shelfList)),
-        };
-        updataShelfApi(params);
+        };*/
+        const data = JSON.stringify(this.getShelfIdList(this.shelfList));
+        this.getModel('culture', 'shelf').$create({params: {action: 'record'}, data: {params: data}}).then(response => {
+          if (response) {
+            this.simpleToast('您已成功记录，请继续您的阅读');
+          }
+        });
+        //updataShelfApi(params);
         saveBookShelf(this.shelfList);
       } else {
         this.$router.push({name: "login"});
@@ -344,7 +351,16 @@ export default {
         this.$router.push({name: "login"});
         return ;
       }
-      getShelfApi({
+      this.fetchRequest(this.getModel('culture', 'shelf'), {query: {}, params: {action: 'mylist'}}).then(response => {
+        const data = response.data;
+        saveBookShelf(data);
+        this.setShelfList(data);
+        if (cb) {
+          cb();
+        }
+        return data;
+      })
+      /*getShelfApi({
         userId: user.id,
       }).then((res) => {
         if (res.status === 200 && res.data && res.data.shelfList) {
@@ -356,7 +372,7 @@ export default {
           }
           return res.data.shelfList;
         }
-      });
+      });*/
     },
     //只保留 shelfList 部分属性，用于上传服务器
     getShelfIdList(arr) {
@@ -505,23 +521,9 @@ export default {
         // 获取封面数据
         this.cover = this.bookItem.coverUrl;
         //this.navigation = true;
-
-            // 获取rootFile数据
-            /*let rootFile = data.rootFile;
-            if (rootFile.startsWith("/")) {
-              rootFile = rootFile.substring(1, rootFile.length);
-            }*/
-            // 根据rootFile拼接出opf文件路径(opf可以在线请求书籍,而用书籍url会下载整本电子书再解析)
-            /*this.opf = `${process.env.VUE_APP_EPUB_OPF_URL}/${
-              this.fileName
-            }/${rootFile}`;*/
-            //this.opf = `${process.env.VUE_APP_EPUB_OPF_URL}/${data.author}/${data.code}`;
-            this.opf = process.env.VUE_APP_EPUB_OPF_URL + data.author.code + '/' + data.code + '.epub';
-            // 解析电子书
-            this.parseBook(this.opf);
-
-
-
+        this.opf = process.env.VUE_APP_EPUB_OPF_URL + data.author.code + '/' + data.code + '.epub';
+        // 解析电子书
+        this.parseBook(this.opf);
       })
 
       /*if (this.fileName) {
