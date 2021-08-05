@@ -42,6 +42,7 @@ export default {
   computed: {
     ...mapGetters(["isEditMode", "shelfSelected", "shelfCategory"]),
     item() {
+        console.log(this.data, 'ddddddddddddddddd');
       //type =1 为书籍 ，type = 2 为分组
       if (this.data.type == 1) {
         return this.book;
@@ -56,10 +57,13 @@ export default {
     ...mapActions(["setShelfSelected", "addShelfSelected"]),
     onItemClick() {
       if (this.isEditMode) {
+          console.log(this.data);
         this.data.selected = !this.data.selected;
         if (this.data.selected && this.data.type == 1) {
+            console.log(this.data, 'ddd');
           this.addShelfSelected(this.data);
         } else {
+            console.log(this.data, 'sss');
           this.setShelfSelected(
             this.shelfSelected.filter((item) => item.id !== this.data.id)
           );

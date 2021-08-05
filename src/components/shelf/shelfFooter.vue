@@ -63,7 +63,7 @@ export default {
     },
     tabs() {
       return [
-        {
+        /*{
           label: this.$t("shelf.private"),
           label2: this.$t("shelf.noPrivate"),
           index: 1,
@@ -72,7 +72,7 @@ export default {
           label: this.$t("shelf.download"),
           label2: this.$t("shelf.delete"),
           index: 2,
-        },
+        },*/
         {
           label: this.$t("shelf.move"),
           index: 3,

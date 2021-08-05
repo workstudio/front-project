@@ -48,6 +48,7 @@ export default {
     },
     bookList() {
       if (this.searchValue === "") {
+          console.log(this.shelfList, 'lllllllll');
         return this.shelfList;
       } else {
         const list = this.allBookList.filter(

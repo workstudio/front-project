@@ -63,11 +63,13 @@ import DialogBox from "../common/Dialog";
 // import ShelfMixin from "@/mixins/shelf";
 import { saveBookShelf, getUserInfo } from "../../utils/localStorage";
 import { mapGetters, mapActions } from "vuex";
-import { updataShelfApi } from "@/api/shelf";
+//import { updataShelfApi } from "@/api/shelf";
+import {fetchData} from '@/applications/mixins/fetchData';
 
 export default {
   name: "ShelfDialog",
   // mixins: [ShelfMixin],
+  'mixins': [fetchData],
   components: {
     DialogBox,
   },
@@ -256,13 +258,20 @@ export default {
 
     //更新数据库书架信息
     updataShelf() {
-      const user = getUserInfo();
+      const user = this.localCache.getUserData();
       if (user && user !== {}) {
         const params = {
-          userId: user.id,
+          //userId: user.id,
           shelfList: JSON.stringify(this.getShelfIdList(this.shelfList)),
         };
-        updataShelfApi(params);
+          console.log(params, 'ppppppppp');
+        //updataShelfApi(params);
+        this.getModel('culture', 'shelf').$create({params: {action: 'create'}, data: params}).then(response => {
+          const data = response.data;
+          saveBookShelf(data);
+          this.setShelfList(data);
+          return data;
+        })
         saveBookShelf(this.shelfList);
       } else {
         this.$router.push({
