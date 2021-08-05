@@ -6,9 +6,10 @@ import ChapterRecord from '@/applications/culture/ChapterRecord'
 import Figure from '@/applications/culture/Figure'
 import Headnote from '@/applications/culture/Headnote'
 import Shelf from '@/applications/culture/Shelf'
+import ShelfBook from '@/applications/culture/ShelfBook'
 import Tag from '@/applications/culture/Tag'
 import TagInfo from '@/applications/culture/TagInfo'
 import Reader from '@/applications/culture/Reader'
 //import ReaderModule from '@/applications/culture/ReaderModule'
 
-export default {Book, Category, BookRecord, Chapter, ChapterRecord, Figure, Headnote, Shelf, Tag, TagInfo, Reader}
+export default {Book, Category, BookRecord, Chapter, ChapterRecord, Figure, Headnote, Shelf, ShelfBook, Tag, TagInfo, Reader}
