@@ -204,7 +204,7 @@ export default {
           return;
         }
         const group = {
-          shelf_id: this.shelfList[this.shelfList.length - 1].shelf_id + 1,
+          shelf_id: -1,//this.shelfList[this.shelfList.length - 1].shelf_id + 1,
           itemList: [],
           selected: false,
           title: this.newGroupName,
@@ -266,7 +266,7 @@ export default {
         };
           console.log(params, 'ppppppppp');
         //updataShelfApi(params);
-        this.getModel('culture', 'shelf').$create({params: {action: 'create'}, data: params}).then(response => {
+        this.getModel('culture', 'shelf-book').$create({params: {action: 'updata'}, data: params}).then(response => {
           const data = response.data;
           saveBookShelf(data);
           this.setShelfList(data);
