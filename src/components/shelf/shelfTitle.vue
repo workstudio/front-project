@@ -55,10 +55,12 @@
 import { removeLocalStorage, saveBookShelf,getUserInfo } from "../../utils/localStorage";
 import { clearLocalForage } from "../../utils/localForage";
 import { mapGetters, mapActions } from "vuex";
-import { getShelfApi, updataShelfApi } from "@/api/shelf";
+//import { getShelfApi, updataShelfApi } from "@/api/shelf";
+import {fetchData} from '@/applications/mixins/fetchData';
 export default {
   name: "ShelfTitle",
   // mixins: [ShelfMixin],
+  'mixins': [fetchData],
   props: {
     title: String,
   },
@@ -243,6 +245,7 @@ export default {
             shelf_id: item.shelf_id,
             type: item.type,
             title: item.title,
+            is_delete: item.is_delete ? item.is_delete : 0,
           });
           updataArr[index].itemList = [];
           item.itemList.forEach((itemc) => {
@@ -263,14 +266,19 @@ export default {
 
     //更新数据库书架信息
     updataShelf() {
-      const user = getUserInfo();
+      //const user = getUserInfo();
+      const user = this.localCache.getUserData();
       if (user && user !== {}) {
         const params = {
-          userId: user.id,
+          //userId: user.id,
           shelfList: JSON.stringify(this.getShelfIdList(this.shelfList)),
         };
-        updataShelfApi(params);
-        saveBookShelf(this.shelfList);
+        this.getModel('culture', 'shelf-book').$create({params: {action: 'updata'}, data: params}).then(response => {
+          const data = response.data;
+          saveBookShelf(data);
+          this.setShelfList(data);
+          return data;
+        })
       } else {
         this.$router.push({
           name: "login",
@@ -281,6 +289,7 @@ export default {
     //获取书架列表
     getShelfList(cb) {
       const user = getUserInfo();
+            console.log('fffffffffffffff');
       if (user && user !== {}) {
         getShelfApi({
           userId: user.id,

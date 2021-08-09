@@ -10,7 +10,7 @@ import {
 //重新排序shelf_id
 export function computeId(list) {
     return list.map((book, index) => {
-        book.shelf_id = index + 1
+        //book.shelf_id = index + 1
         if (book.itemList) {
             book.itemList = computeId(book.itemList)
         }
@@ -33,7 +33,7 @@ export function flatBookList(shelfList) {
         })
         let orgBookList = [].concat(arr, bookList);
         orgBookList.forEach((item, index) => {
-            item.shelf_id = index + 1
+            //item.shelf_id = index + 1
         })
         return orgBookList
     } else {

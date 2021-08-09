@@ -264,7 +264,6 @@ export default {
           //userId: user.id,
           shelfList: JSON.stringify(this.getShelfIdList(this.shelfList)),
         };
-          console.log(params, 'ppppppppp');
         //updataShelfApi(params);
         this.getModel('culture', 'shelf-book').$create({params: {action: 'updata'}, data: params}).then(response => {
           const data = response.data;

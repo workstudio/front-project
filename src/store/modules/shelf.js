@@ -49,7 +49,7 @@ const shelf = {
         //单本添加入书架列表
         ADD_TO_SHELF(state, book) {
             book.type = 1
-            book.shelf_id = state.shelfList.length + 1
+            book.shelf_id = -1//state.shelfList.length + 1
             state.shelfList.push(book)
         },
 
@@ -83,6 +83,7 @@ const shelf = {
                     item.itemList = item.itemList.filter(itemc => state.shelfSelected.indexOf(itemc) < 0)
                 }
             })
+            let selectedList = state.shelfSelected.filter(itemc => itemc.shelf_id = -2);
             state.shelfList = state.shelfList.concat(state.shelfSelected);
             state.shelfList = computeId(state.shelfList);
         },
@@ -91,11 +92,12 @@ const shelf = {
         DELETE_GROUP(state, group) {
             state.shelfList.forEach(item => {
                 if (item.type == 2 && item.title == group.title) {
-                    state.shelfSelected = item.itemList;
+                    //state.shelfSelected = item.itemList;
+                    item.is_delete = 1;
                 }
             })
-            state.shelfList = state.shelfList.filter(item => item.title !== group.title)
-            state.shelfList = state.shelfList.concat(state.shelfSelected);
+            //state.shelfList = state.shelfList.filter(item => item.title !== group.title)
+            //state.shelfList = state.shelfList.concat(state.shelfSelected);
             state.shelfList = computeId(state.shelfList);
         },
 
