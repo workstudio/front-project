@@ -7,6 +7,7 @@ import BookLayout from '@/layouts/BookLayout.vue'
 import home from '../views/home/index.vue'
 import my from '../views/my/index.vue'
 import login from '../views/login/index.vue'
+import record from '../views/record/index.vue'
 import shelf from '../views/shelf/index.vue'
 // import ShelfCategory from '../views/shelf/ShelfCategory.vue'
 import detail from '../views/detail/index.vue'
@@ -63,6 +64,16 @@ export default new Router({
       meta: {
         footShow: true,
         isLogin: false
+      },
+    },
+    {
+      path: '/record',
+      name: 'record',
+      // component: () => import(/* webpackChunkName: "record" */ '../views/record/index.vue'),
+      component: record,
+      meta: {
+        footShow: true,
+        isLogin: true
       },
     },
     {
