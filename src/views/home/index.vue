@@ -16,17 +16,18 @@
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
       </div>
-      <guess-you-like :data="guessYouLike"></guess-you-like>
       <recommend :data="recommend"></recommend>
       <!--<featured :data="featured" :titleText="$t('home.featured')" :btnText="null"></featured>-->
       <div class="category-list-wrapper" v-for="(item, index) in categoryList" :key="index">
         <category-book class="category-book" :data="item"></category-book>
       </div>
+      <guess-you-like :data="guessYouLike"></guess-you-like>
     </scroll>
   </div>
 </template>
 
 <script>
+import { Grid, Image, GridItem } from 'vant';
 import guessYouLike from "../../components/home/guessYouLike";
 import recommend from "../../components/home/recommend";
 import featured from "../../components/home/featured";
@@ -45,6 +46,9 @@ export default {
   name: "StoreHome",
   mixins: [StoreHomeMixin, fetchData],
   components: {
+    Grid,
+    GridItem,
+    Image,
     SearchBar,
     Scroll,
     flapCard,
@@ -60,7 +64,12 @@ export default {
     return {
       scrollTop: 94,
       random: null,
-      bannerList: [{"id":1,"url":"http://112.74.164.251/banner/banner1.jpg"},{"id":2,"url":"http://112.74.164.251/banner/banner2.jpg"},{"id":3,"url":"http://112.74.164.251/banner/banner3.jpg"}],
+      bannerList: [
+        {"id": 1,"url":"http://ossfile.canliang.wang/figure/adb4b3ec-8661-4587-b0ed-207ecdda1503.jpeg"},
+        {"id": 2,"url":"http://ossfile.canliang.wang/figure/c7a2349d-a812-467d-83f5-3812b5a03c7e.jpeg"},
+        {"id": 3,"url":"http://ossfile.canliang.wang/figure/47649c76-c8a3-4dc9-8247-3d29ea07ec09.jpeg"},
+        {"id": 4,"url":"http://ossfile.canliang.wang/figure/a9baadff-cce2-4192-9bef-d37c62fdc594.jpeg"},
+      ],
       guessYouLike: null,
       recommend: null,
       featured: null,

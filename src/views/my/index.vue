@@ -9,21 +9,21 @@
     </div>
     <div class="btn">
       <div class="list">
-        <div class="list-item edit" @click="goEdiit">
+        <!--<div class="list-item edit" @click="goEdiit">
           <span class="icon icon-edit"></span>
           {{$t('my.editUser')}}
           <span class="icon-you"></span>
-        </div>
+        </div>-->
         <div class="list-item history" @click="showHistory">
           <span class="icon icon-history"></span>
           {{$t('my.ReaderHistory')}}
           <span class="icon-you"></span>
         </div>
-        <div class="list-item about" @click="goAbout">
+        <!--<div class="list-item about" @click="goAbout">
           <span class="icon icon-about"></span>
           {{$t('my.about')}}
           <span class="icon-you"></span>
-        </div>
+        </div>-->
         <div class="list-item logout" @click="doLogout">
           <span class="icon icon-logout"></span>
           {{$t('my.logout')}}
@@ -85,6 +85,7 @@ export default {
   },
   created() {
     this.user = this.localCache.getUserData();
+      console.log(this.user, 'ssssss');
     //saveUserInfo(this.user);
   },
   mounted() {}

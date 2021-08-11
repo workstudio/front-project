@@ -2,7 +2,7 @@
   <div class="category-book-main">
     <title-view
       :label="data.name"
-      :btn="$t('home.seeAll')"
+      btn=""
       @onClick="showBookCategory"
     ></title-view>
     <div class="category-book-list">

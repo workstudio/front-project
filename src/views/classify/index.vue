@@ -3,7 +3,6 @@
     <title-view
       :class="`${isShadow ? 'isShadow' : ''}`"
       :label="$t('home.category')"
-      :btn="$t('home.seeAll')"
       @onClick="showBookList"
     ></title-view>
     <scroll :top="48" :bottom="50" @onScroll="onScroll">

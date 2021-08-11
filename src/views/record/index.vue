@@ -36,15 +36,16 @@
           <van-cell icon="records" :title="currentItem.bookName + ' 阅读记录'" />
         </van-cell-group>
         <div v-for="item in records" :key="item.id" :name="item.id">
-          <van-cell :title="item.name"></van-cell>
+          <van-cell :title="item.chapterName" is-link></van-cell>
           <van-cell>
-            <div :class="'goods-price goods-status' + item.readRecord.read_status">阅读状态：{{ item.readRecord.readStatus }}</div>
-            <div class="goods-title">阅读次数：{{ item.readRecord.read_num }}</div>
-            <van-tag plain type="danger">首次阅读时间: {{item.readRecord.read_first}}</van-tag>
-            <div style="display:block;">
-              <van-tag plain type="danger">上次阅读时间: {{item.readRecord.read_last}}</van-tag>
+            <div :class="'goods-price goods-status' + item.read_status">阅读状态：{{ item.readStatus }}</div>
+            <van-tag plain type="danger">阅读时间: {{item.start_at}}</van-tag>
+            <div style="display:block;" v-if="item.read_status">
+              <van-tag plain type="danger">完成阅读时间: {{item.finish_at}}</van-tag>
             </div>
+            <div style="display:block;">
             <van-button icon="notes-o" round plain size="small" type="primary">开始阅读</van-button>
+            </div>
           </van-cell>
         </div>
       </van-list>
@@ -55,8 +56,7 @@
           <van-cell icon="records" :title="currentItem.bookName + ' 章节阅读记录'" />
         </van-cell-group>
         <div v-for="item in chapterRecords" :key="item.id" :name="item.id">
-          <van-cell :title="item.name">
-          </van-cell>
+          <van-cell :title="item.name" is-link></van-cell>
           <van-cell>
             <div :class="'goods-price goods-status' + item.readRecord.read_status">阅读状态：{{ item.readRecord.readStatus }}</div>
             <div class="goods-title">阅读次数：{{ item.readRecord.read_num }}</div>
@@ -139,11 +139,13 @@ export default {
     showRecordDetails(bookRecord) {
       this.showRecordDetail = true;
       this.currentItem = bookRecord;
+      this.records = [];
       this.getRecordList();
     },
     showChapterRecords(bookRecord) {
       this.showChapter = true;
       this.currentItem = bookRecord;
+      this.chapterRecords = [];
       this.getChapterList();
     }
   }
