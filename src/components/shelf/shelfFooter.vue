@@ -63,7 +63,7 @@ export default {
     },
     tabs() {
       return [
-        {
+        /*{
           label: this.$t("shelf.private"),
           label2: this.$t("shelf.noPrivate"),
           index: 1,
@@ -72,7 +72,7 @@ export default {
           label: this.$t("shelf.download"),
           label2: this.$t("shelf.delete"),
           index: 2,
-        },
+        },*/
         {
           label: this.$t("shelf.move"),
           index: 3,
@@ -357,13 +357,20 @@ export default {
 
     //更新数据库书架信息
     updataShelf() {
-      const user = getUserInfo();
+      const user = this.localCache.getUserData();
       if (user && user !== {}) {
         const params = {
-          userId: user.id,
+          //userId: user.id,
           shelfList: JSON.stringify(this.getShelfIdList(this.shelfList)),
         };
-        updataShelfApi(params);
+        //updataShelfApi(params);
+        this.getModel('culture', 'shelf-book').$create({params: {action: 'updata'}, data: params}).then(response => {
+          const data = response.data;
+          saveBookShelf(data);
+          this.setShelfList(data);
+          return data;
+        })
+
         saveBookShelf(this.shelfList);
       } else {
         this.$router.push({

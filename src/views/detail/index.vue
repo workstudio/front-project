@@ -205,7 +205,7 @@ export default {
         //const flatShelf = this.shelfList;
         // 查找当前电子书是否存在于书架
         const book = flatShelf.filter(
-          (item) => item.bookCode === this.bookItem.code
+          (item) => item.id === this.bookItem.id
         );
         return book && book.length > 0;
       } else {
@@ -268,12 +268,12 @@ export default {
         // 如果电子书存在于书架，则从书架中移除电子书
         if (this.inBookShelf) {
           this.setRemoveFromShelf(this.bookItem).then(() => {
-            this.updataShelf();
+            this.updataShelf({book_code: this.bookItem.code, type: 'remove'});
           });
         } else {
           // 如果电子书不存在于书架，则添加电子书到书架
           this.setAddToShelf(this.bookItem).then(() => {
-            this.updataShelf();
+            this.updataShelf({book_code: this.bookItem.code, type: 'add'});
           });
         }
       } else {
@@ -325,17 +325,17 @@ export default {
     // },
 
     //更新数据库书架信息
-    updataShelf() {
+    updataShelf(updateData) {
       //const user = getUserInfo();
       if (this.user) {
         /*const params = {
           userId: user.id,
           shelfList: JSON.stringify(this.getShelfIdList(this.shelfList)),
         };*/
-        const data = JSON.stringify(this.getShelfIdList(this.shelfList));
-        this.getModel('culture', 'shelf').$create({params: {action: 'record'}, data: {params: data}}).then(response => {
+        this.getModel('culture', 'shelf-book').$create({params: {action: 'record'}, data: updateData}).then(response => {
           if (response) {
-            this.simpleToast('您已成功记录，请继续您的阅读');
+            let message = updateData.type == 'remove' ? '成功从书架移除' : '成功添加到书架';
+            this.simpleToast(message);
           }
         });
         //updataShelfApi(params);
@@ -353,7 +353,7 @@ export default {
       }
       this.fetchRequest(this.getModel('culture', 'shelf'), {query: {}, params: {action: 'mylist'}}).then(response => {
         const data = response.data;
-        saveBookShelf(data);
+        saveBookShelf(this.baseModel.objectToArray(data));
         this.setShelfList(data);
         if (cb) {
           cb();

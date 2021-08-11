@@ -81,7 +81,6 @@ export default {
         userId: user.id,
       }).then((res) => {
         if (res.status === 200 && res.data && res.data.shelfList) {
-          console.log("shelfList", res.data.shelfList);
           saveBookShelf(res.data.shelfList);
           this.setShelfList(res.data.shelfList);
           if (cb) {

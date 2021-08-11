@@ -25,6 +25,7 @@ import Scroll from "../../components/common/Scroll";
 import ShelfList from "../../components/shelf/shelfList";
 import ShelfFooter from "../../components/shelf/shelfFooter";
 // import ShelfMixin from "@/mixins/shelf";
+import {fetchData} from '@/applications/mixins/fetchData';
 import {
   getBookShelf,
   saveBookShelf,
@@ -36,6 +37,7 @@ import { getShelfApi } from "@/api/shelf";
 export default {
   name: "ShelfCategory",
   // mixins: [ShelfMixin],
+  'mixins': [fetchData],
   components: {
     Scroll,
     ShelfTitle,
@@ -87,9 +89,19 @@ export default {
     },
     //获取书架列表
     getShelfList(cb) {
-      const user = getUserInfo();
+      //const user = getUserInfo();
+      const user = this.localCache.getUserData();
       if (user && user !== {}) {
-        getShelfApi({
+        this.fetchRequest(this.getModel('culture', 'shelf'), {query: {}, params: {action: 'mylist'}}).then(response => {
+          const data = response.data;
+          saveBookShelf(data);
+          this.setShelfList(data);
+          if (cb) {
+            cb();
+          }
+          return data;
+        })
+        /*getShelfApi({
           userId: user.id,
         }).then((res) => {
           if (res.status === 200 && res.data && res.data.shelfList) {
@@ -101,11 +113,9 @@ export default {
             }
             return res.data.shelfList;
           }
-        });
+        });*/
       } else {
-        this.$router.push({
-          name: "login",
-        });
+        this.$router.push({name: "login"});
       }
     },
 

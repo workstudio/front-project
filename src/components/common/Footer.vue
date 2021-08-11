@@ -13,6 +13,12 @@
         </div>
         <p class="footer-title">{{ $t("home.classify") }}</p>
       </router-link>
+      <router-link class="footer-icon record" :to="{ name: 'record' }" tag="div">
+        <div class="title-icon-wrapper">
+          <span class="icon-book icon"></span>
+        </div>
+        <p class="footer-title">已阅</p>
+      </router-link>
       <router-link class="footer-icon shelf" :to="{ name: 'shelf' }" tag="div">
         <div class="title-icon-wrapper">
           <span class="icon-shelf icon"></span>
@@ -61,7 +67,7 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 0 30px;
+      /*padding: 0 30px;*/
       .title-icon-wrapper {
         font-size: 18px;
         color: rgb(144, 144, 144);

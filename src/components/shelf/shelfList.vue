@@ -9,11 +9,11 @@
       <div
         class="shelf-list-item-wrapper"
         v-for="item in data"
-        :key="item.id"
+        :key="item.shelf_id"
       >
         <shelf-item :data="item" :style="`height:${itemHeight}`"></shelf-item>
         <div class="shelf-list-title-wrapper">
-          <span class="shelf-list-title title-small">{{ item.bookName }}</span>
+          <span class="shelf-list-title title-small">{{ item.title }}</span>
         </div>
       </div>
       <div class="itemAdd-wrapper" :key="-1" v-show="currentType == 1">

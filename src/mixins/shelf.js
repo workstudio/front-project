@@ -72,6 +72,7 @@ export default {
 
         //更新数据库书架信息
         updataShelf() {
+            console.log('fffffffffffffff');
             const user = getUserInfo();
             if (user && user !== {}) {
                 const params = {

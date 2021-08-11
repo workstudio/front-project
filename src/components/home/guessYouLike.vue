@@ -1,6 +1,6 @@
 <template>
   <div class="guess-you-like">
-    <title-view :label="$t('home.guessYouLike')" :btn="$t('home.change')" @onClick="change"></title-view>
+    <title-view :label="$t('home.guessYouLike')" btn="" @onClick="change"></title-view>
     <div class="guess-you-like-list">
       <div
         class="guess-you-like-item"
