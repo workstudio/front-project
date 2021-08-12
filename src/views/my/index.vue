@@ -85,7 +85,6 @@ export default {
   },
   created() {
     this.user = this.localCache.getUserData();
-      console.log(this.user, 'ssssss');
     //saveUserInfo(this.user);
   },
   mounted() {}

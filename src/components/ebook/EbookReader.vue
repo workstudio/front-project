@@ -405,13 +405,12 @@ export default {
         });
       } else {
         // 选择章节阅读
-        if (this.$route.query.opf) {
+          if (this.$route.query.opf) {
           this.isOnOpf = true;
           this.initEpub(this.$route.query.opf);
         } else {
           this.setFileName(books.join("/")).then(() => {
-            const url =
-              process.env.VUE_APP_EPUB_OPF_URL + "/" + author + '/' + fileName + ".epub";
+            const url = process.env.VUE_APP_EPUB_OPF_URL + "/" + author + '/' + fileName + ".epub";
             this.isOnOpf = false;
             this.initEpub(url);
           });

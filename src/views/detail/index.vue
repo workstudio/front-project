@@ -217,7 +217,7 @@ export default {
     inHistory() {
       if (this.bookItem && this.historyList) {
         const book = this.historyList.find(
-          (item) => item.id == this.bookItem.id
+          (item) => item ? item.code == this.bookItem.code : false
         );
         return book;
       } else {
@@ -290,7 +290,7 @@ export default {
       }
       if (this.inHistory) {
         historyList = this.historyList.filter(
-          (item) => item.id != this.inHistory.id
+          (item) => item ? item.code != this.inHistory.code : false
         );
         historyList.unshift(this.inHistory);
       } else {
@@ -435,9 +435,10 @@ export default {
           });
         } else {
           this.$router.push({
-            path: `/ebook/${this.$route.query.category}}|${
+            //path: `/ebook/${this.$route.query.category}}|${
+            path: `/ebook/${this.bookItem.name}}|${
               this.$route.query.fileName
-            }`,
+            }|${this.bookItem.author.code}`,
             query: {
               navigation: item.href,
               opf: this.opf,
