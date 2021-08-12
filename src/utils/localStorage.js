@@ -1,4 +1,5 @@
 import Storage from 'web-storage-cache'
+import { objectToArray } from './base';
 
 const localStorage = new Storage()
 
@@ -51,6 +52,7 @@ export function saveBookmark(fileName, bookmark) {
 }
 
 export function saveBookShelf(shelf) {
+  shelf = objectToArray(shelf);
   return setLocalStorage('shelf', shelf);
 }
 
