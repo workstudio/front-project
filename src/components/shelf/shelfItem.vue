@@ -69,8 +69,8 @@ export default {
           this.$router.push({
             name: "detail",
             query: {
-              fileName: this.data.fileName,
-              category: this.data.categoryText,
+              fileName: this.data.bookCode,
+              //category: this.data.categoryText,
             },
           });
         } else if (this.data.type == 2) {

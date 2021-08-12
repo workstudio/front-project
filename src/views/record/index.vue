@@ -14,6 +14,7 @@
             currency="阅读次数:"
             centered="true"
             :thumb="item.cover"
+            @click="readBook(item)"
           >
             <template #tags>
               <van-tag plain type="danger">首次阅读时间: {{item.read_first}}</van-tag>
@@ -36,7 +37,7 @@
           <van-cell icon="records" :title="currentItem.bookName + ' 阅读记录'" />
         </van-cell-group>
         <div v-for="item in records" :key="item.id" :name="item.id">
-          <van-cell :title="item.chapterName" is-link></van-cell>
+          <van-cell :title="item.chapterName" is-link @click="readChapter(item)" ></van-cell>
           <van-cell>
             <div :class="'goods-price goods-status' + item.read_status">阅读状态：{{ item.readStatus }}</div>
             <van-tag plain type="danger">阅读时间: {{item.start_at}}</van-tag>
@@ -44,7 +45,7 @@
               <van-tag plain type="danger">完成阅读时间: {{item.finish_at}}</van-tag>
             </div>
             <div style="display:block;">
-            <van-button icon="notes-o" round plain size="small" type="primary">开始阅读</van-button>
+            <van-button icon="notes-o" round plain size="small" type="primary" @click="readChapter(item)">开始阅读</van-button>
             </div>
           </van-cell>
         </div>
@@ -56,7 +57,7 @@
           <van-cell icon="records" :title="currentItem.bookName + ' 章节阅读记录'" />
         </van-cell-group>
         <div v-for="item in chapterRecords" :key="item.id" :name="item.id">
-          <van-cell :title="item.name" is-link></van-cell>
+          <van-cell :title="item.name" is-link @click="readChapter(item)" ></van-cell>
           <van-cell>
             <div :class="'goods-price goods-status' + item.readRecord.read_status">阅读状态：{{ item.readRecord.readStatus }}</div>
             <div class="goods-title">阅读次数：{{ item.readRecord.read_num }}</div>
@@ -64,7 +65,7 @@
               <div style="display:block;">
               <van-tag plain type="danger">上次阅读时间: {{item.readRecord.read_last}}</van-tag>
               </div>
-            <van-button icon="notes-o" round plain size="small" type="primary">开始阅读</van-button>
+            <van-button icon="notes-o" round plain size="small" type="primary" @click="readChapter(item)">开始阅读</van-button>
           </van-cell>
         </div>
       </van-list>
@@ -73,9 +74,18 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import Scroll from "@/components/common/Scroll";
 import {Popup, List, Row, Col, Button, Icon, Cell, CellGroup, Checkbox, CheckboxGroup, Card, SubmitBar, Toast } from 'vant';
 import {fetchData} from '@/applications/mixins/fetchData';
+import { getLocalForage } from "../../utils/localForage";
+import {
+  getBookShelf,
+  saveBookShelf,
+  saveReaderHistory,
+  getReaderHistory,
+  getUserInfo,
+} from "../../utils/localStorage";
 
 export default {
   'mixins': [fetchData],
@@ -112,6 +122,9 @@ export default {
   computed: {
   },
   methods: {
+    ...mapActions([
+      "setHistoryList",
+    ]),
     getBookList() {
       this.fetchRequest(this.getModel('culture', 'bookRecord'), {query: {}, params: {action: 'my-record'}}).then(response => {
         const data = response.data;
@@ -147,7 +160,55 @@ export default {
       this.currentItem = bookRecord;
       this.chapterRecords = [];
       this.getChapterList();
-    }
+    },
+    readBook(item) {
+      this.$router.push({
+        name: "detail",
+        query: {
+          fileName: item.bookCode,
+        },
+      });
+    },
+    readChapter(item) {
+      getLocalForage(item.book_code, (err, blob) => {
+        if (!err && blob && blob instanceof Blob) {
+          this.$router.push({
+            path: `/ebook/${this.currentItem.bookName}}|${
+              this.currentBook
+            }|${this.currentItem.bookCode}`,
+            query: {
+              navigation: item.serial + '.html',
+            },
+          });
+        } else {
+          this.$router.push({
+            path: `/ebook/${this.currentItem.bookName}}|${
+              this.currentItem.bookCode
+            }|${item.author}`,
+            query: {
+              navigation: item.serial + '.html',
+            },
+          });
+        }
+      });
+      this.addReaderHistory();
+    },
+    addReaderHistory() {
+      let historyList = getReaderHistory();
+      if (!historyList) {
+        historyList = [];
+      }
+      if (this.inHistory) {
+        historyList = this.historyList.filter(
+          (item) => item ? item.code != this.inHistory.code : false
+        );
+        historyList.unshift(this.inHistory);
+      } else {
+        historyList.unshift(this.bookItem);
+      }
+      this.setHistoryList(historyList);
+      saveReaderHistory(historyList);
+    },
   }
 };
 </script>

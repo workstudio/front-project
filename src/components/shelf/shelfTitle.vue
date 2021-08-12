@@ -289,7 +289,6 @@ export default {
     //获取书架列表
     getShelfList(cb) {
       const user = getUserInfo();
-            console.log('fffffffffffffff');
       if (user && user !== {}) {
         getShelfApi({
           userId: user.id,

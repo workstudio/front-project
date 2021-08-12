@@ -1,7 +1,7 @@
 const messages = {
   home: {
     classify:"Classify",
-    title: 'Book Store',
+    title: 'Wangcan Book Store',
     home: 'Home',
     hint: 'Computer Science And Software Engineering',
     guessYouLike: 'Guess You Like',

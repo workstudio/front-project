@@ -1,7 +1,7 @@
 const messages = {
   home: {
     classify:"分类",
-    title: '书城',
+    title: '王灿书屋',
     home: '首页',
     hint: '计算机科学和软件工程',
     guessYouLike: '猜你喜欢',
