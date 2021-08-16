@@ -1,15 +1,9 @@
 import BaseModel from './BaseModel';
 let conf = BaseModel.getMethodConf();
-conf.http.url = '/passport/user-addresses'
+conf.http.url = '/bigdata/user-addresses'
 
 export default class UserAddress extends BaseModel {
-  static entity = 'userAddresses'
-
-  static fields () {
-    return {
-      id: this.increment(),
-    }
-  }
+  static entity = 'bigdataUserAddresses'
 
   static methodConf = conf
 }

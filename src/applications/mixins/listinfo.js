@@ -50,7 +50,6 @@ export const listinfo = {
             });
             return ;
           }
-            console.log(response);
           this.$refs.listForm.handleUpdate(response.data);
         })
       } else {
@@ -63,7 +62,6 @@ export const listinfo = {
       case 'authority':
         return this.handleAuthority(params.datas);
         break;
-      case 'delete':
       case 'update':
         return this.handleUpdate(params.datas);
         break;
@@ -89,7 +87,6 @@ export const listinfo = {
           this.dialogPopTableVisible = false;
           break;
       }
-      console.log(operation, 'ffffffffffffff', this.selectionElems);
     }
   }
 }
