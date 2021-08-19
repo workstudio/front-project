@@ -15,6 +15,9 @@ import thirdDatabases from '@/applications/third/database'
 import infocmsDatabases from '@/applications/infocms/database'
 import cultureDatabases from '@/applications/culture/database'
 import bigdataDatabases from '@/applications/bigdata/database'
+import paytradeDatabases from '@/applications/paytrade/database'
+import shopDatabases from '@/applications/shop/database'
+import benchDatabases from '@/applications/bench/database'
 
 let databases = {
   passport: passportDatabases,
@@ -23,6 +26,9 @@ let databases = {
   infocms: infocmsDatabases,
   culture: cultureDatabases,
   bigdata: bigdataDatabases,
+  paytrade: paytradeDatabases,
+  shop: shopDatabases,
+  bench: benchDatabases,
 }
 //databases = Object.assign(databases, merchantDatabases);
 //databases = Object.assign(databases, passportDatabases);
