@@ -1,0 +1,18 @@
+import Attribute from '@/applications/shop/Attribute'
+import AttributeValue from '@/applications/shop/AttributeValue'
+import Category from '@/applications/shop/Category'
+import Goods from '@/applications/shop/Goods'
+import GoodsAttribute from '@/applications/shop/GoodsAttribute'
+import GoodsComment from '@/applications/shop/GoodsComment'
+import GoodsFavour from '@/applications/shop/GoodsFavour'
+import GoodsSku from '@/applications/shop/GoodsSku'
+import GoodsStatistic from '@/applications/shop/GoodsStatistic'
+import Scene from '@/applications/shop/Scene'
+import SceneGoods from '@/applications/shop/SceneGoods'
+import SceneSku from '@/applications/shop/SceneSku'
+import Type from '@/applications/shop/Type'
+import WebsiteGoods from '@/applications/shop/WebsiteGoods'
+import WebsiteSku from '@/applications/shop/WebsiteSku'
+import WebsiteWarehouse from '@/applications/shop/WebsiteWarehouse'
+
+export default {Attribute, AttributeValue, Category, Goods, GoodsAttribute, GoodsComment, GoodsFavour, GoodsSku, GoodsStatistic, Scene, SceneGoods, SceneSku, Type, WebsiteGoods, WebsiteSku, WebsiteWarehouse}

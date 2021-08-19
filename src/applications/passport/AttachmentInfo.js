@@ -3,7 +3,7 @@ let conf = BaseModel.getMethodConf();
 conf.http.url = '/passport/attachment-infos'
 
 export default class AttachmentInfo extends BaseModel {
-  static entity = 'attachmentInfoes'
+  static entity = 'attachmentInfos'
 
   static methodConf = conf
 }
