@@ -6,11 +6,5 @@ export default class Reader extends BaseModel {
   static entity = 'readers'
   static moduleConf = moduleConf
 
-  static fields () {
-    return {
-      id: this.increment(),
-    }
-  }
-
   static methodConf = conf
 }
