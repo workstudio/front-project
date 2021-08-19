@@ -3,7 +3,7 @@ let conf = BaseModel.getMethodConf();
 conf.http.url = '/third/user-plats'
 
 export default class UserPlat extends BaseModel {
-  static entity = 'user-plats'
+  static entity = 'userPlats'
 
   static methodConf = conf
 }

@@ -1,15 +1,9 @@
 import BaseModel from './BaseModel';
 let conf = BaseModel.getMethodConf();
-conf.http.url = '/foundation-passport_user-score'
+conf.http.url = '/passport/user-scores'
 
-export default class UserAddress extends BaseModel {
+export default class UserScore extends BaseModel {
   static entity = 'userScores'
-
-  static fields () {
-    return {
-      id: this.increment(),
-    }
-  }
 
   static methodConf = conf
 }
