@@ -353,7 +353,7 @@ export default {
       }
       this.fetchRequest(this.getModel('culture', 'shelf'), {query: {}, params: {action: 'mylist'}}).then(response => {
         const data = response.data;
-        saveBookShelf(this.baseModel.objectToArray(data));
+        saveBookShelf(data);
         this.setShelfList(data);
         if (cb) {
           cb();

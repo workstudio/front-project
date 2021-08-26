@@ -1,13 +1,15 @@
 import Course from '@/applications/bigdata/Course'
 import CourseSuite from '@/applications/bigdata/CourseSuite'
-import Goods from '@/applications/bigdata/Goods'
-import OrderGoods from '@/applications/bigdata/OrderGoods'
-import UserAddress from '@/applications/bigdata/UserAddress'
-import UserPond from '@/applications/bigdata/UserPond'
+import CourseSuiteOrder from '@/applications/bigdata/CourseSuiteOrder'
 import DataSync from '@/applications/bigdata/DataSync'
+import Goods from '@/applications/bigdata/Goods'
 import GoodsSuite from '@/applications/bigdata/GoodsSuite'
+import GoodsSuiteDetail from '@/applications/bigdata/GoodsSuiteDetail'
+import OrderGoods from '@/applications/bigdata/OrderGoods'
 import OrderInfo from '@/applications/bigdata/OrderInfo'
+import UserAddress from '@/applications/bigdata/UserAddress'
 import UserPaytrade from '@/applications/bigdata/UserPaytrade'
+import UserPond from '@/applications/bigdata/UserPond'
 import Website from '@/applications/bigdata/Website'
 
-export default {Course, CourseSuite, Goods, OrderGoods, UserAddress, UserPond, DataSync, GoodsSuite, OrderInfo, UserPaytrade, Website}
+export default {Course, CourseSuite, CourseSuiteOrder, DataSync, Goods, GoodsSuite, GoodsSuiteDetail, OrderGoods, OrderInfo, UserAddress, UserPaytrade, UserPond, Website}
