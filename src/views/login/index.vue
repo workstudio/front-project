@@ -74,10 +74,7 @@ export default {
   props: {},
   data() {
     return {
-      login: {
-        userName: "admin",
-        password: "123"
-      },
+      login: {userName: "", password: ""},
       message: "",
       messageShow: false,
       isShow: false

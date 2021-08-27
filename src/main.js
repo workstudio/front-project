@@ -48,6 +48,12 @@ Vue.use(VueTouch, {
 Vue.use(MintUI)
 Vue.config.productionTip = false
 
+import 'vant/lib/index.css';
+import { Notify } from 'vant';
+
+Vue.use(Notify);
+Vue.prototype.$baseNotify = Notify;
+
 /* eslint-disable no-new */
 /*new Vue({
   el: '#app',
