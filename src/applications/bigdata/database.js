@@ -7,9 +7,9 @@ import GoodsSuite from '@/applications/bigdata/GoodsSuite'
 import GoodsSuiteDetail from '@/applications/bigdata/GoodsSuiteDetail'
 import OrderGoods from '@/applications/bigdata/OrderGoods'
 import OrderInfo from '@/applications/bigdata/OrderInfo'
+import Shop from '@/applications/bigdata/Shop'
 import UserAddress from '@/applications/bigdata/UserAddress'
 import UserPaytrade from '@/applications/bigdata/UserPaytrade'
 import UserPond from '@/applications/bigdata/UserPond'
-import Website from '@/applications/bigdata/Website'
 
-export default {Course, CourseSuite, CourseSuiteOrder, DataSync, Goods, GoodsSuite, GoodsSuiteDetail, OrderGoods, OrderInfo, UserAddress, UserPaytrade, UserPond, Website}
+export default {Course, CourseSuite, CourseSuiteOrder, DataSync, Goods, GoodsSuite, GoodsSuiteDetail, OrderGoods, OrderInfo, Shop, UserAddress, UserPaytrade, UserPond}

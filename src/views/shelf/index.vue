@@ -69,7 +69,10 @@ export default {
       //const user = getUserInfo();
       const user = this.localCache.getUserData();
       this.fetchRequest(this.getModel('culture', 'shelf'), {query: {}, params: {action: 'mylist'}}).then(response => {
-        const data = response.data;
+          if (!response) {
+            return [];
+          }
+          const data = response.data.datas;
         saveBookShelf(data);
         this.setShelfList(data);
         if (cb) {

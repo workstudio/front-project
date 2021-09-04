@@ -3,12 +3,39 @@
     <scroll>
       <div class="title">{{ $t("login.register") }}</div>
       <div class="input-list">
-        <div class="input-lable">账号：</div>
+        <div class="input-lable">手机号：</div>
+        <div class="form-item user-mobile-box">
+          <input
+            class="login-input userId"
+            type="text"
+            v-model.trim="mobile"
+            placeholder="请输入手机号"
+          />
+          <div class="icon-wrapper">
+            <span class="icon icon-zhanghao"></span>
+          </div>
+        </div>
+        <div class="input-lable">验证码：</div>
+        <div class="form-item user-mobile-box">
+          <input
+            class="login-input userId"
+            type="text"
+            v-model.trim="authcode"
+            placeholder="请输入验证码"
+          />
+          <div class="icon-wrapper">
+            <span class="icon icon-edit"></span>
+          </div>
+          <div class="icon-wrapper-sms">
+            <ge-code :config="config" ref="geCode" />
+          </div>
+        </div>
+        <div class="input-lable">昵称：</div>
         <div class="form-item user-name-box">
           <input
             class="login-input userId"
             type="text"
-            v-model.trim="register.userName"
+            v-model.trim="nickname"
             :placeholder="$t('login.pictureUsername')"
           />
           <div class="icon-wrapper">
@@ -20,25 +47,9 @@
           <input
             class="login-input userPassword"
             :type="`${isShow ? 'text' : 'password'}`"
-            v-model.trim="register.password"
+            v-model.trim="password"
             @blur="rule"
             :placeholder="$t('login.picturePassword')"
-          />
-          <div class="icon-wrapper">
-            <span class="icon icon-suo"></span>
-          </div>
-          <div class="eye" @click="openPassword">
-            <span :class="`${isShow ? ' icon-eye' : ' icon-biyan'}`"></span>
-          </div>
-        </div>
-        <div class="input-lable">再次输入密码：</div>
-        <div class="form-item password-box">
-          <input
-            class="login-input userPassword"
-            :type="`${isShow ? 'text' : 'password'}`"
-            v-model.trim="passwordAgain"
-            @blur="verifyPassword"
-            :placeholder="$t('login.picturePasswordAgain')"
           />
           <div class="icon-wrapper">
             <span class="icon icon-suo"></span>
@@ -67,27 +78,29 @@
 <script>
 import scroll from "../../components/common/Scroll";
 //import { registerApi } from "@/api/user";
-import { userMixin } from "@/mixins/my";
+import {userMixin} from "@/mixins/my";
+import {smscode} from "@/applications/mixins/smscode";
+
 export default {
   name: "Register",
-  mixins: [userMixin],
+  mixins: [userMixin, smscode],
   components: {
     scroll
   },
   props: {},
   data() {
     return {
-      register: {
-        userName: "",
-        password: "",
-        sex: "男",
-        nickname: "AuroraReader",
-        slogan: "Welcome to AuroraReader",
-        avatar: process.env.VUE_APP_RES_URL + "/user/avatar/avatar.png"
-      },
+      name: "",
+      mobile: "",
+      authcode: "",
+      password: "",
+      sex: "男",
+      nickname: "",
+      slogan: "Welcome to AuroraReader",
+      avatar: process.env.VUE_APP_RES_URL + "/user/avatar/avatar.png",
       isShow: false,
       passwordAgain: "",
-      pass: false
+      pass: true
     };
   },
   watch: {},
@@ -102,7 +115,7 @@ export default {
 
     //验证两次密码
     rule() {
-      if (/[\w]{6,10}/.test(this.register.password)) {
+      if (/[\w]{6,10}/.test(this.password)) {
         return;
       } else {
         this.pass = false;
@@ -112,7 +125,7 @@ export default {
 
     //验证两次密码
     verifyPassword() {
-      if (this.register.password !== this.passwordAgain) {
+      if (this.password !== this.passwordAgain) {
         this.pass = false;
         this.simpleToast("密码匹配失败");
       } else {
@@ -122,25 +135,31 @@ export default {
 
     //注册
     doRegister() {
-      if (this.register.userName == "" && this.register.password == "") {
+        console.log(this.name, this.password, 'ddddddd');
+      if (this.mobile == "" && this.code == '' && this.password == "") {
         this.pass = false;
         this.simpleToast("用户名和密码不能为空");
       }
       if (this.pass) {
-        this.register.avatar = this.register.avatar.substring(
-          this.register.avatar.lastIndexOf("/") + 1
+        this.avatar = this.avatar.substring(
+          this.avatar.lastIndexOf("/") + 1
         );
-        registerApi(this.register).then(res => {
-          if (res.data.code == 0) {
+        let registerData = {
+          mobile: this.mobile,
+          code: this.authcode,
+          type: 'signupin',
+          nickname: this.nickname, 
+          password: this.password
+        };
+        //registerApi(this.register).then(res => {
+        this.getModel('passport', 'entrance').$create({params: {action: 'signupin'}, data: registerData}).then(response => {
+            console.log(response, 'rrrrrrrr');
+          if (response) {
             this.simpleToast(this.$t("login.registerSuccessfuly"));
             this.register = this.$options.data();
             setTimeout(() => {
-              this.$router.push({
-                name: "login"
-              });
+              this.$router.push({name: "login"});
             }, 500);
-          } else {
-            this.simpleToast(res.data.msg);
           }
         });
       } else {
@@ -177,6 +196,12 @@ export default {
         left: 5px;
         top: 10px;
         font-size: 20px;
+      };
+      .icon-wrapper-sms {
+        position: absolute;
+        right: 5px;
+        top: 10px;
+        font-size: 10px;
       }
     }
     .input-lable {
