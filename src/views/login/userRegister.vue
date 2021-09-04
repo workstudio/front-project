@@ -30,12 +30,12 @@
             <ge-code :config="config" ref="geCode" />
           </div>
         </div>
-        <div class="input-lable">账号：</div>
+        <div class="input-lable">昵称：</div>
         <div class="form-item user-name-box">
           <input
             class="login-input userId"
             type="text"
-            v-model.trim="name"
+            v-model.trim="nickname"
             :placeholder="$t('login.pictureUsername')"
           />
           <div class="icon-wrapper">
@@ -95,12 +95,12 @@ export default {
       authcode: "",
       password: "",
       sex: "男",
-      nickname: "AuroraReader",
+      nickname: "",
       slogan: "Welcome to AuroraReader",
       avatar: process.env.VUE_APP_RES_URL + "/user/avatar/avatar.png",
       isShow: false,
       passwordAgain: "",
-      pass: false
+      pass: true
     };
   },
   watch: {},
@@ -135,7 +135,8 @@ export default {
 
     //注册
     doRegister() {
-      if (this.name == "" && this.password == "") {
+        console.log(this.name, this.password, 'ddddddd');
+      if (this.mobile == "" && this.code == '' && this.password == "") {
         this.pass = false;
         this.simpleToast("用户名和密码不能为空");
       }
@@ -143,17 +144,22 @@ export default {
         this.avatar = this.avatar.substring(
           this.avatar.lastIndexOf("/") + 1
         );
-        registerApi(this.register).then(res => {
-          if (res.data.code == 0) {
+        let registerData = {
+          mobile: this.mobile,
+          code: this.authcode,
+          type: 'signupin',
+          nickname: this.nickname, 
+          password: this.password
+        };
+        //registerApi(this.register).then(res => {
+        this.getModel('passport', 'entrance').$create({params: {action: 'signupin'}, data: registerData}).then(response => {
+            console.log(response, 'rrrrrrrr');
+          if (response) {
             this.simpleToast(this.$t("login.registerSuccessfuly"));
             this.register = this.$options.data();
             setTimeout(() => {
-              this.$router.push({
-                name: "login"
-              });
+              this.$router.push({name: "login"});
             }, 500);
-          } else {
-            this.simpleToast(res.data.msg);
           }
         });
       } else {
