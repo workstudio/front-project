@@ -53,7 +53,7 @@ export const smscode = {
       this.$refs.geCode.stop(1);
     },
     generateSmsCode() {
-      this.getModel('commonApi').$create({params: {action: 'generate-code'}, data: {mobile: this.mobile, type: 'signupin', 'captcha': '0824'}});
+      this.getModel('passport', 'common').$create({params: {action: 'send-code'}, data: {mobile: this.mobile, type: 'signupin', template: 'ocode', 'captcha': '0824'}});
     },
   },
   watch: {
