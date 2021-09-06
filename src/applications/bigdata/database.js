@@ -1,4 +1,7 @@
 import Course from '@/applications/bigdata/Course'
+import CourseLesson from '@/applications/bigdata/CourseLesson'
+import CourseOrder from '@/applications/bigdata/CourseOrder'
+import CourseSection from '@/applications/bigdata/CourseSection'
 import CourseSuite from '@/applications/bigdata/CourseSuite'
 import CourseSuiteOrder from '@/applications/bigdata/CourseSuiteOrder'
 import DataSync from '@/applications/bigdata/DataSync'
@@ -7,9 +10,10 @@ import GoodsSuite from '@/applications/bigdata/GoodsSuite'
 import GoodsSuiteDetail from '@/applications/bigdata/GoodsSuiteDetail'
 import OrderGoods from '@/applications/bigdata/OrderGoods'
 import OrderInfo from '@/applications/bigdata/OrderInfo'
+import Shop from '@/applications/bigdata/Shop'
 import UserAddress from '@/applications/bigdata/UserAddress'
+import UserHandwriting from '@/applications/bigdata/UserHandwriting'
 import UserPaytrade from '@/applications/bigdata/UserPaytrade'
 import UserPond from '@/applications/bigdata/UserPond'
-import Website from '@/applications/bigdata/Website'
 
-export default {Course, CourseSuite, CourseSuiteOrder, DataSync, Goods, GoodsSuite, GoodsSuiteDetail, OrderGoods, OrderInfo, UserAddress, UserPaytrade, UserPond, Website}
+export default {Course, CourseLesson, CourseOrder, CourseSection, CourseSuite, CourseSuiteOrder, DataSync, Goods, GoodsSuite, GoodsSuiteDetail, OrderGoods, OrderInfo, Shop, UserAddress, UserHandwriting, UserPaytrade, UserPond}

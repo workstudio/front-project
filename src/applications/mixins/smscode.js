@@ -1,7 +1,7 @@
 import GeCode from 'vue-gecode'
 import {fetchData} from '@/applications/mixins/fetchData'
 
-export const entrance = {
+export const smscode = {
   name: "smscode",
   mixins: [fetchData],
   components: {
@@ -21,7 +21,7 @@ export const entrance = {
         canTodo: () => { //是否可以发送 
           let result = /^1[345678]\d{9}$/.test(this.mobile); //返回值判定是否可以发送
           if (!result) {
-            this.message('手机号格式不正确');
+            this.$baseNotify('手机号格式不正确');
           }
           return result;
         },
@@ -53,7 +53,7 @@ export const entrance = {
       this.$refs.geCode.stop(1);
     },
     generateSmsCode() {
-      this.getModel('commonApi').$create({params: {action: 'generate-code'}, data: {mobile: this.mobile, type: 'signupin', 'captcha': '0824'}});
+      this.getModel('passport', 'common').$create({params: {action: 'send-code'}, data: {mobile: this.mobile, type: 'signupin', template: 'ocode', 'captcha': '0824'}});
     },
   },
   watch: {
