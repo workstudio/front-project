@@ -1,5 +1,4 @@
 import Article from '@/applications/infocms/Article'
-import Attachment from '@/applications/infocms/Attachment'
 import Brand from '@/applications/infocms/Brand'
 import Calligrapher from '@/applications/infocms/Calligrapher'
 import Category from '@/applications/infocms/Category'
@@ -19,4 +18,4 @@ import Store from '@/applications/infocms/Store'
 import Subject from '@/applications/infocms/Subject'
 import Website from '@/applications/infocms/Website'
 
-export default {Article, Attachment, Brand, Calligrapher, Category, CultureArticle, CultureCategory, Human, Knowledge, Pet, PetArticle, PetInfosort, PetPetsort, PetSort, Product, Rubbing, RubbingDetail, Store, Subject, Website}
+export default {Article, Brand, Calligrapher, Category, CultureArticle, CultureCategory, Human, Knowledge, Pet, PetArticle, PetInfosort, PetPetsort, PetSort, Product, Rubbing, RubbingDetail, Store, Subject, Website}
