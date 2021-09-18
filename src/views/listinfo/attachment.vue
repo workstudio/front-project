@@ -146,7 +146,7 @@ export default {
       },
       listQuery: {
         page: 1,
-        per_page: 20,
+        per_page: 400,
         parent_id: 0,
         system: '',
       },

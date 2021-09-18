@@ -1,5 +1,5 @@
 <template>
-  <span>{{ row[field].value }}</span>
+  <span v-html="row[field].value"></span>
 </template>
 
 <script>
