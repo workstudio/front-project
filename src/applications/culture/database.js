@@ -1,15 +1,20 @@
 import Book from '@/applications/culture/Book'
 import BookRecord from '@/applications/culture/BookRecord'
+import Calligrapher from '@/applications/culture/Calligrapher'
 import Category from '@/applications/culture/Category'
 import Chapter from '@/applications/culture/Chapter'
 import ChapterRecord from '@/applications/culture/ChapterRecord'
+import CultureArticle from '@/applications/culture/CultureArticle'
+import CultureCategory from '@/applications/culture/CultureCategory'
 import Figure from '@/applications/culture/Figure'
 import Headnote from '@/applications/culture/Headnote'
 import Record from '@/applications/culture/Record'
+import Rubbing from '@/applications/culture/Rubbing'
+import RubbingDetail from '@/applications/culture/RubbingDetail'
 import Shelf from '@/applications/culture/Shelf'
 import ShelfBook from '@/applications/culture/ShelfBook'
 import Tag from '@/applications/culture/Tag'
 import TagInfo from '@/applications/culture/TagInfo'
 import Reader from '@/applications/culture/Reader'
 
-export default {Book, BookRecord, Category, Chapter, ChapterRecord, Figure, Headnote, Record, Shelf, ShelfBook, Tag, TagInfo, Reader}
+export default {Book, BookRecord, Calligrapher, Category, Chapter, ChapterRecord, CultureArticle, CultureCategory, Figure, Headnote, Record, Rubbing, RubbingDetail, Shelf, ShelfBook, Tag, TagInfo, Reader}

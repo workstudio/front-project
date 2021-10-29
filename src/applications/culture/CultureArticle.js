@@ -1,6 +1,6 @@
 import BaseModel from './BaseModel';
 let conf = BaseModel.getMethodConf();
-conf.http.url = '/infocms/culture-articles'
+conf.http.url = '/culture/culture-articles'
 
 export default class CultureArticle extends BaseModel {
   static entity = 'cultureArticles'
