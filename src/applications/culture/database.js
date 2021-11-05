@@ -2,8 +2,8 @@ import Affair from '@/applications/culture/Affair'
 import AffairFigure from '@/applications/culture/AffairFigure'
 import Book from '@/applications/culture/Book'
 import BookRecord from '@/applications/culture/BookRecord'
+import BookSort from '@/applications/culture/BookSort'
 import Calligrapher from '@/applications/culture/Calligrapher'
-import Category from '@/applications/culture/Category'
 import Chapter from '@/applications/culture/Chapter'
 import ChapterRecord from '@/applications/culture/ChapterRecord'
 import CultureArticle from '@/applications/culture/CultureArticle'
@@ -24,4 +24,4 @@ import Tag from '@/applications/culture/Tag'
 import TagInfo from '@/applications/culture/TagInfo'
 import Reader from '@/applications/culture/Reader'
 
-export default {Affair, AffairFigure, Book, BookRecord, Calligrapher, Category, Chapter, ChapterRecord, CultureArticle, CultureCategory, Dateinfo, Emperor, Figure, FigureTitle, Headnote, Record, Rubbing, RubbingDetail, RubbingWord, Scholarism, Shelf, ShelfBook, Tag, TagInfo, Reader}
+export default {Affair, AffairFigure, Book, BookRecord, BookSort, Calligrapher, Chapter, ChapterRecord, CultureArticle, CultureCategory, Dateinfo, Emperor, Figure, FigureTitle, Headnote, Record, Rubbing, RubbingDetail, RubbingWord, Scholarism, Shelf, ShelfBook, Tag, TagInfo, Reader}

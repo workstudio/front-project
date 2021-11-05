@@ -10,6 +10,6 @@ export default class Attachment extends BaseModel {
   static methodConf = conf
 
   static getUploadUrl() {
-    return globalSettings.resturl + "/passport/attachments/upload";
+    return globalSettings.resturl + "passport/attachments/upload";
   }
 }

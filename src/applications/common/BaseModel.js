@@ -41,6 +41,10 @@ export default class BaseModel extends Model {
       if (inputValue || inputValue === 0 || inputValue === '') {
         if (formFields[field].type == 'file') {
           let sourceValue = source[field] ? source[field].valueSource : [];
+          if (!sourceValue && !inputValue) {
+            continue;
+          }
+            console.log(sourceValue, inputValue, 'dddddddddooo');
           if (baseMethod.isSameArray(sourceValue, inputValue)) {
             continue;
           }
