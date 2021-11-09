@@ -10,7 +10,7 @@
             :value="optionKey">
           </el-option>
         </el-select>
-        <el-select v-model="typeValue" slot="prepend" placeholder="请选择">
+        <el-select v-model="typeValue" slot="prepend" placeholder="请选择" @change="handleSelect">
           <el-option
             v-for="(option, optionKey) in elem.infos"
             :key="optionKey"
@@ -34,7 +34,7 @@ export default {
       typeValue: '',
       input: this.inputInfos[this.field] + '',
       disabled: true,
-      showInfos: this.inputInfos[this.field],
+      showInfos: this.inputInfos[this.field] ? this.inputInfos[this.field] : {},
       showValue: this.initShowValue(),
     }
   },
@@ -42,7 +42,6 @@ export default {
     initShowValue() {
       let showValue = [];
       for (let key in this.inputInfos[this.field]) {
-          console.log(key);
         showValue.push(key);
       }
       return showValue;

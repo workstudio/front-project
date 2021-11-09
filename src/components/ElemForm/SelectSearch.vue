@@ -44,7 +44,7 @@ export default {
         return ;
       }
       let model = this.getModel(this.elem.searchApp, this.elem.searchResource);;
-      model.$fetch({query: {keyworkd: query, action: 'list', 'point_scene': 'keyvalue'}}).then(response => {
+      model.$fetch({query: {keyword: query, action: 'list', 'point_scene': 'keyvalueExt'}}).then(response => {
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
