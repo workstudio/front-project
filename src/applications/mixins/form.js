@@ -15,7 +15,7 @@ export const form = {
     inputInfos: {type: Object, default() {}},
     field: {type: String, default: ''},
     formName: {type: String, default: ''},
-    value: [String, Array, Number],
+    value: [String, Array, Number, Object],
     model: {type: Function},  
   },
   computed:{
