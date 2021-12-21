@@ -71,12 +71,13 @@ export default {
         if (response === false) {
           return ;
         }
-        this.formFields = response.formFields;
-        this.fieldNames = response.fieldNames;
+        this.formFields = response.data.formFields;
+        this.fieldNames = response.data.fieldNames;
         for (let field in this.formFields) {
           let item = this.formFields[field];
           this.inputInfos[field] = item.defaultValue ? item.defaultValue : '';
         }
+
         this.$nextTick(() => {
           this.$refs['dataForm'].clearValidate()
         })

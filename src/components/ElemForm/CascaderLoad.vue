@@ -28,10 +28,11 @@ export default {
 
           setTimeout(() => {
             let model = _self.getModel(_self.elem.loadApp, _self.elem.loadResource);;
-            model.$fetch({query: {parent_id: node.value, action: 'list', 'point_scene': 'keyvalue'}}).then(response => {
+            model.$fetch({query: {parent_id: node.value, action: 'list', 'point_scene': 'keyvalueExt'}}).then(response => {
               let keyField = response.key;
               let nameField = response.name;
               let extField = response.extField;
+              let extField2 = response.extField2;
               let elems = response.data;
               let nodes = [];
               elems.forEach(info => {
