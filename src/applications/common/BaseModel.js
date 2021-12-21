@@ -35,7 +35,6 @@ export default class BaseModel extends Model {
   static formatDirtData(input, source, formFields) {
     let data = {};
     let fileData = {};
-      console.log(input, source, formFields, 'fffddd');
     for (let field in formFields) {
       let item = formFields[field];
       let inputValue = input[field] ? input[field] : '';
@@ -45,7 +44,6 @@ export default class BaseModel extends Model {
           if (!sourceValue && !inputValue) {
             continue;
           }
-            console.log(sourceValue, inputValue, 'dddddddddooo');
           if (baseMethod.isSameArray(sourceValue, inputValue)) {
             continue;
           }
