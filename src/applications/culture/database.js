@@ -14,6 +14,7 @@ import Diagram from '@/applications/culture/Diagram'
 import Dynasty from '@/applications/culture/Dynasty'
 import Emperor from '@/applications/culture/Emperor'
 import Figure from '@/applications/culture/Figure'
+import FigureResume from '@/applications/culture/FigureResume'
 import FigureTitle from '@/applications/culture/FigureTitle'
 import Headnote from '@/applications/culture/Headnote'
 import Record from '@/applications/culture/Record'
@@ -27,4 +28,4 @@ import Tag from '@/applications/culture/Tag'
 import TagInfo from '@/applications/culture/TagInfo'
 import Reader from '@/applications/culture/Reader'
 
-export default {Affair, AffairFigure, Book, BookFigure, BookRecord, BookSort, Calligrapher, Chapter, ChapterRecord, CultureArticle, CultureCategory, Dateinfo, Diagram, Dynasty, Emperor, Figure, FigureTitle, Headnote, Record, Rubbing, RubbingDetail, RubbingWord, Scholarism, Shelf, ShelfBook, Tag, TagInfo, Reader}
+export default {Affair, AffairFigure, Book, BookFigure, BookRecord, BookSort, Calligrapher, Chapter, ChapterRecord, CultureArticle, CultureCategory, Dateinfo, Diagram, Dynasty, Emperor, Figure, FigureResume, FigureTitle, Headnote, Record, Rubbing, RubbingDetail, RubbingWord, Scholarism, Shelf, ShelfBook, Tag, TagInfo, Reader}

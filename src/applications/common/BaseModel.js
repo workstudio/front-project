@@ -35,6 +35,7 @@ export default class BaseModel extends Model {
   static formatDirtData(input, source, formFields) {
     let data = {};
     let fileData = {};
+      console.log(input, source, formFields, 'fffddd');
     for (let field in formFields) {
       let item = formFields[field];
       let inputValue = input[field] ? input[field] : '';
