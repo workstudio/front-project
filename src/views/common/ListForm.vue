@@ -142,7 +142,7 @@ export default {
           });
           if (!this.baseMethod.emptyObject(fileData)) {
             let keyField = this.model.keyField;
-            let keyValue = response[keyField];
+            let keyValue = response.data[keyField];
             this.updateAttachmentInfo(keyValue, fileData, this.addFormFields);
           }
           return this.$emit('handleFilter');

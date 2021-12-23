@@ -35,13 +35,14 @@ export default {
     }
   },
   mounted() {
+    this.remoteMethod('');
     return [];
   },
   methods: {
     remoteMethod(query) {
       if (query == '') {
         this.options = this.elem.infos;
-        return ;
+        //return ;
       }
       let model = this.getModel(this.elem.searchApp, this.elem.searchResource);;
       model.$fetch({query: {keyword: query, action: 'list', 'point_scene': 'keyvalueExt'}}).then(response => {
