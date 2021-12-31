@@ -109,7 +109,7 @@ export default {
   methods: {
     getList() {
       this.listQuery.sort_elem = JSON.stringify(this.sortElem);
-      this.sortElem = {};
+      //this.sortElem = {};
       this.listLoading = true
       this.fetchRequest(this.cModel, {query: this.listQuery, action: 'list'}).then(response => {
         this.list = response.data;
