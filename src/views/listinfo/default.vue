@@ -26,6 +26,7 @@
             :fieldItem="fieldItem"
             :model="cModel"
             @dealAction="dealAction"
+            v-if="sonRefresh"
             :is="elemLists[row[field].showType]">
           </component>
         </template>
@@ -93,6 +94,7 @@ export default {
       modelCode: this.$route.meta.resource,
       downloadLoading: false,
       sortElem: {},
+        sonRefresh: true,
       searchFields: {},
       pageLinks: {},
       pageMeta: {total: 0},
@@ -122,6 +124,11 @@ export default {
         this.listQuery.per_page = this.pageMeta.per_page;
         this.haveSelection = response.haveSelection;
         this.selectionOperations = response.selectionOperations;
+
+          this.sonRefresh= false;
+this.$nextTick(() => {
+    this.sonRefresh= true;
+});
 
         // Just to simulate the time of the request
         setTimeout(() => {
