@@ -4,6 +4,7 @@ conf.http.url = '/culture/diagrams'
 
 export default class Diagram extends BaseModel {
   static entity = 'diagrams'
+  static fetchDetail = true;
 
   static methodConf = conf
 }
