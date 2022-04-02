@@ -13,6 +13,12 @@
         </div>
         <p class="footer-title">{{ $t("home.classify") }}</p>
       </router-link>
+      <router-link class="footer-icon shelf" :to="{ name: 'scholarism' }" tag="div">
+        <div class="title-icon-wrapper">
+          <span class="icon-book2 icon"></span>
+        </div>
+        <p class="footer-title">{{ $t("home.scholarism") }}</p>
+      </router-link>
       <router-link class="footer-icon record" :to="{ name: 'record' }" tag="div">
         <div class="title-icon-wrapper">
           <span class="icon-book icon"></span>

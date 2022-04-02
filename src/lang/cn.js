@@ -1,6 +1,7 @@
 const messages = {
   home: {
     classify:"分类",
+    scholarism: "经典",
     title: '王灿书屋',
     home: '首页',
     hint: '计算机科学和软件工程',
