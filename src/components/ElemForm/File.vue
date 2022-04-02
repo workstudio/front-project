@@ -3,6 +3,7 @@
     <div>
       <el-button type="primary" @click="handleSelectFile()">选择文件</el-button>
       <el-button type="primary" @click="handleUploadFile()">上传文件</el-button>
+      <el-button type="primary" @click="handleUploadFile()">替换文件</el-button>
     </div>
     <div class="upload-wrap">
       <el-checkbox-group v-model="selectElems" size="mini" @change="handleFormChange">

@@ -19,7 +19,7 @@
       </el-dropdown>
       <el-form-item>
         <el-button type="primary" @click="handleFolder('add')">新增文件夹</el-button>
-        <el-button @click="showUpload">上传文件</el-button>
+        <el-button @click="showUpload(false)">上传文件</el-button>
         <!-- solt自定义头部按钮区 -->
         <slot name="header-btn"></slot>
       </el-form-item>
@@ -129,6 +129,7 @@
         </el-table>
         <div style="margin-top: 20px" v-if="pathDatas.length">
           <el-button @click="deleteSelection('path')">删除选中的目录(只有空目录才能被删除)</el-button>
+          <el-button @click="">调整目录结构</el-button>
         </div>
         <!-- 列表型文件列表 -->
         <ul class="wl-list" v-show="!layout.show_list">
@@ -204,6 +205,9 @@
               <div v-else-if="i.prop == 'filepath'">
                 <file-item :fileInfo="scope.row[i.prop][0]"></file-item>
               </div>
+              <div v-else-if="i.prop == 'point_operation'">
+                  <el-button @click="showUpload(scope.row);">更换资源</el-button>
+              </div>
               <template v-else>
                 {{
                 i.formatter
@@ -217,7 +221,8 @@
           <slot name="table-column-bottom"></slot>
         </el-table>
         <div style="margin-top: 20px" v-if="fileDatas.length">
-          <el-button @click="deleteSelection('file')">删除选中的文件(软删除)</el-button>
+          <el-button @click="deleteSelection('file')">删除选中的文件</el-button>
+          <el-button @click="">调整选中文件的目录</el-button>
         </div>
 
         <!-- 列表型文件列表 -->
@@ -421,8 +426,8 @@ export default {
       this.closeUpload();
     },
     // 显示上传界面
-    showUpload() {
-      this.$emit("showUpload");
+    showUpload(info) {
+      this.$emit("showUpload", info);
     },
     closeUpload() {
       this.$emit("closeUpload");

@@ -71,6 +71,7 @@ export default {
         Authorization: "Bearer " + localCache.getToken(),
         'Content-Type': 'multipart/form-data'
       },
+      attachmentInfo: false,
 
       dialogImageUrl: '',
       dialogVisible: false,
@@ -90,8 +91,9 @@ export default {
   },
   methods: {
     // 手动上传
-    toUpload(options) {
+    toUpload(options, attachmentInfo) {
       this.upOptions = options;
+      this.attachmentInfo = attachmentInfo;
       this.$refs.upload.submit();
       //this.$emit("search", options.path_id);
     },
@@ -204,6 +206,10 @@ export default {
       for (let option in this.upOptions) {
         infos[option] = this.upOptions[option];
       }
+     
+      if (this.attachmentInfo) {
+        infos['attachment_id'] = this.attachmentInfo.id;
+      }
       this.model.$create({params: {}, data: infos}).then(response => {
         if (response === false) {
           return ;
@@ -221,6 +227,9 @@ export default {
       formData.append('file', file);
       for (let option in this.upOptions) {
         formData.append(option, this.upOptions[option]);
+      }
+      if (this.attachmentInfo) {
+          formData.append('attachment_id', this.attachmentInfo.id);
       }
   
       axios.post(self.url, formData, {headers: this.uploadHeaders}).then(function (res) {

@@ -183,6 +183,7 @@ export default {
         upload: false // 上传视图
       }, // 视图管理
       useUpload: true,
+      attachmentInfo: false,
       size: "medium",
       upload_selected: "", // 所选上传文件目标路径
       uploadReg: false, //  是否校验上传文件
@@ -376,7 +377,8 @@ export default {
     },
 
     // 显示上传界面
-    showUpload() {
+    showUpload(info) {
+      this.attachmentInfo = info;
       if (this.useUpload) {
         this.layout.upload = true;
         this.closeOtherLayout(this.fade);
@@ -394,7 +396,7 @@ export default {
     saveUpload() {
       let params = this.fileInputInfos;
       if (params.path_id || params.path_id === 0) {
-        this.$refs["upload-files"][0].toUpload(params);
+        this.$refs["upload-files"][0].toUpload(params, this.attachmentInfo);
         return true;
       }
       this.$notify({title: '参数有误', message: '请选择目录', type: 'error', duration: 1000});
