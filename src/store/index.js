@@ -27,6 +27,9 @@ VuexORM.use(VuexORMAxios, {
     onResponse(response, axios) {
       const res = response.data;
       if (res.code !== 200) {
+        if (res.code == 401) {
+          localCache.removeUser();
+        }
         errorDeal.errorMessageBox(res);
         Promise.reject(new Error(res.message || 'Error')).catch((e) => {});
         return false;

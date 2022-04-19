@@ -327,7 +327,7 @@ export default {
     //更新数据库书架信息
     updataShelf(updateData) {
       //const user = getUserInfo();
-      if (this.user) {
+      if (this.user && this.user.id) {
         /*const params = {
           userId: user.id,
           shelfList: JSON.stringify(this.getShelfIdList(this.shelfList)),
@@ -348,7 +348,7 @@ export default {
     //获取书架列表
     getShelfList(cb) {
       if (!this.user || !this.user.id) {
-        this.$router.push({name: "login"});
+        //this.$router.push({name: "login"});
         return ;
       }
       this.fetchRequest(this.getModel('culture', 'shelf'), {query: {}, params: {action: 'mylist'}}).then(response => {
