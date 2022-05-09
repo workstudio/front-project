@@ -1,4 +1,3 @@
-import Navigation from '@/applications/bench/Navigation'
 import Navsort from '@/applications/bench/Navsort'
 import NavsortInfo from '@/applications/bench/NavsortInfo'
 import Position from '@/applications/bench/Position'
