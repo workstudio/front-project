@@ -10,8 +10,9 @@
 
 <script>
 import {button} from '@/applications/mixins/button';
+import {fetchData} from '@/applications/mixins/fetchData';
 export default {
-  mixins: [button],
+  mixins: [fetchData, button],
   data() {
     return {
       //actionType: 'popTable',
@@ -28,9 +29,35 @@ export default {
       if (!oType) {
         return ;
       }
-      
-      this.actionType = oType;
-      this.dealAction({row:this.row, operation: operation});
+      if (oType == 'newRoute') {
+        this.$store.dispatch('permission/checkJumpPath', operation).then((response) => {
+          let jumpPath = response.jumpPath;
+          if (!jumpPath) {
+             this.$message.error("无法操作");
+          } else {
+            this.$router.push({path: jumpPath, query: operation.params});
+          }
+        });
+        return ;
+      } else if (oType == 'api') {
+        let model = this.getModel(operation.app, operation.resource);
+        this.fetchRequest(model, {query: operation.params, params: {action: operation['action']}}).then(response => {
+          
+          let responseType = response.data.type;
+          switch (responseType) {
+            case 'newPage':
+              window.open(response.data.url, '_blank');
+            break;
+            default:
+              let message = response.data.message ? response.data.message : '操作成功';
+              this.$message({message: message, type: 'success'})
+          }
+        })
+
+      } else {
+        this.actionType = oType;
+        this.dealAction({row:this.row, operation: operation});
+      }
     },
   },
 }
