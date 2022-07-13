@@ -1,11 +1,14 @@
-import Navigation from '@/applications/bench/Navigation'
+import Asset from '@/applications/bench/Asset'
+import Attachment from '@/applications/bench/Attachment'
+import Commoninfo from '@/applications/bench/Commoninfo'
+import Commonlist from '@/applications/bench/Commonlist'
 import Navsort from '@/applications/bench/Navsort'
 import NavsortInfo from '@/applications/bench/NavsortInfo'
+import Page from '@/applications/bench/Page'
 import Position from '@/applications/bench/Position'
 import PositionInfo from '@/applications/bench/PositionInfo'
 import Siteaccount from '@/applications/bench/Siteaccount'
-import Toolbar from '@/applications/bench/Toolbar'
-import Toolsort from '@/applications/bench/Toolsort'
+import Spiderinfo from '@/applications/bench/Spiderinfo'
 import Website from '@/applications/bench/Website'
 
-export default {Navigation, Navsort, NavsortInfo, Position, PositionInfo, Siteaccount, Toolbar, Toolsort, Website}
+export default {Asset, Attachment, Commoninfo, Commonlist, Navsort, NavsortInfo, Page, Position, PositionInfo, Siteaccount, Spiderinfo, Website}
