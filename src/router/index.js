@@ -45,6 +45,11 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/signin',
+    component: () => import('@/views/login/signin'),
+    hidden: true
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -90,6 +95,12 @@ export const constantRoutes = [
         meta: { title: 'profile', icon: 'user', noCache: true }
       }
     ]
+  },
+  {
+    path: '/test',
+    component: () =>
+      import ('@/views/test'),
+    hidden: true
   }
 ]
 

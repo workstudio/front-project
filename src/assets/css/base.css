@@ -1,0 +1,167 @@
+
+.o-f-h{
+    overflow: hidden;
+}
+.p-center{
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.x-center{
+    left: 50%;
+    transform: translateX(-50%);
+}
+.y-center{
+    top: 50%;
+    transform: translateY(-50%);
+}
+.pos-re{
+    position: relative;
+}
+.pos-a{
+    position: absolute;
+}
+.pos-f{
+    position: fixed;
+}
+.h-100{
+    height: 100%;
+}
+.h-100h{
+    height: 100vh;
+}
+.w-100{
+    width: 100%;
+}
+.w-100w{
+    width: 100vw;
+}
+.mg-0-auto{
+    margin: 0 auto;
+}
+
+.t-0{
+    top: 0;
+}
+.r-0{
+    right: 0;
+}
+.l-0{
+    left: 0;
+}
+.b-0{
+    bottom:0;
+}
+
+.t-a-c{
+    text-align: center;
+}
+.t-a-r{
+    text-align: right;
+}
+.t-a-l{
+    text-align: left;
+}
+
+.color-w{
+    color: #fff!important;
+}
+.color-d{
+    color: rgb(146, 146, 146);
+}
+.color-b-q{
+    color: rgb(110, 143, 248);
+}
+.color-bl{
+    color: #409eff;
+}
+.bkg-w{
+    background-color: #fff;
+}
+.font-s-20{
+    font-size: 20px;
+}
+.font-w-4{
+    font-weight: 400;
+}
+.font-w-5{
+    font-weight: 500;
+}
+.font-w-6{
+    font-weight: 600;
+}
+
+.u-flex{
+    display: flex;
+}
+.u-flex-s-a{
+    justify-content: space-around;
+}
+.u-flex-s-b{
+    justify-content: space-between;
+}
+.u-flex-s-e{
+    justify-content: space-evenly;
+}
+.u-flex-s-end{
+    justify-content: flex-end;
+}
+.flex-ali-c{
+    align-items: center;
+}
+.flex-w{
+    flex-wrap: wrap;
+}
+.flex-sh-0{
+    flex-shrink: 0;
+}
+
+.mg-0{
+    margin: 0;
+}
+.mg-t-0{
+    margin-top: 0;
+}
+.mg-t-40{
+    margin-top: 40px;
+}
+.mg-b-15{
+    margin-bottom: 15px;
+}
+.mg-b-30{
+    margin-bottom: 30px;
+}
+.mg-b-70{
+    margin-bottom: 70px;
+}
+.mg-r-15{
+    margin-right: 15px;
+}
+.mg-r-30{
+    margin-right: 30px;
+}
+.mg-l-110{
+    margin-left: 110px;
+}
+.pd-r-300{
+    padding-right: 300px;
+}
+.dis-i-b{
+    display: inline-block;
+}
+.dis-b{
+	display: block;
+}
+
+.enter-b{
+    white-space: pre-wrap
+}
+
+.a-lines{
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	white-space:nowrap; 
+}
+.hand-c{
+    cursor: pointer;
+}

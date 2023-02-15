@@ -54,7 +54,11 @@ export default {
   },
   methods: {
     handleChange() {
-      this.listQuery[this.field] = this.input[0] + '|' + this.input[1];
+      if (this.input) {
+        this.listQuery[this.field] = this.input[0] + '|' + this.input[1];
+    } else {
+        delete this.listQuery[this.field];
+    }
       this.$emit('update.listQuery');
       //this.$emit('handleFilter');
     },

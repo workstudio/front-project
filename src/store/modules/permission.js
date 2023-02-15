@@ -80,6 +80,7 @@ function formatRoute(permission) {
   let route = {
     path: display == 1 || display == 2 ? '/r' + permission.code : permission.app + '/' + permission.action + '/' + permission.controller,
     //component: Layout,
+    hidden: permission.display > 3 ? true : false,
     name: permission.name,
     title: permission.name,
     meta: {title: permission.name, icon: 'table', resource: resourceCode, app: permission.app, action: permission.action}
@@ -90,7 +91,7 @@ function formatRoute(permission) {
   if (display == 2) {
     route.component = Middle;
   } 
-  if (display == 3) {
+  if (display == 3 || display == 90) {
     let routePath = permission.route_path ? permission.route_path : (permission.action == 'add' || permission.action == 'edit' ? 'change/detail' : permission.action + '/default');
 
     let rComponent = _pviewsImport(`${routePath}`);

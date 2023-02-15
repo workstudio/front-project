@@ -47,7 +47,8 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
+    externals: 'hls.js'
   },
   chainWebpack(config) {
     config.plugins.delete('preload') // TODO: need test

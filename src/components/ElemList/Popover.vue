@@ -1,8 +1,9 @@
 <template>
   <el-popover trigger="hover" placement="top">
-    <p>完整信息: {{row[field].valueSource}}</p>
+    <p v-html="row[field].valueSource"></p>
     <div slot="reference" class="name-wrapper">
-      <el-tag size="medium">{{ row[field].value }}</el-tag>
+        <!--<el-tag size="medium">{{ row[field].value }}</el-tag>-->
+      <span v-html="row[field].value"></span>
     </div>
   </el-popover>
 </template>

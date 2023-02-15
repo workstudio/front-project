@@ -23,7 +23,7 @@ export const button = {
   methods: {
     dealAction(datas) {
       //this.$refs.listForm.handleCreate();
-      this.$emit('dealAction', {actionType: this.actionType, datas: datas});
+      this.$emit('dealAction', {actionType: this.actionType, datas: datas, elem: this.elem});
     },
   },
 }

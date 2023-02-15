@@ -20,21 +20,27 @@ export default class BaseModel extends Model {
   static formatAddDirtData(input, formFields) {
     let data = {};
     let fileData = {};
+    let params = {};
     for (let field in formFields) {
       if (input[field] || input[field] === 0 || input[field] === '') {
         if (formFields[field].type == 'file') {
           fileData[field] = input[field];
+        } else if (formFields[field].type == 'reserve') {
+            data[field] = formFields[field].value;
+        } else if (formFields[field].type == 'query') {
+            params[field] = formFields[field].value;
         } else {
           data[field] = input[field];
         }
       }
     }
-    return {data: data, fileData: fileData};
+    return {data: data, fileData: fileData, params: params};
   }
 
   static formatDirtData(input, source, formFields) {
     let data = {};
     let fileData = {};
+    let params = {};
     for (let field in formFields) {
       let item = formFields[field];
       let inputValue = input[field] ? input[field] : '';
@@ -50,6 +56,12 @@ export default class BaseModel extends Model {
           fileData[field] = inputValue;
         } else {
           let sourceValue = source[field] ? source[field].valueSource : '';
+          if (formFields[field].type == 'reserve') {
+            data[field] = formFields[field].value;
+          }
+          if (formFields[field].type == 'query') {
+            params[field] = formFields[field].value;
+          }
           if (inputValue == sourceValue) {
             continue;
           }
@@ -57,7 +69,7 @@ export default class BaseModel extends Model {
         }
       }
     }
-    return {data: data, fileData: fileData};
+    return {data: data, fileData: fileData, params: params};
   }
 
   static formatData(rDatas) {

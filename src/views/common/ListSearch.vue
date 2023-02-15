@@ -24,7 +24,7 @@
         @dealAction="dealAction"
         :is="elemButtons[button.action]">
       </component>
-    </div>
+  </div>
   </div>
 </template>
 <script>
@@ -46,10 +46,17 @@ export default {
     listQuery: {type: Object},
     currentResource: {type: Object},
   },
+  computed: {
+    test() {
+    },
+  },
   methods: {
     dealAction(params) {
       let actionType = params.actionType;
   	  switch (actionType) {
+        case 'copy':
+        return this.$emit('handleCopy');
+        break;
         case 'add':
         return this.$emit('handleAdd');
         break;

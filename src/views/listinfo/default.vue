@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <list-search @handleAdd="handleAdd" @handleFilter="handleFilter" :currentResource="currentResource" :searchFields="searchFields" :listQuery="listQuery" :model="cModel"></list-search>
+    <list-search @handleAdd="handleAdd" @handleCopy="handleCopy" @handleFilter="handleFilter" :currentResource="currentResource" :searchFields="searchFields" :listQuery="listQuery" :model="cModel"></list-search>
 
     <el-table
       :key="tableKey"
@@ -18,7 +18,7 @@
         type="selection"
         width="55">
       </el-table-column>
-      <el-table-column v-for="(fieldItem, field) in fieldNames" :key="field" :align="fieldItem.align" :min-width="fieldItem.width" :label="fieldItem.name" :prop="field" sortable="custom" :class-name="getSortClass(field)" v-if="fieldItem.hidden!=1">
+      <el-table-column v-for="(fieldItem, field) in fieldNames" :key="field" :align="fieldItem.align" :min-width="fieldItem.width" :label="fieldItem.name" :prop="field" :sortable="getSortStatus(fieldItem)" :class-name="getSortClass(field)" v-if="fieldItem.hidden!=1">
         <template slot-scope="{row}">
           <component
             :row="row"
@@ -31,7 +31,7 @@
           </component>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.actions')" align="center" min-width="180" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('table.actions')" align="center" min-width="180" class-name="small-padding fixed-width" v-if="currentResource[5]">
         <template slot-scope="{row,$index}">
           <component
             v-for="button in currentResource[5]"
@@ -53,11 +53,12 @@
 
     <pagination v-show="pageMeta.total>0" :total="pageMeta.total" :page.sync="listQuery.page" :limit.sync="listQuery.per_page" @pagination="getList" />
 
-    <list-form ref="listForm" @handleFilter="handleFilter" :model="cModel" :updateFormFields="updateFormFields" :addFormFields="addFormFields" :fieldNames="fieldNames"></list-form>
+    <list-form ref="listForm" @handleFilter="handleFilter" :model="cModel" :updateFormFields="updateFormFields" :addFormFields="addFormFields" :copyFormFields="copyFormFields" :fieldNames="fieldNames"></list-form>
     <list-authority ref="listAuthority" @handleFilter="handleFilter" :model="cModel" :updateFormFields="updateFormFields" :fieldNames="fieldNames"></list-authority>
 
     <pop-table ref="popTable"></pop-table>
     <pop-form ref="popForm"></pop-form>
+    <list-view ref="listView" :fieldNames="fieldNames"></list-view>
   </div>
 </template>
 
@@ -67,6 +68,7 @@ import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils/base'
 import ListSearch from '@/views/common/ListSearch'
 import ListForm from '@/views/common/ListForm'
+import ListView from '@/views/common/ListView'
 import ListAuthority from '@/views/common/ListAuthority'
 import PopTable from '@/views/common/PopTable'
 import PopForm from '@/views/common/PopForm'
@@ -82,6 +84,7 @@ export default {
   components: {
     ListSearch,
     ListForm,
+    ListView,
     PopForm,
     ListAuthority,
     PopTable,
@@ -110,12 +113,22 @@ export default {
   },
   methods: {
     getList() {
+      this.listQuery = this.$route.query;
+      this.listQuery.page = this.listQuery.page ? this.listQuery.page : 1;
+      this.listQuery.per_page = this.listQuery.per_page ? this.listQuery.per_page : 20;
+      this.listQuery.sort_elem = this.listQuery.sort_elem ? this.listQuery.sort_elem : {};
       this.listQuery.sort_elem = JSON.stringify(this.sortElem);
       this.sortElem = {};
       this.listLoading = true
-      this.fetchRequest(this.cModel, {query: this.listQuery, action: 'list'}).then(response => {
+      let currentAction = this.$route.meta.action;
+      let pParams = {};
+      if (currentAction != 'listinfo') {
+        pParams.action = currentAction;
+      }
+      this.fetchRequest(this.cModel, {query: this.listQuery, params: pParams}).then(response => {
         this.list = response.data;
         this.addFormFields = response.addFormFields;
+        this.copyFormFields = response.copyFormFields;
         this.updateFormFields = response.updateFormFields;
         this.fieldNames = response.fieldNames;
         this.pageLinks = response.links,
@@ -148,6 +161,12 @@ this.$nextTick(() => {
         this.sortElem[prop] = 'desc';
       }
       this.handleFilter()
+    },
+    getSortStatus: function(elem) {
+      if (elem.nosort) {
+        return false;
+      }
+      return 'custom';
     },
     getSortClass: function(key) {
       const sort = this.sortElem;

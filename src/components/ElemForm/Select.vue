@@ -1,6 +1,6 @@
 <template>
   <el-form-item :label="elem.options.name" prop="field">
-    <el-select v-model="input" placeholder="请选择" @change="handleFormChange" :disabled="disabled" clearable filterable>
+    <el-select v-model="input" placeholder="请选择" :multiple="multiple" @change="handleFormChange" :disabled="disabled" clearable filterable>
       <el-option
         v-for="(option, optionKey) in elem.infos"
         :key="optionKey"
@@ -18,8 +18,9 @@ export default {
   mixins: [form],
   data() {
     return {
+      multiple: this.elem.multiple ? true : false,
       disabled: false,
-      input: this.inputInfos[this.field] ? this.inputInfos[this.field] + '' : null,
+      input: this.inputInfos[this.field] ? this.inputInfos[this.field] : null,
     }
   },
   methods: {

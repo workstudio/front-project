@@ -14,6 +14,7 @@ export const listinfo = {
       dialogPvVisible: false,
 
       addFormFields: {},
+      copyFormFields: {},
       updateFormFields: {},
       haveSelection: false,
       selectionOperations: {},
@@ -24,6 +25,9 @@ export const listinfo = {
     }
   },
   methods: {
+    handleCopy() {
+      this.$refs.listForm.handleCopy();
+    },
     handleAdd() {
       this.$refs.listForm.handleAdd();
     },
@@ -56,6 +60,26 @@ export const listinfo = {
         this.$refs.listForm.handleUpdate(row);
       }
     },
+    handleView(row) {
+      let model = this.cModel;
+      if (model.fetchDetail) {
+        let keyField = model.keyField;
+        model.$get({params: {keyField: row[keyField].valueSource}}).then(response => {
+          if (response === false) {
+            this.$notify({
+              title: '错误',
+              message: '信息有误',
+              type: 'error',
+              duration: 2000
+            });
+            return ;
+          }
+          this.$refs.listView.handleView(response.data);
+        })
+      } else {
+        this.$refs.listView.handleView(row);
+      }
+    },
     dealAction(params) {
       let actionType = params.actionType;
   	  switch (actionType) {
@@ -64,6 +88,9 @@ export const listinfo = {
         break;
       case 'update':
         return this.handleUpdate(params.datas);
+        break;
+      case 'view':
+        return this.handleView(params.datas);
         break;
       case 'delete':
         return this.handleFilter();

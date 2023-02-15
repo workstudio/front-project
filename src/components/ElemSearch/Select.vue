@@ -23,7 +23,11 @@ export default {
   },
   methods: {
     handleChange() {
-      this.listQuery[this.field] = this.input;
+      if (this.multiple && this.input.length == 0) {
+        delete this.listQuery[this.field];
+      } else {
+        this.listQuery[this.field] = this.input;
+      }
       this.$emit('update.listQuery');
       //this.$emit('handleFilter');
     },

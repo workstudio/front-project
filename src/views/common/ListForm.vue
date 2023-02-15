@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" :destroy-on-close="destroyOnClose" width="90%">
-      <el-form ref="dataForm" :rules="rules" :model="inputInfos" label-position="left" label-width="70px" style="width: 1200px; margin-left:30px;">
+      <el-form v-if="dialogFormVisible" ref="dataForm" :rules="rules" :model="inputInfos" label-position="left" label-width="70px" style="width: 1200px; margin-left:30px;">
         <component
           v-for="(formField, field) in formFields"
           v-if="loadSurvey"
@@ -78,6 +78,9 @@ export default {
       if (this.formType == 'update') {
         return this.updateFormFields;
       }
+      if (this.formType == 'copy') {
+        return this.copyFormFields;
+      }
       return this.addFormFields;
     },
     rules() {
@@ -100,6 +103,7 @@ export default {
     model: {type: Function},  
     //info: {type: Object},     
     addFormFields: {type: Object},
+    copyFormFields: {type: Object},
     updateFormFields: {type: Object},
     fieldNames: {type: Object},
     title: {type: String, default: ''},
@@ -109,7 +113,22 @@ export default {
     getCurrentValue(field) {
       return this.currentRow[field] ? this.currentRow[field].value : '';
     },
+    handleCopy() {
+      this.formType = 'copy'
+      //this.$refs['dataForm'].resetFields();
+      //this.resetTemp()
+      this.dialogStatus = 'add'
+      this.dialogFormVisible = true
+      for (let field in this.formFields) {
+        let item = this.formFields[field];
+        this.inputInfos[field] = item.defaultValue ? item.defaultValue : '';
+      }
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
     handleAdd() {
+      //this.$refs['dataForm'].resetFields();
       //this.resetTemp()
       this.dialogStatus = 'add'
       this.formType = 'add'
@@ -127,8 +146,10 @@ export default {
         if (!valid) {
             return ;
         }
-        let {data, fileData} = this.model.formatAddDirtData(this.inputInfos, this.addFormFields);
-        this.model.$create({params: {}, data: data}).then(response => {
+        console.log(this.formType, 'oooo');
+        let formFields = this.formType == 'copy' ? this.copyFormFields : this.addFormFields;
+        let {data, fileData, params} = this.model.formatAddDirtData(this.inputInfos, formFields);
+        this.model.$create({params: params, data: data}).then(response => {
           if (response === false) {
             return ;
           }
