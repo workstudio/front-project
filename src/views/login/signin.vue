@@ -267,7 +267,7 @@ export default {
 };
 </script>
 <style>
-a {
+.login_header a {
   color: #fff;
   margin: 50px;
 }
