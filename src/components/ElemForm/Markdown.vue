@@ -15,7 +15,7 @@
 <script>
 import {form} from '@/applications/mixins/form';
 import {fetchData} from '@/applications/mixins/fetchData';
-import '@toast-ui/editor/dist/toastui-editor.css';
+// import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/vue-editor';
 
 export default {

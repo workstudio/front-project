@@ -1,6 +1,7 @@
 <template>
   <div style="margin-top: 50px">
     <el-form :model="inputInfos" ref="productAttrForm" label-width="120px" style="width: 720px" size="small">
+        <div>{{test}}</div>
       <el-form-item label="商品参数：">
         <el-card shadow="never" class="cardBg">
           <div v-for="(item,index) in attributeElems" :class="{littleMarginTop:index!==0}">
@@ -162,6 +163,9 @@ export default {
     }
   },
   computed: {
+    test() {
+      console.log(this.currentInfo, 'iiiiiiiiii');
+    },
     attributeModel(){
       return this.getModel('infocms', 'goodsAttribute');
     },

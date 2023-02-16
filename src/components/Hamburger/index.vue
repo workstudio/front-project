@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     toggleClick() {
+      console.log('gogogo')
       this.$emit('toggleClick')
     }
   }

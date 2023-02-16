@@ -22,6 +22,7 @@ VuexORM.use(VuexORMAxios, {
     access_token: localCache.getToken(),
     headers: {
       'Accept': 'application/json',
+      'system': 'aiScore',
       'Content-Type': 'application/json'
     },
     onResponse(response, axios) {
@@ -50,7 +51,15 @@ export default new Vuex.Store({
   namespaced: true,
   modules: vuexs,
   plugins: [VuexORM.install(database)],
-  strict: debug
+  strict: debug,
+  state:{
+    myPicUrl:'dd'
+  },
+  mutations:{
+    uploadmyPicUrl(state, res){
+      state.myPicUrl = res
+    }
+  }
 })
 
 /*const store = new Vuex.Store({

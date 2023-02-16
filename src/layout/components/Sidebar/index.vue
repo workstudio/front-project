@@ -56,6 +56,19 @@ export default {
       return !this.sidebar.opened
     }
   },
+  mounted(){
+    // console.log('klklkl',this.permission_routes)
+    // this.permission_routes.forEach( (it, i, arr) => {
+    //   if(it.name == '营销'){
+    //     it.children.forEach((item, index, array)=> {
+    //       if(item.name == '聚合页管理'){
+    //         item.path = '/polymPages'
+    //         item.children[0].path = ''
+    //       }
+    //     })
+    //   }
+    // });
+  },
   methods: {
     exportJSON () {
       // 将json转换成字符串

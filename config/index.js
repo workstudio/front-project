@@ -1,9 +1,9 @@
 'use strict'
 
 let settings = {
-  resturl: process.env.VUE_APP_BASE_API,
-  userType: '',
-  title: 'local',
+    resturl: process.env.VUE_APP_BASE_API,
+    userType: '',
+    title: 'local',
 }
 
 import local from './local';

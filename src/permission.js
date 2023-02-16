@@ -9,7 +9,7 @@ import {globalSettings} from '@/utils/base'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login', '/auth-redirect', '/signin'] // no redirect whitelist
+const whiteList = ['/auth-redirect', '/signin'] // no redirect whitelist
 localCache.setCache('test', 0);
 
 router.beforeEach(async(to, from, next) => {
@@ -23,8 +23,7 @@ router.beforeEach(async(to, from, next) => {
   const hasSignin = localCache.hasSignin();
 
   if (hasSignin) {
-    //if (to.path === '/signin') {
-    if (to.path === '/login') {
+    if (to.path === '/signin') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done() // hack: https://github.com/PanJiaChen/vue-element-admin/pull/2939
@@ -76,8 +75,7 @@ router.beforeEach(async(to, from, next) => {
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      //next(`/signin?redirect=${to.path}`)
-      next(`/login?redirect=${to.path}`)
+      next(`/signin?redirect=${to.path}`)
       NProgress.done()
     }
   }
