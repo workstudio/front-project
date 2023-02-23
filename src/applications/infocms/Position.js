@@ -4,6 +4,7 @@ conf.http.url = '/infocms/positions'
 
 export default class Position extends BaseModel {
   static entity = 'positions'
+  static keyField = 'code'
 
   static methodConf = conf
 }

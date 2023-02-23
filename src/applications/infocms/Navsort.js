@@ -1,9 +1,9 @@
 import BaseModel from './BaseModel';
 let conf = BaseModel.getMethodConf();
-conf.http.url = '/infocms/topics'
+conf.http.url = '/infocms/navsorts'
 
-export default class Topic extends BaseModel {
-  static entity = 'topics'
+export default class Navsort extends BaseModel {
+  static entity = 'infocmsNavsorts'
   static keyField = 'code'
 
   static methodConf = conf

@@ -41,6 +41,7 @@ export default class BaseModel extends Model {
     let data = {};
     let fileData = {};
     let params = {};
+      console.log(input, source, formFields, 'ffffffff');
     for (let field in formFields) {
       let item = formFields[field];
       let inputValue = input[field] ? input[field] : '';
