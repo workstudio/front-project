@@ -3,7 +3,7 @@ let conf = BaseModel.getMethodConf();
 conf.http.url = '/culture/tag-infos'
 
 export default class TagInfo extends BaseModel {
-  static entity = 'tagInfos'
+  static entity = 'cultureTagInfos'
 
   static methodConf = conf
 }

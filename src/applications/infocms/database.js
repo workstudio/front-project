@@ -9,8 +9,6 @@ import NavsortInfo from '@/applications/infocms/NavsortInfo'
 import Position from '@/applications/infocms/Position'
 import PositionInfo from '@/applications/infocms/PositionInfo'
 import Subject from '@/applications/infocms/Subject'
-import Tag from '@/applications/infocms/Tag'
-import TagInfo from '@/applications/infocms/TagInfo'
 import Topic from '@/applications/infocms/Topic'
 
-export default {Article, Category, Group, GroupSubject, InfoMark, MicroHeadline, Navsort, NavsortInfo, Position, PositionInfo, Subject, Tag, TagInfo, Topic}
+export default {Article, Category, Group, GroupSubject, InfoMark, MicroHeadline, Navsort, NavsortInfo, Position, PositionInfo, Subject, Topic}
