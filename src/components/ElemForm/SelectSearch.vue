@@ -5,9 +5,10 @@
       filterable
       remote
       reserve-keyword
+      allow-create=true
       placeholder="请输入关键词"
       :remote-method="remoteMethod"
-      @change="handleFormChange"
+      @change="handleSelectChange"
       :loading="loading">
       <el-option
         v-for="item in options"
@@ -31,6 +32,7 @@ export default {
         loading: false,
         keyField: 'id',
         nameField: 'name',
+        currentQuery: '',
         input: this.value
     }
   },
@@ -39,7 +41,19 @@ export default {
     return [];
   },
   methods: {
+    handleSelectChange() {
+      console.log('ccccc', this.currentQuery, this.input);
+      if (!this.input) {
+        let allowCustom = this.elem.allowCustom;
+        if (allowCustom) {
+          this.input = this.currentQuery;
+        }
+      }
+      this.handleFormChange();
+    },
     remoteMethod(query) {
+      this.currentQuery = query;
+      this.handleSelectChange();
       if (query == '') {
         this.options = this.elem.infos;
         //return ;
