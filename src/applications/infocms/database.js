@@ -2,7 +2,10 @@ import Article from '@/applications/infocms/Article'
 import Category from '@/applications/infocms/Category'
 import Group from '@/applications/infocms/Group'
 import GroupSubject from '@/applications/infocms/GroupSubject'
+import Headnote from '@/applications/infocms/Headnote'
 import InfoMark from '@/applications/infocms/InfoMark'
+import MaterialPseudo from '@/applications/infocms/MaterialPseudo'
+import MaterialSource from '@/applications/infocms/MaterialSource'
 import MicroHeadline from '@/applications/infocms/MicroHeadline'
 import Navsort from '@/applications/infocms/Navsort'
 import NavsortInfo from '@/applications/infocms/NavsortInfo'
@@ -11,4 +14,4 @@ import PositionInfo from '@/applications/infocms/PositionInfo'
 import Subject from '@/applications/infocms/Subject'
 import Topic from '@/applications/infocms/Topic'
 
-export default {Article, Category, Group, GroupSubject, InfoMark, MicroHeadline, Navsort, NavsortInfo, Position, PositionInfo, Subject, Topic}
+export default {Article, Category, Group, GroupSubject, Headnote, InfoMark, MaterialPseudo, MaterialSource, MicroHeadline, Navsort, NavsortInfo, Position, PositionInfo, Subject, Topic}
