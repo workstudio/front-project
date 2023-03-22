@@ -7,7 +7,7 @@
     placeholder="name"
     :value="currentValue"
     v-model="currentValue"
-    @change="handleRowSelect"
+    @change="changeRowSelect"
     clearable></el-cascader>
   </el-form-item>
   </span>
@@ -29,9 +29,10 @@ export default {
   },
   methods: {
     changeRowSelect() {
-      this.selectNode = this.$refs["cascadersimple"].getCheckedNodes();
-      let vLength = this.selectValue.length;
-      this.value = vLength ? this.selectNode[vLength - 1] : '';
+      let selectNode = this.$refs["cascadersimple"].getCheckedNodes();
+      let vLength = this.currentValue.length;
+      this.currentValue = vLength ? this.currentValue[vLength - 1] : '';
+      this.handleRowChange();
     },
   }
 }
