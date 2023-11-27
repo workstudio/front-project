@@ -1,8 +1,21 @@
 <template>
   <div class="app-container">
-    <el-dialog :visible.sync="dialogPopTableVisible" title="Reading statistics" :append-to-body="appendToBody" width="90%">
-    <list-search :currentResource="currentResource" :searchFields="searchFields" :listQuery="listQuery" :model="cModel"></list-search>
-
+    <el-dialog 
+      :visible.sync="dialogPopTableVisible" 
+      v-if="dialogPopTableVisible" 
+      :title="popTitle" 
+      :append-to-body="appendToBody" 
+      :before-close="handleClose" 
+      width="90%"
+    >
+    <list-search 
+      @handleFilter="handleFilter" 
+      :currentResource="currentResource" 
+      :searchFields="searchFields" 
+      :listQuery="listQuery" 
+      :model="model"
+    ></list-search>
+    {{test}}
     <el-table
       :key="tableKey"
       v-loading="listLoading"
@@ -11,6 +24,7 @@
       fit
       highlight-current-row
       style="width: 100%;"
+      size="mini"
       @sort-change="sortChange"
       @selection-change="handleSelectionChange"
     >
@@ -25,7 +39,7 @@
             :row="row"
             :field="field"
             :fieldItem="fieldItem"
-            :model="cModel"
+            :model="model"
             @dealAction="dealAction"
             :is="elemLists[row[field].showType]">
           </component>
@@ -34,7 +48,11 @@
 
     </el-table>
     <div style="margin-top: 20px" v-if="haveSelection">
-      <el-button v-for="(operationItem, operation) in selectionOperations" :key="operation" @click="dealSelection(operationItem)">{{operationItem.name}}</el-button>
+      <el-button 
+        v-for="(operationItem, operation) in selectionOperations" 
+        :key="operation" 
+        @click="dealSelection(operationItem, rowData)" 
+      >{{operationItem.name}}</el-button>
     </div>
     <!--<span slot="footer" class="dialog-footer">
       <el-button type="primary" @click="dialogPvVisible = false">{{ $t('table.confirm') }}</el-button>
@@ -58,14 +76,17 @@ export default {
   },
   data() {
     return {
-      appCode: this.$route.meta.app,
-      modelCode: this.$route.meta.resource,
+      appCode: '',
+      modelCode: '',
+      popTitle: '',
       dialogPopTableVisible: false,
       pvData: [],
       sortElem: {},
+      rowData: {},
       searchFields: {},
       pageLinks: {},
       model: {},
+      operation: {},
       pageMeta: {total: 0},
       listQuery: {
         page: 1,
@@ -77,23 +98,37 @@ export default {
   props:{                     
     appendToBody: {type: Boolean, default: false}
   },
+  computed: {
+    test() {
+    },
+  },
   methods: {
     handlePopTable(params) {
+      this.operation = params.operation;
+      this.popTitle = this.operation.params.popTitle ? this.operation.params.popTitle : this.operation.name;
+      this.listQuery = {page:1, per_page: 20, sort_elem: {}};
+      this.listQuery = Object.assign(this.listQuery, this.operation.params);
+
+      this.appCode = this.operation.app;
+      this.modelCode = this.operation.resource;
       this.dialogPopTableVisible = true
       let row = params.row;
-      let operation = params.operation;
-      this.model = this.getModel(operation.app, operation.resource);
-      this.getList(row, operation);
+      this.rowData = row;
+      this.model = this.getModel(this.operation.app, this.operation.resource);
+      this.getList(row, this.operation);
     },
-    getList(row, operation) {
+    getList() {
       this.listQuery.sort_elem = JSON.stringify(this.sortElem);
       this.sortElem = {};
       this.listLoading = true
-      let listQuery = Object.assign(this.listQuery, operation.params);
-      this.fetchRequest(this.model, {query: listQuery, action: 'list'}).then(response => {
+      let params = {};
+      if (this.operation.action) {
+        params = {action: this.operation.action};
+      }
+      this.fetchRequest(this.model, {query: this.listQuery, params: params}).then(response => {
         this.list = response.data;
-        //this.addFormFields = response.addFormFields;
-        //this.updateFormFields = response.updateFormFields;
+        this.formInfos = response.formInfos;
+        this.ignoreOperations = response.ignoreOperations;
         this.fieldNames = response.fieldNames;
         this.pageLinks = response.links,
         this.pageMeta = response.meta,
@@ -108,6 +143,10 @@ export default {
         }, 1.5 * 1000)
       })
     },
+    handleFilter() {
+      this.listQuery.page = 1;
+      this.getList()
+    },
     sortChange(data) {
       const { prop, order } = data
       if (order === 'ascending') {
@@ -116,6 +155,9 @@ export default {
         this.sortElem[prop] = 'desc';
       }
       this.handleFilter()
+    },
+    handleClose(done) {
+      this.dialogPopTableVisible = false;
     },
     getSortClass: function(key) {
       const sort = this.sortElem;

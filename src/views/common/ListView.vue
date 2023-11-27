@@ -35,7 +35,6 @@ export default {
   },
   computed: {
     test() {
-        console.log(this.currentRow, this.fieldNames);
     },
   },
   props:{                     
