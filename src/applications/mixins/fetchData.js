@@ -1,5 +1,6 @@
 import {mapState} from 'vuex';
 import localCache from '@/applications/common/LocalCache'
+import axios from 'axios';
 
 export const fetchData = {
   name: "fetchData",
@@ -7,6 +8,10 @@ export const fetchData = {
     return {
       //appCode: this.$route.meta.app,
       //modelCode: this.$route.meta.resource,
+      uploadHeaders: {
+        Authorization: "Bearer " + localCache.getToken(),
+        'Content-Type': 'multipart/form-data'
+      },
     }
   },
   computed: {
@@ -17,6 +22,8 @@ export const fetchData = {
       return this.getModel(this.appCode, this.modelCode);
 	},
 	currentResource() {
+	  //console.log(this.appCode, this.modelCode, this.ignoreOperations, 'oooooooo', typeof(this.ignoreOperations));
+      let currentAction = this.$route.meta.action;
 	  let currentPermissions = localCache.getCache('currentPermissions');
 	  if (!currentPermissions[this.appCode]) {
 	      return {};
@@ -24,11 +31,37 @@ export const fetchData = {
 	  if (!currentPermissions[this.appCode][this.modelCode]) {
 	      return {};
       }
-      return currentPermissions[this.appCode][this.modelCode];
+      let currentResources = currentPermissions[this.appCode][this.modelCode];
+      let formatedResources = {};
+      
+      for (let pKey in currentResources) {
+        let subResources = currentResources[pKey];
+        let subFormatedResources = {}
+        for (let mKey in subResources) {
+          let dResource = subResources[mKey];
+          let isIgnore = false;
+          for (let iKey in this.ignoreOperations) {
+            let iElem = this.ignoreOperations[iKey];
+            if (iElem == mKey) {
+              isIgnore = true;
+            }
+          }
+          if (!isIgnore) {
+          //if (!dResource.point_action || dResource.point_action == currentAction) {
+            subFormatedResources[mKey] = dResource;
+          }
+        }
+        formatedResources[pKey] = subFormatedResources;
+      }
+      return formatedResources;
+      //return currentResources;
     }
   },
   methods: {
   	getModel(appCode, mCode) {
+  	  if (!appCode || !mCode) {
+  	    return false;
+      }
   	  mCode = this.camelCode(mCode);
       return this.models[appCode][mCode];
 	},
@@ -117,6 +150,37 @@ export const fetchData = {
           });
         })
       }
+    },
+    beforeUpload(file) {
+      this.uploadFileData = file;
+    },
+    importFormSubmit(parentObj, pointUrl, params, data) {
+      this.$refs["upload-import_file"][0].toUpload(params);
+      let formData = new FormData();
+      for (let pKey in data) {
+        formData.append(pKey, data[pKey]);
+      }
+      let fileType = this.uploadFileData.type;
+      let extension = this.baseMethod.getExtName(this.uploadFileData.name);
+      formData.append('import_file', this.uploadFileData);
+      axios.post(pointUrl, formData, {headers: this.uploadHeaders}).then(function (res) {
+        if (res.data.code == 200) {
+          parentObj.$notify({
+            title: '操作成功',
+            message: '操作成功',
+            type: 'success',
+            duration: 2000
+          });
+          parentObj.popFormVisible = false;
+          return parentObj.$emit('handleFilter');
+          return parentObj.handleFilter();
+        } else {
+          parentObj.$notify({title: '失败', message: res.data.message, type: 'error', duration: 2000});
+        }
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
     },
 
     /*remoteDatas(model, dataKey = 'listinfo', subKey = '') {

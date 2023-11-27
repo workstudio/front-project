@@ -27,6 +27,7 @@ export const column = {
         if (response === false) {
           return ;
         }
+        this.row[this.field].valueSource = this.currentValue;
         //const index = this.list.findIndex(v => v.id === this.inputInfos.id)
         //this.list.splice(index, 1, this.inputInfos)
         this.dialogFormVisible = false

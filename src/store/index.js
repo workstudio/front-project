@@ -28,6 +28,10 @@ VuexORM.use(VuexORMAxios, {
       const res = response.data;
       if (res.code !== 200) {
         errorDeal.errorMessageBox(res);
+        if (res.code == 401) {
+          window.location.href = '/login';
+          return ;
+        }
         Promise.reject(new Error(res.message || 'Error')).catch((e) => {});
         return false;
       } else {

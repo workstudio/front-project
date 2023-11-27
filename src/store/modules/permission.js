@@ -3,7 +3,7 @@ import {asyncRoutes, constantRoutes} from '@/router'
 import localCache from '@/applications/common/LocalCache'
 import entranceModel from '@/applications/passport/Entrance'
 import * as popMethod from '@/utils/popup'
-import {globalSettings} from '@/utils/base'
+import {globalSettings, camelCode} from '@/utils/base'
 import Layout from '@/layout'
 import Middle from '@/layout/middle'
 
@@ -115,7 +115,9 @@ function formatPermission(permission, route, currentPermissions) {
       currentPermissions[permission.app][resourceCode][display] = {};
     }
     permission.route = route;
-    currentPermissions[permission.app][resourceCode][display][permission.action] = permission;
+    let pAction = permission.action;
+    //pAction = camelCode(pAction);
+    currentPermissions[permission.app][resourceCode][display][pAction] = permission;
     localCache.setCache('currentPermissions', currentPermissions);
   }
 }
