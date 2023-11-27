@@ -58,8 +58,9 @@ export default {
         this.options = this.elem.infos;
         //return ;
       }
-      let model = this.getModel(this.elem.searchApp, this.elem.searchResource);;
-      model.$fetch({query: {keyword: query, action: 'list', 'point_scene': 'keyvalueExt'}}).then(response => {
+      let model = this.getModel(this.elem.searchApp, this.elem.searchResource);
+      let pointScene = this.elem.pointScene ? this.elem.pointScene : 'keyvalueExt';
+      model.$fetch({query: {keyword: query, action: 'list', 'point_scene': pointScene}}).then(response => {
         this.loading = true;
         setTimeout(() => {
           this.loading = false;

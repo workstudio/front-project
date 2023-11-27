@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="screen-wrap">
     <svg-icon :icon-class="isFullscreen?'exit-fullscreen':'fullscreen'" @click="click" />
   </div>
 </template>
@@ -49,6 +49,11 @@ export default {
 </script>
 
 <style scoped>
+.screen-wrap {
+    color: white !important;
+    line-height: 56px;
+    margin-right: 15px;
+}
 .screenfull-svg {
   display: inline-block;
   cursor: pointer;

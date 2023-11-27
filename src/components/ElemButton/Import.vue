@@ -1,6 +1,6 @@
 <template>
-  <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCopy">
-    复制
+  <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleImport">
+    {{elem.name}} 
   </el-button>
 </template>
 
@@ -10,11 +10,11 @@ export default {
   mixins: [button],
   data() {
     return {
-      actionType: 'copy',
+      actionType: 'import',
     }
   },
   methods: {
-    handleCopy() {
+    handleImport() {
       this.dealTopAction({});
       //this.$refs.listForm.handleCreate();
     },

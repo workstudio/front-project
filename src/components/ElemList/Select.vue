@@ -1,6 +1,6 @@
 <template>
   <span>
-    <el-select v-model="currentValue" placeholder="请选择" @change="handleRowChange" :disabled="disabled" clearable filterable>
+    <el-select v-model="currentValue" placeholder="请选择" @change="handleRowChange" :disabled="disabled" filterable>
       <el-option
         v-for="(option, optionKey) in row[field].value"
         :key="optionKey"

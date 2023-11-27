@@ -1,5 +1,6 @@
 <template>
   <span class="filter-item">
+  <el-form-item :label="elem.options.name + '：'" style="margin-bottom: 6px;">
     <el-date-picker
       v-model="input"
       type="datetimerange"
@@ -11,6 +12,7 @@
       @change="handleChange"
       align="right">
     </el-date-picker>
+  </el-form-item>
   </span>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
   <span class="filter-item">
+  <el-form-item :label="elem.options.name + '：'" style="margin-bottom: 6px;">
     <el-select
       v-model="input"
       filterable
@@ -18,6 +19,7 @@
         :value="key">
       </el-option>
     </el-select>
+  </el-form-item>
   </span>
 </template>
 
