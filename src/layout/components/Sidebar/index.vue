@@ -12,7 +12,7 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item v-for="route in currentSideMenus" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
     <button @click="exportJSON">导出jsonn{{test}}</button>
@@ -30,11 +30,31 @@ export default {
   computed: {
     ...mapGetters([
       'permission_routes',
+      'formatedRoutes',
       'sidebar'
     ]),
-    /*permission_routes() {
-      this.localCache.getCache('permissions');
-	},*/
+    currentSideMenus() {
+      let rootPath = this.$route.matched.length === 0 ? this.$route.path : this.$route.matched[0].path || '/';
+      let defaultRoutes = false;
+      let currentRoutes = false;
+      for (let pKey in this.permission_routes) {
+        let pRoute = this.permission_routes[pKey];
+        let pPath = pRoute['path'];
+        if (pRoute['hidden'] || pPath == '/') {
+          continue;
+        }
+        if (!defaultRoutes) {
+          defaultRoutes = pRoute['children'];
+        }
+        if (pPath == rootPath) {
+          currentRoutes = pRoute['children'];
+        }
+      }
+      if (currentRoutes) {
+        return currentRoutes;
+      }
+      return defaultRoutes;
+	},
 	test() {
 	},
     activeMenu() {
