@@ -1,5 +1,6 @@
 <template>
   <span class="filter-item">
+  <el-form-item :label="elem.options.name + '：'" style="margin-bottom: 6px;">
   <el-cascader
     ref="cascadersimple"
     :options="elem.infos"
@@ -9,6 +10,7 @@
     v-model="selectValue"
     @change="handleChange"
     clearable></el-cascader>
+  </el-form-item>
   </span>
 </template>
 

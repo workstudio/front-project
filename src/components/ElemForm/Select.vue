@@ -20,7 +20,7 @@ export default {
     return {
       multiple: this.elem.multiple ? true : false,
       disabled: false,
-      input: this.inputInfos[this.field] ? this.inputInfos[this.field] : null,
+      input: this.inputInfos[this.field],// ? this.inputInfos[this.field] : null,
     }
   },
   methods: {

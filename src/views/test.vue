@@ -99,8 +99,8 @@ export default {
 };
 </script>
 <style>
-a{
-    color: #fff;
+.login_header a{
+  color: #fff;
   margin: 50px;
 }
 .login_header{

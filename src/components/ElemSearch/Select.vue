@@ -1,8 +1,10 @@
 <template>
-  <span>
+  <span style="margin-right:40px;">
+  <el-form-item :label="elem.options.name + '：'" style="margin-bottom: 6px;">
     <el-select v-model="input" :placeholder="elem.options.name" :multiple="multiple" clearable style="width: 90px" class="filter-item" @change="handleChange">
       <el-option v-for="(item, index) in elem.infos" :key="index" :label="item" :value="index" />
     </el-select>
+  </el-form-item>
   </span>
 </template>
 
@@ -14,7 +16,8 @@ export default {
   data() {
     return {
       multiple: this.elem.multiple ? true : false,
-      input: this.value
+      //input: this.value
+      input: this.elem.infos[this.elem.value] ? this.elem.infos[this.elem.value] : this.value,
     }
   },
   computed: {
@@ -23,13 +26,17 @@ export default {
   },
   methods: {
     handleChange() {
-      if (this.multiple && this.input.length == 0) {
+      if (this.input === null || (this.multiple && this.input.length == 0)) {
         delete this.listQuery[this.field];
       } else {
         this.listQuery[this.field] = this.input;
       }
       this.$emit('update.listQuery');
       //this.$emit('handleFilter');
+    },
+    setDefaultValue(value) {
+      this.input = value ? value : null;
+      this.handleChange();
     },
   }
 }

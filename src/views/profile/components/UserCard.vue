@@ -4,10 +4,10 @@
 
     <div class="user-profile">
       <div class="box-center">
-        <!--<pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
+        -<pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
           <div>Hello</div>{{user.name}}
-        </pan-thumb>-->
-        <el-upload
+        </pan-thumb>
+        <!--<el-upload
           class="avatar-uploader"
           action="https://jsonplaceholder.typicode.com/posts/"
           :show-file-list="false"
@@ -15,7 +15,7 @@
           :before-upload="beforeAvatarUpload">
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        </el-upload>-->
       </div>
       <div class="box-center">
         <div class="user-name text-center">{{user.mobile}}</div>

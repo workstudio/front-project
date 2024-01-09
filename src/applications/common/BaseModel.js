@@ -2,6 +2,7 @@ import { Model } from '@vuex-orm/core'
 import localCache from '@/applications/common/LocalCache'
 import * as baseMethod from '@/utils/base'
 import DataModel from '@/applications/common/DataModel'
+import {globalSettings} from '@/utils/base';
 
 export default class BaseModel extends Model {
   static moduleConf = {}
@@ -148,6 +149,10 @@ export default class BaseModel extends Model {
     let preMark = url.includes('?') ? '&' : '?';
     url += preMark + `${Object.keys(params).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&')}`;
     return url;
+  }
+  
+  static currentBaseUrl() {
+    return globalSettings.resturl + this.methodConf.http.url;
   }
 
   static getMethodConf() {

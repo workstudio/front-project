@@ -10,11 +10,11 @@ import user from './user'
 import getters from './getters'
 
 import passportDatabases from '@/applications/passport/database'
-import double6Databases from '@/applications/double6/database'
+import wmsystemDatabases from '@/applications/wmsystem/database'
 
 let databases = {
   passport: passportDatabases,
-  double6: double6Databases,
+  wmsystem: wmsystemDatabases,
 }
 //databases = Object.assign(databases, merchantDatabases);
 //databases = Object.assign(databases, passportDatabases);

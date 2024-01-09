@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     handleCopy() {
-      this.dealAction({});
+      this.dealTopAction({});
       //this.$refs.listForm.handleCreate();
     },
   },

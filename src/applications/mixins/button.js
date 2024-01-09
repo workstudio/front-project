@@ -25,5 +25,9 @@ export const button = {
       //this.$refs.listForm.handleCreate();
       this.$emit('dealAction', {actionType: this.actionType, datas: datas, elem: this.elem});
     },
+    dealTopAction(datas) {
+      //this.$refs.listForm.handleCreate();
+      this.$emit('dealTopAction', {actionType: this.actionType, datas: datas, elem: this.elem});
+    },
   },
 }

@@ -33,7 +33,8 @@ export default {
 	  
       this.$store.dispatch('permission/changeRole', rCode)
         .then(() => {
-          this.$router.go({path: '/'})
+          //this.$router.replace({path: '/'})
+          window.location.href = '/';
         });
     }
   }

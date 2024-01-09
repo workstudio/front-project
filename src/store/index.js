@@ -22,13 +22,16 @@ VuexORM.use(VuexORMAxios, {
     access_token: localCache.getToken(),
     headers: {
       'Accept': 'application/json',
-      'system': 'aiScore',
       'Content-Type': 'application/json'
     },
     onResponse(response, axios) {
       const res = response.data;
       if (res.code !== 200) {
         errorDeal.errorMessageBox(res);
+        if (res.code == 401) {
+          window.location.href = '/login';
+          return ;
+        }
         Promise.reject(new Error(res.message || 'Error')).catch((e) => {});
         return false;
       } else {
@@ -51,15 +54,7 @@ export default new Vuex.Store({
   namespaced: true,
   modules: vuexs,
   plugins: [VuexORM.install(database)],
-  strict: debug,
-  state:{
-    myPicUrl:'dd'
-  },
-  mutations:{
-    uploadmyPicUrl(state, res){
-      state.myPicUrl = res
-    }
-  }
+  strict: debug
 })
 
 /*const store = new Vuex.Store({

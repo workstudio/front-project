@@ -545,6 +545,19 @@ export function getExtName(filename) {
   return '';
 }
 
+export function camelCode(str) {
+  let result = '';
+  let arr = str.split('-');
+  //result += arr[0].toString();
+  for(let i = 0; i < arr.length; i++) {
+    let str1 = arr[i].toString();
+    let str2 = str1.charAt(0).toUpperCase();
+    let str3 = str2 + str1.slice(1);
+    result += str3;
+  }
+  return result;
+}
+
 const VUE_APP_API_URL = process.env.VUE_APP_API_URL || `${location.origin}/api`;
 const VUE_APP_WS_URL =
   process.env.VUE_APP_WS_URL || `ws:${location.hostname}:20003`;

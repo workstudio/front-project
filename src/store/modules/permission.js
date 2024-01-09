@@ -3,7 +3,7 @@ import {asyncRoutes, constantRoutes} from '@/router'
 import localCache from '@/applications/common/LocalCache'
 import entranceModel from '@/applications/passport/Entrance'
 import * as popMethod from '@/utils/popup'
-import {globalSettings} from '@/utils/base'
+import {globalSettings, camelCode} from '@/utils/base'
 import Layout from '@/layout'
 import Middle from '@/layout/middle'
 
@@ -56,6 +56,21 @@ export function formatAsyncRoutes(permissions) {
   return routes;
 }
 
+function dealFormatedRoutes(routes) {
+  let formatedRoutes = {};
+  for (let pKey in routes) {
+    let secondChildren = routes[pKey].children;
+    for (let mKey in secondChildren) {
+      let thirdChildren = secondChildren[mKey].children;
+      for (let sKey in thirdChildren) {
+        let meta = thirdChildren[sKey].meta;
+        formatedRoutes[meta['app'] + '_' + meta['resource'] + '_' + meta['action']] = secondChildren[mKey]['path'] + '/' + thirdChildren[sKey]['path'];
+      }
+    }
+  }
+  return formatedRoutes;
+}
+
 function formatRoute(permission) {
   let display = permission.display;
   let resourceCode = permission.resource_code;
@@ -100,7 +115,9 @@ function formatPermission(permission, route, currentPermissions) {
       currentPermissions[permission.app][resourceCode][display] = {};
     }
     permission.route = route;
-    currentPermissions[permission.app][resourceCode][display][permission.action] = permission;
+    let pAction = permission.action;
+    //pAction = camelCode(pAction);
+    currentPermissions[permission.app][resourceCode][display][pAction] = permission;
     localCache.setCache('currentPermissions', currentPermissions);
   }
 }
@@ -109,6 +126,7 @@ const state = {
   routes: [],
   addRoutes: [],
   roles: [],
+  formatedRoutes: {},
   //currentRoutes: {}
 }
 
@@ -119,6 +137,9 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_FORMATEDROUTES: (state, routes) => {
+    state.formatedRoutes = routes
   },
   /*SET_CURRENT_ROUTES: (state, routes) => {
     state.currentRoutes = routes
@@ -131,7 +152,9 @@ const actions = {
       localCache.setCache('currentPermissions', {});
       //const routes = asyncRoutes || []
       const routenews = formatAsyncRoutes(permissions);
+      const formatedRoutes = dealFormatedRoutes(routenews);
       commit('SET_ROUTES', routenews)
+      commit('SET_FORMATEDROUTES', formatedRoutes)
       resolve(routenews);
     })
   },
@@ -173,6 +196,18 @@ const actions = {
     commit('SET_ROLES', []);
     localCache.setCache('currentRole', role);
   },
+  checkJumpPath({ commit, state }, elem) {
+    return new Promise((resolve, reject) => {
+      let formatedRoutes = this.state.permission.formatedRoutes;
+      let pathIndex = elem['app'] + '_' + elem['resource'] + '_' + elem['action'];
+      if (!formatedRoutes[pathIndex]) {
+        resolve({jumpPath: false});
+      } else {
+        resolve({jumpPath: formatedRoutes[pathIndex]});
+      }
+    });
+  },
+
 }
 
 export default {

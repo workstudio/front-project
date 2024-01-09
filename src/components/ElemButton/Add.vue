@@ -15,7 +15,9 @@ export default {
   },
   methods: {
     handleAdd() {
-      this.dealAction({});
+        console.log('ddd');
+      //this.dealAction({});
+      this.dealTopAction({});
       //this.$refs.listForm.handleCreate();
     },
   },
