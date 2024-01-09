@@ -8,7 +8,7 @@
       :append-to-body="appendToBody"
     >
       <el-form 
-        v-if="dpopPointFormVisible"
+        v-if="popPointFormVisible"
         ref="popPointForm"
         label-width="80px"
         class="putinForm"

@@ -1,5 +1,5 @@
 <template>
-  <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleFilter" :loading="loading">
+  <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleFilter">
     {{elem.name}} 
   </el-button>
 </template>
@@ -11,19 +11,14 @@ export default {
   mixins: [button],
   data() {
     return {
-      actionType: 'export',
-      loading: false,
+      actionType: 'exportStatistic',
     }
   },
   methods: {
     handleFilter() {
-      this.loading = true;
       this.$emit('update.listQuery');
       //this.$emit('handleFilter');
       this.dealAction({});
-      setTimeout(() => {
-        this.loading = false;
-    }, 10000)
     },
   },
 }

@@ -8,6 +8,28 @@
       :visible.sync="dialogVisible"
       width="90%"
     >
+    <div v-if="exceptionMark">
+      <span style="color:green">库存不足分配异常订单
+      <span >
+        <el-button type="primary" @click="restoreDispatch">已紧急补充库存，重新分配AGV任务</el-button>
+      </span>
+    </span>
+    <el-table
+      :data="exceptionOrders"
+      style="width: 100%">
+      <el-table-column prop="orderid_code" label="出库单" width="200">
+        <template slot-scope="scope"><div v-html="scope.row.orderid_code"></div></template>
+      </el-table-column>
+      <el-table-column prop="exception_material" label="库存不足物料" width="580">
+        <template slot-scope="scope"><div v-html="scope.row.exception_material"></div> </template>
+      </el-table-column>
+      <el-table-column prop="normal_material" label="正常物料" width="580">
+        <template slot-scope="scope"><div v-html="scope.row.normal_material"></div></template>
+      </el-table-column>
+    </el-table>
+    </div>
+    <hr />
+    <hr />
     <div>
       <span style="color:green">剩余绿灯数量: <span style="color:red">{{greenCount}}</span>
       <span v-if="greenCount <= 50">
@@ -47,24 +69,50 @@ export default {
       defaultDisabled: true,
       taskDetailPutoutDatas: [],
       seedWallPutouts: [],
+      exceptionMark: false,
+      exceptionOrders: [],
       dialogVisible: false,
       actionType: 'dealException',
     }
   },
   mounted() {
-    this.getTaskDetailPutouts();
+    //this.getTaskDetailPutouts();
     //this.getWorkstations();
   },
   methods: {
     handleDealException() {
       this.dialogVisible = true;
+      this.getTaskDetailPutouts();
     },
     getTaskDetailPutouts() {
       let model = this.getModel('wmsystem', 'taskDetailPutout');
       model.$fetch({params: {action: 'listUnreachable'}}).then(response => {
         this.taskDetailPutoutDatas = response.data.infos;
         this.greenCount = response.data.greenCount;
+        this.exceptionMark = response.data.exceptionMark;
+        this.exceptionOrders = response.data.exceptionOrders;
       })
+    },
+    restoreDispatch() {
+      this.$confirm('确定要恢复订单分配槽位吗？', '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let model = this.getModel('wmsystem', 'seedWallPutout');
+          model.$create({params: {action: 'restoreDispatch'}, data: {}}).then(response => {
+          this.$message({
+            type: 'success',
+            message: '成功恢复' + response.data.count + '个槽位订单的分配!'
+          });
+          this.dialogVisible = false;
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消点重新分配'
+        });          
+      });
     },
     lightGreen() {
       this.$confirm('危险操作，确定要点亮绿灯吗？', '警告', {
@@ -86,7 +134,7 @@ export default {
           message: '已取消点亮'
         });          
       });
-    }
+    },
   },
 }
 </script>

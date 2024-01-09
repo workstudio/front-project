@@ -8,9 +8,12 @@
       :currentResource="currentResource" 
       :searchFields="searchFields" 
       :listQuery="listQuery" 
+      :sceneTabs="sceneTabs" 
+      :currentSceneTab="currentSceneTab"
       :model="cModel"
     ></list-search>
 
+    <div style="margin-top: 0px" v-if="topShowStr" v-html="topShowStr"></div>
     <pagination v-show="pageMeta.total>0" :total="pageMeta.total" :page.sync="listQuery.page" :limit.sync="listQuery.per_page" @pagination="getList" />
     <div style="margin-top: 0px" v-if="haveSelection">
       <el-button 
@@ -135,6 +138,7 @@ import {listinfo} from '@/applications/mixins/listinfo';
 //import {fetchData} from '@/applications/mixins/fetchData';
 import elemLists from '@/components/ElemList'
 import elemButtons from '@/components/ElemButton'
+import XLSX from 'xlsx';
 
 export default {
   name: 'Default',
@@ -152,6 +156,7 @@ export default {
   directives: { waves },
   data() {
     return {
+      topShowStr: '',
       appCode: this.$route.meta.app,
       modelCode: this.$route.meta.resource,
       currentAction: this.$route.meta.action,
@@ -161,6 +166,8 @@ export default {
       searchFields: {},
       pageLinks: {},
       pageMeta: {total: 0},
+      sceneTabs: {},
+      currentSceneTab: '',
       listQuery: {
         page: 1,
         per_page: 20,
@@ -194,8 +201,13 @@ export default {
         this.pageMeta = response.meta,
         this.searchFields = response.searchFields,
         this.listQuery.per_page = this.pageMeta.per_page;
+        this.sceneTabs = response.sceneTabs ? response.sceneTabs : {};
+        this.currentSceneTab = response.currentSceneTab ? response.currentSceneTab : {};
         this.haveSelection = response.haveSelection;
         this.selectionOperations = response.selectionOperations;
+        if (response.topShowStr) {
+          this.topShowStr = response.topShowStr;
+        }
 
         this.sonRefresh= false;
         this.$nextTick(() => {
@@ -225,7 +237,13 @@ export default {
       this.listQuery = this.$route.query;
       let pParams = {action: 'export'};
       this.fetchRequest(this.cModel, {query: this.listQuery, params: pParams}).then(response => {
-        window.open(response.data.url);
+        let data = response.data.infos;
+              console.log(data, response, 'ooooo');
+        let ws = XLSX.utils.aoa_to_sheet(data);
+        let wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, response.data.title + '.xlsx');
+        //window.open(response.data.url);
         this.$notify({
           title: '下载成功',
           message: '下载成功',
@@ -254,7 +272,7 @@ export default {
       return false;
     },
     getSortStatus: function(elem) {
-      if (elem.nosort) {
+      if (!elem.cansort) {
         return false;
       }
       return 'custom';

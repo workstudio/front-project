@@ -32,6 +32,9 @@
       </component>
       </el-form>
     </div>
+  <el-tabs v-model="activeSceneName" type="card" @tab-click="handleClickScene">
+    <el-tab-pane v-for="(sceneCode, sceneName) in sceneTabs" :key="sceneCode" :label="sceneCode" :name="sceneName"></el-tab-pane>
+  </el-tabs>
     {{test}}
   </div>
 </template>
@@ -46,6 +49,7 @@ export default {
     return {
       elemSearchs: elemSearchs,
       elemButtons: elemButtons,
+      activeSceneName: 'list',
       firstQuery: {},
       sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }],
     }
@@ -54,6 +58,7 @@ export default {
     model: {type: Function},  
     searchFields: {type: Object},
     listQuery: {type: Object},
+    sceneTabs: {type: Object},
     currentResource: {type: Object},
   },
   mounted() {
@@ -73,6 +78,12 @@ export default {
     }
   },
   methods: {
+    handleClickScene() {
+      this.listQuery.page = 1
+      this.listQuery.point_scene = this.activeSceneName;
+      return this.$emit('handleFilter');
+      //console.log('cccc-scene', this.activeSceneName, scene.value, scene);
+    },
     dealTopAction(params) {
       return this.$emit('dealTopAction', params);
     },
