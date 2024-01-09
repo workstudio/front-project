@@ -115,8 +115,8 @@ export default {
     }
   },
   mounted() {
-    this.getSettingInfo();
-    this.getWorkstations();
+    //this.getSettingInfo();
+    //this.getWorkstations();
   },
   methods: {
     onSubmit() {

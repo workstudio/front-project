@@ -1,8 +1,8 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div class="head-nav-bar">
+    <!--<div class="head-nav-bar">
       <head-navbar />
-    </div>
+    </div>-->
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
     <sidebar class="sidebar-container" />
     <div :class="{hasTagsView:needTagsView}" class="main-container">
@@ -66,7 +66,7 @@ export default {
     }
   },
   mounted() {
-    this.getNoticeData();
+    //this.getNoticeData();
   },
   methods: {
     handleClickOutside() {
@@ -102,7 +102,7 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-    top: 60px;
+    /*top: 60px;*/
 
     &.mobile.openSidebar {
       position: fixed;

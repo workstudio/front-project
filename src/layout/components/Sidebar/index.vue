@@ -12,7 +12,8 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in currentSideMenus" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
+        <!--<sidebar-item v-for="route in currentSideMenus" :key="route.path" :item="route" :base-path="route.path" />-->
       </el-menu>
     </el-scrollbar>
     <button @click="exportJSON">导出jsonn{{test}}</button>
